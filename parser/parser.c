@@ -14,27 +14,40 @@ int shift_comand(char *command, t_minishell *all_command)
     return (0);
 }
 
-void create_cloth_cov()
-{
-
-}
-
-/*
-parser_array_flags(t_command_and_flag *command_and_flag)
+int parser_flags(t_minishell *all_command)
 {
     int i;
     int j;
-    int len;
+    int k;
+    int z;
     t_command_and_flag *one_command;
 
-    one_command = command_and_flag;
+    one_command = all_command->head;
     while (one_command)
     {
         i = 0;
         j = 0;
+        while (one_command->flags[i] == ' ')
+            i++;
         while (one_command->flags[i])
         {
-            if (one_command->flags[i] == '' || one_command->flags == '')
+            if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
+            {
+                if (all_command->onecovkey == 0)
+                    all_command->onecovkey = 1;
+                else
+                    all_command->onecovkey = 0;
+                i++;
+            }
+            if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
+            {
+                if (all_command->doublecovkey == 0)
+                    all_command->doublecovkey = 1;
+                else
+                    all_command->doublecovkey = 0;
+                i++;
+            }
+            if (one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1)
                 j++;
             i++;
         }
@@ -42,28 +55,59 @@ parser_array_flags(t_command_and_flag *command_and_flag)
         if (one_command->array_flags == NULL)
             return (-1);
         i = 0;
-        while (j > 0)
+        k = 0;
+        while (one_command->flags[i])
         {
-            while ()
+            if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
             {
+                if (all_command->onecovkey == 0)
+                    all_command->onecovkey = 1;
+                else
+                    all_command->onecovkey = 0;
                 i++;
             }
-            i = 0;
-            one_command->array_flags[j] = (char *)malloc(sizeof(char) * (i + 1));
-            if (one_command->array_flags[j] == NULL)
-                return (-1);
-            while (one_command->array_flags[j])
+            if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
             {
-                one_command->array_flags[j][i] = one_command->flags[i];
+                if (all_command->doublecovkey == 0)
+                    all_command->doublecovkey = 1;
+                else
+                    all_command->doublecovkey = 0;
                 i++;
             }
-            j--;
+            if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1))
+            {
+                one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+                if (one_command->array_flags[k] == NULL)
+                    return (-1);
+                j = i;
+                z = 0;
+                while (z < i)
+                {
+                    one_command->array_flags[k][z] = one_command->flags[i - j + z];
+                    z++;
+                }
+                one_command->array_flags[k][z] = '\0';
+                k++;
+            }
+            i++;
         }
+        one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+        if (one_command->array_flags[k] == NULL)
+            return (-1);
+        j = i;
+        z = 0;
+        while (z < i)
+        {
+            one_command->array_flags[k][z] = one_command->flags[i - j + z];
+            z++;
+        }
+        one_command->array_flags[k][z] = '\0';
+        one_command->array_flags[k++] = NULL;
         one_command = one_command->next;
     }
     return (0);
 }
-*/
+
 int create_list_command(char *command, t_minishell *all_command, int pipe)
 {
     t_command_and_flag *new_command;
@@ -73,11 +117,10 @@ int create_list_command(char *command, t_minishell *all_command, int pipe)
 }
 
 
-int parser_flags(t_minishell *all_command)
+int parser_command(t_minishell *all_command)
 {
     int i;
     int j;
-    int k;
     int len;
     t_command_and_flag *one_command;
 
@@ -86,10 +129,12 @@ int parser_flags(t_minishell *all_command)
     {
         i = 0;
         j = 0;
-        len = ft_strlen(command_and_flag->command_and_flags);
+        len = ft_strlen(one_command->command_and_flags);
+        while (one_command->command_and_flags[i] == ' ')
+            i++;
         while (one_command->command_and_flags[i])
         {
-            if (command[i] == '\'' && all_command->doublecovkey == 0)
+            if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
             {
                 if (all_command->onecovkey == 0)
                     all_command->onecovkey = 1;
@@ -97,7 +142,7 @@ int parser_flags(t_minishell *all_command)
                     all_command->onecovkey = 0;
                 i++;
             }
-            if (command[i] == '\"' && all_command->onecovkey == 0)
+            if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
             {
                 if (all_command->doublecovkey == 0)
                     all_command->doublecovkey = 1;
@@ -105,25 +150,18 @@ int parser_flags(t_minishell *all_command)
                     all_command->doublecovkey = 0;
                 i++;
             }
+            if (one_command->command_and_flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1)
             {
-                if (one_command->command_and_flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1)
-                    break ;
+                i++;
+                break ;
             }
             i++;
         }
-        while (one_command->command_and_flags[i] != ' ' && one_command->command_and_flags[i])
-        {
-            j++;
-            i++;
-        }
-        one_command->command = (char *)malloc(sizeof(char) * j + 1);
-        i = i - j;
-        k = j;
+        one_command->command = (char *)malloc(sizeof(char) * i + 1);
         j = 0;
-        while (j < k)
+        while (j < i)
         {
-            one_command->command[j] = one_command->command_and_flags[i];
-            i++;
+            one_command->command[j] = one_command->command_and_flags[j];
             j++;
         }
         one_command->command[j] = '\0';
@@ -135,9 +173,10 @@ int parser_flags(t_minishell *all_command)
             j++;
             i++;
         }
+        one_command->flags[j] = '\0';
         one_command = one_command->next;
     }
-    //parser_array_flags(command_and_flag);
+    parser_flags(all_command);
     return (0);
 }
 
@@ -147,11 +186,23 @@ int parser_commands(char *command, t_minishell *all_command)
     int i;
     char *new_command;
     int j;
+    char *tmp;
     
     i = 0;
     j = 0;
     while (command[i])
     {
+        /*
+        if (command[i] == '\\')
+        {
+            i++;
+            if (command[i] == '\'' || command[i] == '\"' || command[i] == '\\' || command[i] == '$')
+            {
+                
+            }
+            i++;
+        }
+        */
         if (command[i] == '\'' && all_command->doublecovkey == 0)
         {
             if (all_command->onecovkey == 0)
@@ -175,7 +226,7 @@ int parser_commands(char *command, t_minishell *all_command)
             {
                 new_command = create_command(command, i, j);
                 create_list_command(new_command, all_command, DIRECT_LINE);
-                i++;
+                i = i + 2;
                 j = i;
             }
             if (command[i] == '>')
@@ -213,9 +264,14 @@ int parser_commands(char *command, t_minishell *all_command)
         i++;
     }
     new_command = create_command(command, i, j);
-    // if (all_command->onecovkey != 1 && all_command->doublecovkey != 1)
-    //     create_cloth_cov();
+    if (all_command->onecovkey == 1 || all_command->doublecovkey == 1)
+    {
+       tmp = new_command;
+       new_command = create_cloth_cov(all_command, new_command);
+       free(tmp);
+    }
+
     create_list_command(new_command, all_command, END_FILE);
-    parser_flags(all_command);
+    parser_command(all_command);
     return (0);
 }

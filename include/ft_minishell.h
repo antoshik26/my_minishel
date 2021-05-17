@@ -42,4 +42,5 @@ size_t              ft_strlen(const char *s);
 char                *ft_strjoin(char const *s1, char const *s2);
 char                *create_command(char *command, int i, int j);
 int                 get_next_line(int fd, char **line);
+char                *create_cloth_cov(t_minishell *all_command, char *command_and_flags);
 #endif

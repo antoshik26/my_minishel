@@ -13,12 +13,11 @@ void rebut(t_minishell *all_command)
         free(command->command);
         free(command->flags);
         i = 0;
-        /*
         while(command->array_flags[i])
         {
             free(command->array_flags[i]);
             i++;
-        }*/
+        }
         free(command->array_flags);
         tmp = command->next;
         free(command);
@@ -53,7 +52,6 @@ int main(void)
     command = "\0";
     all_command.head = &command_and_flag;
     allocate(&all_command);
-    
     while(1 != 0)
     {
         get_next_line(0, &command);
