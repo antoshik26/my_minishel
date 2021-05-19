@@ -2,8 +2,11 @@
 # define FT_MINISHELL_H
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # define DIRECT_LINE    1
 # define MORE           2
 # define DOUBLE_MORE    3 
@@ -29,8 +32,8 @@ typedef struct s_minishell
     int doublecovkey;
     t_command_and_flag *head;
     char **env;
+    char **path;
 }               t_minishell;
-
 
 int parser_commands(char *command, t_minishell *all_command);
 
@@ -43,4 +46,5 @@ char                *ft_strjoin(char const *s1, char const *s2);
 char                *create_command(char *command, int i, int j);
 int                 get_next_line(int fd, char **line);
 char                *create_cloth_cov(t_minishell *all_command, char *command_and_flags);
+char                *replacement(char *command, int *i, int j, char* env_varianles);
 #endif

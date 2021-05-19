@@ -65,3 +65,63 @@ int main(int argc, char* argv[], char* envp[])
 	return 0;
 }
 */
+/*
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(int argc, char* argv[], char* envp[]) 
+{
+	char *path;
+
+	path = getenv("PATH");
+	printf("%s\n", path);
+	return (0);
+}
+*/
+
+//проверить проги с сигрналами 
+/*
+
+#include <signal.h>
+#include <conio.h>
+#include <stdio.h>
+ 
+static wait = 1;
+ 
+void listener(int sig) {
+    //очищаем буфер
+    while (getchar() != '\n');
+    printf("listener: stop");
+    wait = 0;
+    _getch();
+}
+ 
+void main() {
+    signal(SIGINT, listener);
+ 
+    do {
+        //...
+    } while (wait);
+ 
+    _getch();
+}
+*/
+/*
+#include <signal.h>
+#include <conio.h>
+#include <stdio.h>
+ 
+void main() {
+    signal(SIGINT, SIG_IGN);
+ 
+    do {
+        printf("*");
+    } while (1);
+ 
+    _getch();
+}
+*/

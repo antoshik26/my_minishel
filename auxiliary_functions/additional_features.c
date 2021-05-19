@@ -132,3 +132,51 @@ char *create_cloth_cov(t_minishell *all_command, char *command_and_flags)
 	}
 	return (new_command_and_flags);
 }
+
+char *replacement(char *command, int *i, int j, char* env_varianles)
+{
+	int k;
+	int len_env;
+	int len_command;
+	int a;
+	int c;
+	char *new_command;
+
+	c = *i;
+	k = j;
+	a = c - j;
+	len_command = ft_strlen(command);
+	len_env = ft_strlen(env_varianles);
+	while (k + a < len_command)
+	{
+		command[k] = command[k + a];
+		k++;
+	}
+	command[k] = '\0';
+	len_command = ft_strlen(command);
+	new_command = (char *)malloc(sizeof(char) * (len_command + len_env + 1));
+	k = 0;
+	a = 0;
+	c = j;
+	while (k < len_command + len_env + 1)
+	{
+		if (k < (j - 1))
+			new_command[k] = command[k];
+		if (k > (j - 1) &&  k < j + len_env)
+		{
+			new_command[k - 1] = env_varianles[a];
+			a++;
+			i = &a;
+		}
+		if (k > j + len_env && command[c] != '\0')
+		{
+			new_command[k - 2] = command[c];
+			c++;
+		}
+		k++;
+	}
+	k++;
+	new_command[k] = '\0';
+	*i = k; 
+	return (new_command);
+}

@@ -14,6 +14,58 @@ int shift_comand(char *command, t_minishell *all_command)
     return (0);
 }
 
+char *create_command_with_env_variables(char *command, t_minishell *all_command)
+{
+    int i;
+    int j;
+    char *env_varianles;
+    char *name_varianled;
+
+    i = 0;
+    j = 0;
+    while (command[i])
+    {
+        if (command[i] == '\\')
+        {
+            i++;
+            if (command[i] == '\'' || command[i] == '\"' || command[i] == '\\' || command[i] == '$')
+            {
+                i++;
+            }
+        }
+        if (command[i] == '\'' && all_command->doublecovkey == 0)
+        {
+            if (all_command->onecovkey == 0)
+                all_command->onecovkey = 1;
+            else
+                all_command->onecovkey = 0;
+            i++; 
+        }
+        if (command[i] == '\"' && all_command->onecovkey == 0)
+        {
+            if (all_command->doublecovkey == 0)
+                all_command->doublecovkey = 1;
+            else
+                all_command->doublecovkey = 0;
+            i++;
+        }
+        if (command[i] == '$' && all_command->onecovkey != 1)
+        {   
+            i++;
+            j = i;
+            while(command[i] != ' ' && command[i] != '\"')
+            {
+                i++;
+            }
+            name_varianled = create_command(command, i, j);
+            env_varianles = getenv(name_varianled);
+            command = replacement(command, &i, j--, env_varianles);
+        }
+        i++;
+    }
+    return (command);
+}
+
 int parser_flags(t_minishell *all_command)
 {
     int i;
@@ -31,6 +83,7 @@ int parser_flags(t_minishell *all_command)
             i++;
         while (one_command->flags[i])
         {
+            j = 1;
             if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
             {
                 if (all_command->onecovkey == 0)
@@ -56,6 +109,8 @@ int parser_flags(t_minishell *all_command)
             return (-1);
         i = 0;
         k = 0;
+        all_command->onecovkey = 0;
+        all_command->doublecovkey = 0;
         while (one_command->flags[i])
         {
             if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
@@ -102,7 +157,8 @@ int parser_flags(t_minishell *all_command)
             z++;
         }
         one_command->array_flags[k][z] = '\0';
-        one_command->array_flags[k++] = NULL;
+        k++;
+        one_command->array_flags[k] = NULL;
         one_command = one_command->next;
     }
     return (0);
@@ -157,9 +213,9 @@ int parser_command(t_minishell *all_command)
             }
             i++;
         }
-        one_command->command = (char *)malloc(sizeof(char) * i + 1);
+        one_command->command = (char *)malloc(sizeof(char) * (i - 1) + 1);
         j = 0;
-        while (j < i)
+        while (j < (i -1))
         {
             one_command->command[j] = one_command->command_and_flags[j];
             j++;
@@ -183,6 +239,7 @@ int parser_command(t_minishell *all_command)
 int parser_commands(char *command, t_minishell *all_command)
 {
     shift_comand(command, all_command);
+    command = create_command_with_env_variables(command, all_command);
     int i;
     char *new_command;
     int j;
@@ -192,17 +249,14 @@ int parser_commands(char *command, t_minishell *all_command)
     j = 0;
     while (command[i])
     {
-        /*
         if (command[i] == '\\')
         {
             i++;
             if (command[i] == '\'' || command[i] == '\"' || command[i] == '\\' || command[i] == '$')
             {
-                
+                i++;
             }
-            i++;
         }
-        */
         if (command[i] == '\'' && all_command->doublecovkey == 0)
         {
             if (all_command->onecovkey == 0)

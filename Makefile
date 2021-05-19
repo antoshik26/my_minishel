@@ -10,6 +10,7 @@ LIBA = libft
 SRCS =	${AUXILIARY_FUNCTIONS}/additional_features.c \
 		${PARSER}/parser.c \
 		${COMMAND}/command.c \
+		${COMMAND}/stat_command.c \
 		ft_minishell.c
 
 OBJS =		${SRCS:.c=.o}
@@ -25,7 +26,10 @@ $(NAME):	$(OBJS)
 			gcc -o $(NAME) $(OBJS) ${INCLUDE}
 
 test:
-	gcc -g ${FLAGS} ${INCLUDE} ${AUXILIARY_FUNCTIONS}/additional_features.c ${PARSER}/parser.c ${COMMAND}/command.c ft_minishell.c ./gnl/gnl.a 
+	gcc -g ${FLAGS} ${INCLUDE} ${AUXILIARY_FUNCTIONS}/additional_features.c ${PARSER}/parser.c ${COMMAND}/command.c ${COMMAND}/stat_command.c ft_minishell.c ./gnl/gnl.a
+
+test_file:
+	gcc -g minishell_test.c
 
 clean:
 		rm -f $(OBJS)
