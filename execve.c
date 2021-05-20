@@ -1,221 +1,114 @@
 #include"function.h"
-int find_slash_dot(char *line)
-{
-	int i;
 
-	i = -1;
-	while(line[++i])
-	{
-		if(line[i]==47)//47-ascii "\"
-			return(1);
-		else if(line[i]=='.')
-			return(1);
-	}
-	return(0);
-}
-void free_array_of_strings(char **array)
-{
-	int i;
-
-	i = -1;
-	while(array[++i])
-		free(array[i]);
-	free(array);
-}
-char  *find_path(char *name)
-{
-	char **PATH;
-	int i;
-	char *tmp;
-	struct stat buff;
-	i = -1;
-	tmp = getenv("PATH");
-	PATH = ft_split(tmp,':');
-	while(PATH[++i])
-	{
-		
-		tmp = ft_strjoin(PATH[i],name);
-		if(!stat(tmp,&buff))
-		{
-			free_array_of_strings(PATH);
-			return(tmp);
-		}
-		printf("%s\n",tmp);
-		free(tmp);
-	}
-	free_array_of_strings(PATH);
-	return(0);
-}
-void test(t_pars *all,int *pipe_1,int *pipe_2,int fd)
+void test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
 {
 	
-	struct stat buff;
-	//if(pipe_2!=0)
-//		pipe(pipe_2);
-	if(pipe_1!=0)
-		pipe(pipe_1);
-	if(!stat(all->filename,&buff))
+	if(pipe_2!=0)
+		pipe(pipe_2);
+	if(!fork())
 	{
-		if(!fork())
-		{
-			if(pipe_1!=0)
-			{
-				dup2(pipe_1[1],1);
-				close(pipe_1[1]);
-				close(pipe_1[0]);
-			}
-			if(pipe_2!=0)
-			{
-				dup2(pipe_2[0],0);
-				close(pipe_2[1]);
-				close(pipe_2[0]);
-			}
-			if(fd)
-				dup2(fd,1);
-			execve(all->filename,all->array,all->env);
-		}
 		if(pipe_1!=0)
 		{
+			dup2(pipe_1[1],1);
 			close(pipe_1[1]);
-			close(pipe_1[0]);
+			close(pipe_1[0]);//add function close_fd -5 lines
 		}
+		if(pipe_2!=0)
+		{
+			dup2(pipe_2[0],0);
+			close(pipe_2[1]);
+			close(pipe_2[0]);
+		}
+		if(fd)
+		{	
+			dup2(fd,1);
+			close(fd);
+		}
+		execve(all->command,all->array_flags,env);
 	}
-}
-void redirect(int fd,int *pipe_1)
-{
 	if(pipe_1!=0)
 	{
-		dup2(pipe_1[1],fd);
 		close(pipe_1[1]);
 		close(pipe_1[0]);
 	}
-	close(pipe_1[1]);
-	close(pipe_1[0]);
-
 }
-void check_function(t_pars *all,int *pipe_1,int *pipe_2)
+t_command_and_flag *number_of_pipes(t_minishell *all,int *size,t_command_and_flag *head)
 {
-	/*if(!strncmp(all->filename,"pwd\0",4))
-	{	
-		if(ft_pwd(all))
-			printf("error\n");
+	*size=0;
+	if(head->pape==2||head->pape==4)
+		*size=-1;
+	if(head->f_error)
+	{	*size==-1;
+		return(head->next);
 	}
-	else if(!strncmp(all->filename,"env\0",4))	
+	head=head->next;
+	while(head && head->next)
 	{
-		if(ft_env(all))
-			printf("error\n");
+		if(!head->f_error)
+			*size++;
+		if(head->pape==2 || head->pape==5 ||head->pape==6 || head->f_error)
+			break;
+		head = head->next;
 	}
-	else if(!strncmp(all->filename,"cd\0",3))
-	{
-		if(ft_cd(all))
-			printf("error\n");
-	}*/
-	//if(find_slash_dot(all->filename))
-	//{	
-		//if(execve(all->filename,all->array,all->env)==-1)
-		//	ft_putchar("error");
-	//	test(all,pipe_1,pipe_2);
-//	}
-	//else
-	//{	
-		//all->filename=find_path(all->filename);
-		//printf("%s",all->filename);
-		//test(all,pipe_1,pipe_2);
-		//if(find_path(all)==-1)
-		//	ft_putchar("error");
-	//}
+	return head;
 }
-int main(int argc,char **argv,char **env)
+int **make_pipe(int size)
 {
-	t_pars all[3];
-	char *a[3];
-	char *b[3];
-	char *c[2];
 	int **pipe;
-	//array
-	a[0]=argv[0];
-	a[1]="hello";
-	a[2]=NULL;
-	b[0]=argv[0];
-	b[1]="third";
-	b[2]=NULL;
-	c[0]=argv[0];
-	c[1]=NULL;
-	//pipe
-	pipe=malloc(sizeof(int*)*5);
-	pipe[0]=NULL;
-	pipe[1]=malloc(sizeof(int)*2);
-	pipe[2]=malloc(sizeof(int)*2);
-	pipe[3]=malloc(sizeof(int)*2);
-	pipe[4]=NULL;
-	//filename
-	all[0].filename=ft_strdup("/bin/ls");
-	all[1].filename=ft_strdup("/usr/bin/head");
-	all[2].filename=ft_strdup("/usr/bin/yes");
-	//array
-	all[0].array=c;
-	all[1].array=c;
-	all[2].array=c;
-	//env
-	all[0].env=env;
-	all[1].env=env;
-	all[2].env=env;
 	int i;
-	i = -1;
-	//while(++i<3)
-	int fd;
-	fd=open("j",O_WRONLY);
-	//if(!fd)
-//		printf("%d",fd);
-	//pipe(pipe[1]);
-	test(&all[0],0,pipe[1],0);
-	//execve(all[0].filename,all[0].array,all->env);
-	test(&all[1],pipe[1],pipe[2],0);
-	test(&all[2],pipe[2],0,fd);
 
-//	close(pipe[3][0]);
-//	close(pipe[3][1]);
-	i=2;
-	//while (++i<3)
-//	{
-//		check_function(&all[i],pipe[i],pipe[i+1]);
-//	}
-	//printf("%s",find_path("/yes"));
-	//while(--i>0)
-		wait(0);
-	/*pipe(pipe_1);
-	if(!fork())
-	{
-		dup2(pipe_1[0],0);
-        close(pipe_1[1]);
-        close(pipe_1[0]);
-        execve("/usr/bin/wc",wc, all[0]->env);
-	}
-	pipe(pipe_2);
-
-	if(!fork())
-	{
-		dup2(pipe_2[0],0);
-        close(pipe_2[1]);
-        close(pipe_2[0]);
-		dup2(pipe_1[1],1);
-		close(pipe_1[1]);
-		close(pipe_1[0]);
-        execve("/usr/bin/grep",all[1]->array, all[0]->env);
-	}
+	i = 0;
+	if(size == 0)
+		return(0);
+	pipe = malloc(sizeof(int*) * (size + 1));
+	pipe[i++] = NULL;
+	while(i < size)
+		pipe[i++] = malloc(sizeof(int) * 2);
+	pipe[size]=NULL;
+	return(pipe);
 	
-	if (!fork())
-	{
-		dup2(pipe_2[1],1);
-		close(pipe_2[1]);
-		close(pipe_2[0]);
-		execve("/bin/cat",all[0]->array, all[1]->env);
-	}
-	close(pipe_1[1]);
-    close(pipe_1[0]);
-	close(pipe_2[1]);
-    close(pipe_2[0]);
-	wait(0);
-	wait(0);
-		wait(0);*/
 }
+void find_function(int size,t_minishell *all,t_command_and_flag *head)
+{
+	int **pipe;
+	int i;
+	int fd;
+
+	i = -1;
+	fd = 0;
+	pipe = make_pipe(size);
+	while(++i<size)
+	{
+		if(head->pape==2)//add function check pipe to chosw correct options for open
+		{
+			fd=open(head->array_flags[1],"O_WRONLY");
+			head=head->next;
+		}
+		test(head,pipe[i],pipe[i+1],fd,all->env);
+		fd = 0;
+		head=head->next;
+	}
+	while(size--)
+		wait(0);//free pipe;
+}
+int functions_launch(t_minishell *all)
+{
+	t_command_and_flag *current_head;
+	t_command_and_flag *tmp;
+	int size;
+
+	current_head=all->head;
+	while(current_head->next)
+	{
+		tmp = number_of_pipes(all,&size,current_head);
+		if(size==-1)
+			printf("zsh: command not found:%s",current_head->command);
+		else
+			find_function(size,all,current_head);
+		current_head=tmp;
+		check_env(all);//check all values
+	}
+	//free list
+}
+
+
