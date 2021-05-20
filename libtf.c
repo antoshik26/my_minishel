@@ -127,3 +127,21 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	s1[i1] = '\0';
 	return (s1);
 }
+char	*ft_strdup(const char *s1)
+{
+	size_t	i;
+	char	*s2;
+	size_t	i1;
+
+	i1 = 0;
+	i = ft_strlen((char *)s1);
+	s2 = (char *)malloc(i + 1);
+	if (!s2)
+		return (NULL);
+	while (i >= i1)
+	{
+		s2[i1] = s1[i1];
+		i1++;
+	}
+	return (s2);
+}
