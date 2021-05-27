@@ -23,8 +23,13 @@ void rebut(t_minishell *all_command)
         free(command);
         command = tmp;
     }
+    all_command->head = NULL;
 }
 
+void create_signal_controller()
+{
+    signal(SIGINT, signal_manager);
+}
 
 void allocate(t_minishell *all_command)
 {
@@ -42,6 +47,29 @@ void allocate(t_minishell *all_command)
     all_command->head = NULL;
 }
 
+//команда для проверки парсера перед сдачей удалить
+void print_command(t_minishell *command_list)
+{
+    t_command_and_flag *command;
+    int i;
+
+    command = command_list->head;
+    while (command)
+    {
+        printf("%s\n", command->command_and_flags);
+        printf("%s\n", command->command);
+        printf("%s\n", command->flags);
+        i = 0;
+        while (command->array_flags[i])
+        {
+            printf("%s\n", command->array_flags[i]);   
+            i++;
+        }
+        command = command->next;
+    }
+
+}
+
 
 int main(void)
 {
@@ -52,16 +80,17 @@ int main(void)
     command = "\0";
     all_command.head = &command_and_flag;
     allocate(&all_command);
+    create_signal_controller();
     while(1 != 0)
     {
         get_next_line(0, &command);
         if (command != NULL)
         {
             parser_commands(command, &all_command);
-            //тело программы
+            print_command(&all_command); //комманда для проверки парсера
             rebut(&all_command);
         }
     }
-    exit(1);
+    rebut(&all_command);
     return (0);
 }

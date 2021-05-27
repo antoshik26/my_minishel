@@ -1,6 +1,7 @@
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 # include <stdio.h>
+# include <termios.h> 
 # include <stdlib.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -22,6 +23,7 @@ typedef struct  s_command_and_flag
     int pape;
     char *flags;
     char **array_flags;
+    int status_flag;
     struct s_command_and_flag *next;
 }               t_command_and_flag;
 
@@ -33,6 +35,7 @@ typedef struct s_minishell
     t_command_and_flag *head;
     char **env;
     char **path;
+    int  global_pid; //как же криво работают сигналы
 }               t_minishell;
 
 int parser_commands(char *command, t_minishell *all_command);
@@ -47,4 +50,5 @@ char                *create_command(char *command, int i, int j);
 int                 get_next_line(int fd, char **line);
 char                *create_cloth_cov(t_minishell *all_command, char *command_and_flags);
 char                *replacement(char *command, int *i, int j, char* env_varianles);
+void                 signal_manager(int sig);
 #endif

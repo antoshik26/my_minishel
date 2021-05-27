@@ -1,5 +1,8 @@
 #include "ft_minishell.h"
-
+/*
+Описанные ниже флаги определены для поля st_mode:
+S_IXUSR	00100 - пользователь имеет право выполнения
+*/
 char *stat_command(t_minishell *all_command)
 {
     int i_stat;

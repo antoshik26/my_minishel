@@ -66,24 +66,17 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
     return (command);
 }
 
-int parser_flags(t_minishell *all_command)
+int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
 {
     int i;
     int j;
-    int k;
-    int z;
-    t_command_and_flag *one_command;
 
-    one_command = all_command->head;
-    while (one_command)
-    {
-        i = 0;
-        j = 0;
-        while (one_command->flags[i] == ' ')
-            i++;
-        while (one_command->flags[i])
+    i = 0;
+    j = 0;
+    while (one_command->flags[i] == ' ')
+        i++;
+    while (one_command->flags[i])
         {
-            j = 1;
             if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
             {
                 if (all_command->onecovkey == 0)
@@ -104,15 +97,39 @@ int parser_flags(t_minishell *all_command)
                 j++;
             i++;
         }
-        one_command->array_flags = (char **)malloc(sizeof(char *) * (j + 1));
-        if (one_command->array_flags == NULL)
-            return (-1);
+    one_command->array_flags = (char **)malloc(sizeof(char *) * (j + 1));
+    if (one_command->array_flags == NULL)
+        return (-1);
+    return (0);
+}
+
+
+
+int parser_flags(t_minishell *all_command)
+{
+    int i;
+    int j;
+    int k;
+    int z;
+    t_command_and_flag *one_command;
+
+    one_command = all_command->head;
+    while (one_command)
+    {
+        split_flags(one_command, all_command);
         i = 0;
         k = 0;
+        j = 0;
+        z = 0;
         all_command->onecovkey = 0;
         all_command->doublecovkey = 0;
         while (one_command->flags[i])
         {
+            while (one_command->flags[j] == ' ')
+            {
+                j++;
+                i++;
+            }
             if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
             {
                 if (all_command->onecovkey == 0)
@@ -134,26 +151,29 @@ int parser_flags(t_minishell *all_command)
                 one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
                 if (one_command->array_flags[k] == NULL)
                     return (-1);
-                j = i;
                 z = 0;
-                while (z < i)
+                while (j < i)
                 {
-                    one_command->array_flags[k][z] = one_command->flags[i - j + z];
+                    one_command->array_flags[k][z] = one_command->flags[j];
                     z++;
+                    j++;
                 }
                 one_command->array_flags[k][z] = '\0';
                 k++;
+                j = i;
             }
             i++;
         }
+        while (one_command->flags[j] == ' ')
+            j++;
         one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
         if (one_command->array_flags[k] == NULL)
             return (-1);
-        j = i;
         z = 0;
-        while (z < i)
+        while (j < i)
         {
-            one_command->array_flags[k][z] = one_command->flags[i - j + z];
+            one_command->array_flags[k][z] = one_command->flags[j];
+            j++;
             z++;
         }
         one_command->array_flags[k][z] = '\0';
@@ -178,6 +198,7 @@ int parser_command(t_minishell *all_command)
     int i;
     int j;
     int len;
+    int k;
     t_command_and_flag *one_command;
 
     one_command = all_command->head;
@@ -188,6 +209,7 @@ int parser_command(t_minishell *all_command)
         len = ft_strlen(one_command->command_and_flags);
         while (one_command->command_and_flags[i] == ' ')
             i++;
+        j = i;
         while (one_command->command_and_flags[i])
         {
             if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
@@ -213,12 +235,13 @@ int parser_command(t_minishell *all_command)
             }
             i++;
         }
-        one_command->command = (char *)malloc(sizeof(char) * (i - 1) + 1);
-        j = 0;
-        while (j < (i -1))
+        one_command->command = (char *)malloc(sizeof(char) * (i - j) + 1);
+        k = 0;
+        while (j < i)
         {
-            one_command->command[j] = one_command->command_and_flags[j];
+            one_command->command[k] = one_command->command_and_flags[j];
             j++;
+            k++;
         }
         one_command->command[j] = '\0';
         j = 0;
@@ -280,7 +303,7 @@ int parser_commands(char *command, t_minishell *all_command)
             {
                 new_command = create_command(command, i, j);
                 create_list_command(new_command, all_command, DIRECT_LINE);
-                i = i + 2;
+                i++;
                 j = i;
             }
             if (command[i] == '>')

@@ -84,15 +84,15 @@ int main(int argc, char* argv[], char* envp[])
 */
 
 //проверить проги с сигрналами 
-/*
 
+/*
 #include <signal.h>
-#include <conio.h>
 #include <stdio.h>
  
 static wait = 1;
  
-void listener(int sig) {
+void listener(int sig)
+{
     //очищаем буфер
     while (getchar() != '\n');
     printf("listener: stop");
@@ -100,13 +100,13 @@ void listener(int sig) {
     _getch();
 }
  
-void main() {
+void main()
+{
     signal(SIGINT, listener);
  
     do {
         //...
     } while (wait);
- 
     _getch();
 }
 */
@@ -125,3 +125,56 @@ void main() {
     _getch();
 }
 */
+/*
+#include<stdio.h>
+#include<signal.h>
+
+void handle_sigint(int sig)
+{
+
+    printf("Caught signal %d\n", sig);
+
+}
+
+int main()
+{
+
+    signal(SIGINT, handle_sigint);
+
+    while (1) ;
+
+    return 0;
+}
+*/
+/*
+https://habr.com/ru/post/141206/
+int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
+*/
+/*
+https://www.opennet.ru/man.shtml?topic=tcsetattr&category=3&russian=2
+*/
+/*
+#include <stdio.h>
+#include <signal.h>
+#include <termios.h> 
+#include <unistd.h>
+
+int main()
+{
+	int a;
+	struct termios termios_p;
+
+	a = 0;
+	a = tcgetattr(0, &termios_p);
+	if (a == 0)
+	{
+		
+	}
+	else
+	{
+		return (-1);
+	}
+	return (0);
+}
+*/
+
