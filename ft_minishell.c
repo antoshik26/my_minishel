@@ -13,11 +13,13 @@ void rebut(t_minishell *all_command)
         free(command->command);
         free(command->flags);
         i = 0;
+        /*
         while(command->array_flags[i])
         {
             free(command->array_flags[i]);
             i++;
         }
+        */
         free(command->array_flags);
         tmp = command->next;
         free(command);
@@ -81,6 +83,7 @@ int main(void)
     all_command.head = &command_and_flag;
     allocate(&all_command);
     create_signal_controller();
+    all_command.path = find_path();
     while(1 != 0)
     {
         get_next_line(0, &command);
@@ -88,6 +91,7 @@ int main(void)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
+            stat_command(&all_command);
             rebut(&all_command);
         }
     }

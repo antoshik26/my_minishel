@@ -1,33 +1,44 @@
 #include "ft_minishell.h"
-/*
-Описанные ниже флаги определены для поля st_mode:
-S_IXUSR	00100 - пользователь имеет право выполнения
-*/
-char *stat_command(t_minishell *all_command)
+
+int *stat_command(t_minishell *all_command)
 {
     int i_stat;
     int i;
-    char *command;
     char *path_and_command;
     struct stat stat_command;
+    t_command_and_flag *command;
     
     i = 0;
-    i_stat = 0;
-    while (all_command->path[i])
+    command = all_command->head;
+    while (command)
     {
-        path_and_command = ft_strjoin(all_command->path[i], command);
-        i_stat = stat(path_and_command, &stat_command);
-        if (i_stat == 1)
+        while (all_command->path[i])
         {
-            if (stat_command.st_mode)
+            i_stat = 0;
+            path_and_command = ft_strjoin(all_command->path[i], command->command);
+            i_stat = stat(path_and_command, &stat_command);
+            if (i_stat == 0)
             {
-                if (stat_command.st_size)
+                if (S_ISREG(stat_command.st_mode))
                 {
-                    break;
+                    if ((stat_command.st_mode & S_IXUSR) == S_IXUSR)
+                    {
+                        break;
+                    }
                 }
             }
+            i++;
         }
-        i++;
+        if (i_stat == 0)
+        {
+            command->status_flag = -1;
+        }
+        else
+        {
+            command->path_and_command = path_and_command;
+        }
+        command = command->next;
     }
-    return (path_and_command);
+    return (0);
 }
+

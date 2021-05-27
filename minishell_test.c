@@ -177,4 +177,36 @@ int main()
 	return (0);
 }
 */
+# include <stdio.h>
+# include <termios.h> 
+# include <stdlib.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+
+int main()
+{
+	int i_stat;
+    int i;
+    char *path_and_command = "/bin/echo";
+    struct stat stat_command;
+
+	i_stat = 0;
+	i_stat = stat(path_and_command, &stat_command);
+	if (i_stat == 0)
+	{
+		if (S_ISREG(stat_command.st_mode))
+		{
+			if ((stat_command.st_mode & S_IWUSR) == S_IXUSR)
+			{
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+
 

@@ -103,8 +103,6 @@ int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
     return (0);
 }
 
-
-
 int parser_flags(t_minishell *all_command)
 {
     int i;
@@ -188,7 +186,7 @@ int create_list_command(char *command, t_minishell *all_command, int pipe)
 {
     t_command_and_flag *new_command;
     new_command = ft_lstnew(command, pipe);
-    ft_lstadd_back(&all_command->head, new_command);
+    ft_lstadd_front(&all_command->head, new_command);
     return (0);
 }
 
@@ -255,6 +253,7 @@ int parser_command(t_minishell *all_command)
         one_command->flags[j] = '\0';
         one_command = one_command->next;
     }
+    stat_command(all_command);
     parser_flags(all_command);
     return (0);
 }
@@ -267,9 +266,11 @@ int parser_commands(char *command, t_minishell *all_command)
     char *new_command;
     int j;
     char *tmp;
+    int pipe;
     
     i = 0;
     j = 0;
+    pipe = NEW_COMMAND;
     while (command[i])
     {
         if (command[i] == '\\')
@@ -302,7 +303,8 @@ int parser_commands(char *command, t_minishell *all_command)
             if (command[i] == '|')
             {
                 new_command = create_command(command, i, j);
-                create_list_command(new_command, all_command, DIRECT_LINE);
+                create_list_command(new_command, all_command, pipe);
+                pipe = DIRECT_LINE;
                 i++;
                 j = i;
             }
@@ -311,14 +313,16 @@ int parser_commands(char *command, t_minishell *all_command)
                 if (command[i + 1] == '>' )
                 {
                     new_command = create_command(command, i, j);
-                    create_list_command(new_command, all_command, DOUBLE_MORE);
+                    create_list_command(new_command, all_command, pipe);
+                    pipe = DOUBLE_MORE;
                     i = i + 2;
                     j = i;
                 }
                 else
                 {
                     new_command = create_command(command, i, j);
-                    create_list_command(new_command, all_command, MORE);
+                    create_list_command(new_command, all_command, pipe);
+                    pipe = MORE;
                     i++;
                     j = i;
                 }
@@ -326,14 +330,16 @@ int parser_commands(char *command, t_minishell *all_command)
             if (command[i] == '<')
             {
                 new_command = create_command(command, i, j);
-                create_list_command(new_command, all_command, LESS);
+                create_list_command(new_command, all_command, pipe);
+                pipe = LESS;
                 i++;
                 j = i;
             }
             if (command[i] == ';')
             {
                 new_command = create_command(command, i, j);
-                create_list_command(new_command, all_command, SEMICOLON);
+                create_list_command(new_command, all_command, pipe);
+                pipe = SEMICOLON;
                 i++;
                 j = i;
             }
@@ -348,7 +354,7 @@ int parser_commands(char *command, t_minishell *all_command)
        free(tmp);
     }
 
-    create_list_command(new_command, all_command, END_FILE);
+    create_list_command(new_command, all_command, pipe);
     parser_command(all_command);
     return (0);
 }

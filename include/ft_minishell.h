@@ -8,17 +8,18 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# define NEW_COMMAND    0
 # define DIRECT_LINE    1
 # define MORE           2
 # define DOUBLE_MORE    3 
 # define LESS           4
 # define SEMICOLON      5
-# define END_FILE       6
 
 typedef struct  s_command_and_flag
 {
     char *command_and_flags;
     char *command;
+    char *path_and_command;
     int num_proc;
     int pape;
     char *flags;
@@ -40,8 +41,9 @@ typedef struct s_minishell
 
 int parser_commands(char *command, t_minishell *all_command);
 
-
-
+int                 *stat_command(t_minishell *all_command);
+char			    **ft_split(char const *s, char c);
+char                **find_path();
 void                ft_lstadd_back(t_command_and_flag **lst, t_command_and_flag *new);
 t_command_and_flag	*ft_lstnew(char *command, int pape);
 size_t              ft_strlen(const char *s);
@@ -51,4 +53,6 @@ int                 get_next_line(int fd, char **line);
 char                *create_cloth_cov(t_minishell *all_command, char *command_and_flags);
 char                *replacement(char *command, int *i, int j, char* env_varianles);
 void                 signal_manager(int sig);
+void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
+int                 find_slash_dot(char *line);
 #endif

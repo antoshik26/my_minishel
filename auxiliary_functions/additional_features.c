@@ -21,6 +21,12 @@ void	ft_lstadd_back(t_command_and_flag **lst, t_command_and_flag *new)
 	}
 }
 
+void	ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
+
 t_command_and_flag	*ft_lstnew(char *command, int pape)
 {
 	t_command_and_flag *new_list;
@@ -179,4 +185,49 @@ char *replacement(char *command, int *i, int j, char* env_varianles)
 	new_command[k] = '\0';
 	*i = k; 
 	return (new_command);
+}
+
+void free_array_of_strings(char **array)
+{
+	int i;
+
+	i = -1;
+	while(array[++i])
+		free(array[i]);
+	free(array);
+}
+
+char  **find_path()
+{
+	char **PATH;
+	char *tmp;
+	int i;
+
+	i = 0;
+	tmp = getenv("PATH");
+	PATH = ft_split(tmp,':');
+	//добавить / в путь
+	/*
+	while ()
+	{
+		ft_strjoin()
+		i++;
+	}
+	*/
+	return (PATH);
+}
+
+int find_slash_dot(char *line)
+{
+	int i;
+
+	i = -1;
+	while(line[++i])
+	{
+		if(line[i]==47)//47-ascii "\"
+			return(1);
+		else if(line[i]=='.')
+			return(1);
+	}
+	return(0);
 }
