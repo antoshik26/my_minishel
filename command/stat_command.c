@@ -1,6 +1,5 @@
 #include "ft_minishell.h"
 
-
 int check_stat_command(t_minishell *all_command, t_command_and_flag *command)
 {
     int i_stat;
@@ -9,6 +8,7 @@ int check_stat_command(t_minishell *all_command, t_command_and_flag *command)
     char *path_and_command;
     
     i = 0;
+    i_stat = -1;
     while (all_command->path[i])
     {
         path_and_command = ft_strjoin(all_command->path[i], command->command);
@@ -28,10 +28,10 @@ int check_stat_command(t_minishell *all_command, t_command_and_flag *command)
         i++;
         free(path_and_command);
     }
-    command->path_and_command = path_and_command;
+    command->command = path_and_command;
     return (i_stat);
 }
-
+/*
 int check_stat_file(t_minishell *all_command, t_command_and_flag *command)
 {
     int i_stat;
@@ -40,6 +40,7 @@ int check_stat_file(t_minishell *all_command, t_command_and_flag *command)
     char *path_and_command;
     
     i = 0;
+    i_stat = -1;
     while (all_command->path[i])
     {
         path_and_command = ft_strjoin(all_command->path[i], command->command);
@@ -69,9 +70,10 @@ int check_stat_file(t_minishell *all_command, t_command_and_flag *command)
         i++;
         free(path_and_command);
     }
-    command->path_and_command = path_and_command;
+    command->command = path_and_command;
     return (i_stat);
 }
+*/
 
 int *stat_command(t_minishell *all_command)
 {

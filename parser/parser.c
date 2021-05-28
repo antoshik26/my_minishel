@@ -66,6 +66,13 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
     return (command);
 }
 
+int create_null_array_flags(t_command_and_flag *command)
+{
+    command->array_flags[0] = command->command;
+    return (0);
+}
+
+
 int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
 {
     int i;
@@ -76,28 +83,28 @@ int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
     while (one_command->flags[i] == ' ')
         i++;
     while (one_command->flags[i])
+    {
+        if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
         {
-            if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
-            {
-                if (all_command->onecovkey == 0)
-                    all_command->onecovkey = 1;
-                else
-                    all_command->onecovkey = 0;
-                i++;
-            }
-            if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
-            {
-                if (all_command->doublecovkey == 0)
-                    all_command->doublecovkey = 1;
-                else
-                    all_command->doublecovkey = 0;
-                i++;
-            }
-            if (one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1)
-                j++;
+            if (all_command->onecovkey == 0)
+                all_command->onecovkey = 1;
+            else
+                all_command->onecovkey = 0;
             i++;
         }
-    one_command->array_flags = (char **)malloc(sizeof(char *) * (j + 1));
+        if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
+        {
+            if (all_command->doublecovkey == 0)
+                all_command->doublecovkey = 1;
+            else
+                all_command->doublecovkey = 0;
+            i++;
+        }
+        if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1) || (one_command->flags[i + 1] == '\0'))
+            j++;
+        i++;
+    }
+    one_command->array_flags = (char **)malloc(sizeof(char *) * (j + 2));
     if (one_command->array_flags == NULL)
         return (-1);
     return (0);
@@ -115,8 +122,9 @@ int parser_flags(t_minishell *all_command)
     while (one_command)
     {
         split_flags(one_command, all_command);
+        create_null_array_flags(one_command);
         i = 0;
-        k = 0;
+        k = 1;
         j = 0;
         z = 0;
         all_command->onecovkey = 0;
@@ -227,10 +235,7 @@ int parser_command(t_minishell *all_command)
                 i++;
             }
             if (one_command->command_and_flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1)
-            {
-                i++;
                 break ;
-            }
             i++;
         }
         one_command->command = (char *)malloc(sizeof(char) * (i - j) + 1);
@@ -253,7 +258,7 @@ int parser_command(t_minishell *all_command)
         one_command->flags[j] = '\0';
         one_command = one_command->next;
     }
-    //stat_command(all_command);
+    stat_command(all_command);
     parser_flags(all_command);
     return (0);
 }

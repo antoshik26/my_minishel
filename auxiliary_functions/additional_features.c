@@ -206,12 +206,11 @@ char  **find_path()
 	i = 0;
 	tmp = getenv("PATH");
 	path = ft_split(tmp,':');
-	//добавить / в путь
 	while (path[i])
 	{
 		tmp = path[i];
 		path[i] = ft_strjoin(path[i], "/");
-		free(path[i]);
+		free(tmp);
 		i++;
 	}
 	return (path);

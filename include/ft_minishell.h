@@ -19,7 +19,6 @@ typedef struct  s_command_and_flag
 {
     char *command_and_flags;
     char *command;
-    char *path_and_command;
     int num_proc;
     int pape;
     char *flags;
