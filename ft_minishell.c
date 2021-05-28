@@ -60,15 +60,16 @@ void print_command(t_minishell *command_list)
     {
         command->f_error = 0;
         command->array_flags[0] = ft_strdup(command->command);
-        printf("%s\n", command->command_and_flags);
-        printf("%s\n", command->command);
-        printf("%s\n", command->flags);
+      //  printf("%s\n", command->command_and_flags);
+        printf("command name:%s\n", command->command);
+        printf("pape:%d\n", command->pape);
         i = 0;
         while (command->array_flags[i])
         {
-            printf("%s\n", command->array_flags[i]);   
+            printf("ar[%d]:%s\n",i, command->array_flags[i]);   
             i++;
         }
+        printf("ar[%d]:%s\n",i,command->array_flags[i]);
         command = command->next;
     }
 
@@ -82,7 +83,7 @@ int main(int argc,char **argv,char **env)
     char *command;
     (void)argc;
     (void)argv;
-
+    (void)env;
     command = "\0";
     all_command.head = &command_and_flag;
     allocate(&all_command);

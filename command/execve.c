@@ -5,7 +5,10 @@ void test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
 	
 	if(pipe_2!=0)
 		pipe(pipe_2);
-	if(!fork())
+	pid_t pid;
+	int status;
+	pid=fork();
+	if(pid)
 	{
 		if(pipe_1!=0)
 		{
@@ -31,6 +34,7 @@ void test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
 		close(pipe_1[1]);
 		close(pipe_1[0]);
 	}
+	waitpid(pid,&status,0);
 }
 t_command_and_flag *number_of_pipes(int *size,t_command_and_flag *head)
 {
@@ -51,7 +55,7 @@ t_command_and_flag *number_of_pipes(int *size,t_command_and_flag *head)
 			*size+=1;
 		else
 			return(head);
-		if(head->pape==2 || head->pape==3 ||head->pape==4 || head->pape==5 )
+		if(head->pape==2 || head->pape==3 ||head->pape==4 || head->pape==5 || head->pape==0)
 			return head->next;
 		head = head->next;
 	}
@@ -84,17 +88,17 @@ void find_function(int size,char **env,t_command_and_flag *head)
 	pipe = make_pipe(size);
 	while(++i<=size)
 	{
-		if(head->pape==4)//add function check pipe to chosw correct options for open
+		if(head->pape==4 ||head->pape==2)//add function check pipe to chosw correct options for open
 		{
-			fd=open(head->array_flags[1],O_WRONLY);
+			fd=open(head->command,O_WRONLY);
 			head=head->next;
 		}
 		test(head,pipe[i],pipe[i+1],fd,env);
 		fd = 0;
 		head=head->next;
 	}
-	while(size--)
-		wait(0);
+	//while(size--)
+	//	wait(0);
 	if(i>0)
 	{
 		i = 0;
@@ -128,7 +132,6 @@ char	*ftstrdup(const char *s1)
 	copy_s1[i] = '\0';
 	return (copy_s1);
 }
-
 void functions_launch(t_command_and_flag **head,char **env)
 {
 	t_command_and_flag *current_head;
@@ -151,8 +154,8 @@ void functions_launch(t_command_and_flag **head,char **env)
 		current_head=tmp;
 	}
 }
-/*
-int main(int argc,char **argv,char **env)
+
+/*(int main(int argc,char **argv,char **env)
 {
 	//function_lounch test
 	//t_minishell *all;
@@ -192,23 +195,11 @@ int main(int argc,char **argv,char **env)
 	head4->next=0;
 	head4->pape=4;
 	head4->f_error=0;
-	head4->next=head2;
-	head2->next=head3;
-	//head2->next=head3;
+	head1->next=head3;
 	head1->array_flags=argv;
 	head2->array_flags=argv;
 	head3->array_flags=argv;
 	//head3->next=head4;
-	functions_launch(&head4,env);
-	//make_pipe test
-	//int pipe1[2];
-	//int pipe2[2];
+	functions_launch(&head1,env);
 
-	//test(head1,0,pipe1,0,env);
-	//test(head2,pipe1,pipe2,0,env);
-//	test(head3,pipe2,0,0,env);
-//	wait(0);
-//	wait(0);
-//	wait(0);
-}
-*/
+}*/
