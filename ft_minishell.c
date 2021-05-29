@@ -59,14 +59,14 @@ void print_command(t_minishell *command_list)
     while (command)
     {
         command->f_error = 0;
-        command->array_flags[0] = ft_strdup(command->command);
+        //command->array_flags[1] = NULL;
       //  printf("%s\n", command->command_and_flags);
         printf("command name:%s\n", command->command);
         printf("pape:%d\n", command->pape);
         i = 0;
         while (command->array_flags[i])
         {
-            printf("ar[%d]:%s\n",i, command->array_flags[i]);   
+            printf("ar[%d]:|%s|\n",i, command->array_flags[i]);   
             i++;
         }
         printf("ar[%d]:%s\n",i,command->array_flags[i]);

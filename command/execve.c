@@ -5,10 +5,7 @@ void test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
 	
 	if(pipe_2!=0)
 		pipe(pipe_2);
-	pid_t pid;
-	int status;
-	pid=fork();
-	if(pid)
+	if(!fork())
 	{
 		if(pipe_1!=0)
 		{
@@ -34,7 +31,6 @@ void test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
 		close(pipe_1[1]);
 		close(pipe_1[0]);
 	}
-	waitpid(pid,&status,0);
 }
 t_command_and_flag *number_of_pipes(int *size,t_command_and_flag *head)
 {
@@ -97,8 +93,8 @@ void find_function(int size,char **env,t_command_and_flag *head)
 		fd = 0;
 		head=head->next;
 	}
-	//while(size--)
-	//	wait(0);
+	while(size--)
+		wait(0);
 	if(i>0)
 	{
 		i = 0;
@@ -109,29 +105,11 @@ void find_function(int size,char **env,t_command_and_flag *head)
 		free(pipe);
 	}
 }
-char	*ftstrdup(const char *s1)
-{
-	char	*copy_s1;
-	size_t	len;
-	size_t	i;
 
-	len = 0;
-	i = 0;
-	while (s1[len] != '\0')
-	{
-		len++;
-	}
-	copy_s1 = (char *)malloc(sizeof(char) * (len + 1));
-	if (copy_s1 == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		copy_s1[i] = s1[i];
-		i++;
-	}
-	copy_s1[i] = '\0';
-	return (copy_s1);
-}
+/*void do_redirect()
+{
+
+}*/
 void functions_launch(t_command_and_flag **head,char **env)
 {
 	t_command_and_flag *current_head;
@@ -145,7 +123,7 @@ void functions_launch(t_command_and_flag **head,char **env)
 		printf("%d %s %p\n",size,current_head->command,tmp);
 		if(size==-1 && tmp->f_error)
 			printf("zsh: command not found:%s\n",current_head->command);
-/*		else if(current_head->pape==4)
+/*		else if(current_head->pape==4 && size==-1)
 		{
 			do_redirect()
 		}*/
@@ -155,7 +133,7 @@ void functions_launch(t_command_and_flag **head,char **env)
 	}
 }
 
-/*(int main(int argc,char **argv,char **env)
+/*int main(int argc,char **argv,char **env)
 {
 	//function_lounch test
 	//t_minishell *all;

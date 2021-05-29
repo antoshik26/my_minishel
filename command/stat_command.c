@@ -84,10 +84,9 @@ int *stat_command(t_minishell *all_command)
     while (command)
     {
         i_stat = -1;
-        if (command->pape == DOUBLE_MORE || command->pape == MORE || command->pape == LESS)
-            i_stat = check_stat_file(all_command, command);
-        else
-            i_stat = check_stat_command(all_command, command);
+    //    if (command->pape == DOUBLE_MORE || command->pape == MORE || command->pape == LESS)
+     //       i_stat = check_stat_file(all_command, command);
+        i_stat = check_stat_command(all_command, command);
         if (i_stat == 0)
             command->status_flag = -1;
         command = command->next;

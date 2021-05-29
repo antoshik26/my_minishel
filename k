@@ -1,0 +1,10 @@
+Makefile
+a.out
+a.out.dSYM
+auxiliary_functions
+cmd_manager
+command
+ft_minishell.c
+gnl
+include
+k
