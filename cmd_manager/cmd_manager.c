@@ -1,12 +1,50 @@
 #include "ft_minishell.h"
 
-int cmd_manager()//t_minishell *all_command)
+int save_sistem_term(t_minishell *all_command)
 {
-    struct termios terminal;
+    int stat;
+    struct termios termios_p;
 
-    tcgetattr(0, &terminal);
-    //поменять пораметры терминала
+    stat = tcgetattr(0, &termios_p);
+    if (stat == 0)
+    {
+        all_command->term[0]->term = &termios_p;
+    }
+    else
+    {
+        return (-1);
+    }
+    return (0);
+}
 
-    tcsetattr(0, TCSANOW, &terminal);
+int create_new_sistem_term(t_minishell *all_command)
+{
+    int stat;
+    struct termios termios_p;
+
+    stat = tcgetattr(0, &termios_p);
+    if (stat == 0)
+    {
+        all_command->term[1]->term = &termios_p;
+    }
+    else
+    {
+        return (-1);
+    }
+    return (0);
+}
+
+int return_settings_term(t_minishell *all_command)
+{
+    tcsetattr(0, TCSANOW, all_command->term[0]->term);
+    return(0);
+}
+
+int cmd_manager(t_minishell *all_command)
+{
+    save_sistem_term(all_command);
+    create_new_sistem_term(all_command);
+    all_command->term[1]->term->c_iflag = all_command->term[1]->term->c_iflag | INLCR;
+    tcsetattr(0, TCSANOW, all_command->term[1]->term);
     return (0);
 }

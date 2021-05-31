@@ -44,6 +44,7 @@ t_command_and_flag	*ft_lstnew(char *command, int pape)
 	return (new_list);
 }
 
+
 char *create_command(char *command, int i, int j)
 {
 	char *new_command;

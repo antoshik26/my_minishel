@@ -154,6 +154,13 @@ int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
 https://www.opennet.ru/man.shtml?topic=tcsetattr&category=3&russian=2
 */
 /*
+http://programming-lang.com/ru/comp_programming/metyu/0/j174.html
+*/
+typedef struct s_term_sistem
+{
+    struct termios *term;
+}               t_term_sistem;
+
 #include <stdio.h>
 #include <signal.h>
 #include <termios.h> 
@@ -162,13 +169,14 @@ https://www.opennet.ru/man.shtml?topic=tcsetattr&category=3&russian=2
 int main()
 {
 	int a;
+	t_term_sistem term;
 	struct termios termios_p;
 
 	a = 0;
 	a = tcgetattr(0, &termios_p);
 	if (a == 0)
 	{
-		
+		term.term = &termios_p;
 	}
 	else
 	{
@@ -176,7 +184,7 @@ int main()
 	}
 	return (0);
 }
-*/
+
 /*
 # include <stdio.h>
 # include <termios.h> 

@@ -15,6 +15,11 @@
 # define LESS           4
 # define SEMICOLON      5
 
+typedef struct s_term_sistem
+{
+    struct termios *term;
+}               t_term_sistem;
+
 typedef struct  s_command_and_flag
 {
     char *command_and_flags;
@@ -34,6 +39,7 @@ typedef struct s_minishell
     int onecovkey;
     int doublecovkey;
     t_command_and_flag *head;
+    t_term_sistem *term[2];
     char **env;
     char **path;
     int  g_global_pid; //как же криво работают сигналы
@@ -62,4 +68,5 @@ int                 ft_env(t_minishell *all);
 int                 ft_cd(t_minishell *all);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 int                 cmd_manager();
+int                 return_settings_term(t_minishell *all_command);
 #endif
