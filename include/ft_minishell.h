@@ -36,7 +36,7 @@ typedef struct s_minishell
     t_command_and_flag *head;
     char **env;
     char **path;
-    int  global_pid; //как же криво работают сигналы
+    int  g_global_pid; //как же криво работают сигналы
 }               t_minishell;
 
 int parser_commands(char *command, t_minishell *all_command);
@@ -57,4 +57,9 @@ void                 signal_manager(int sig);
 void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
 int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
+int                 ft_pwd(t_minishell *all);
+int                 ft_env(t_minishell *all);
+int                 ft_cd(t_minishell *all);
+int                 ft_strncmp(const char *s1, const char *s2, size_t n);
+int                 cmd_manager();
 #endif

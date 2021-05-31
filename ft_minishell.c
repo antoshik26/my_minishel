@@ -1,5 +1,7 @@
 #include "ft_minishell.h"
 
+int  g_global_pid;
+
 void rebut(t_minishell *all_command)
 {
     int i;
@@ -12,14 +14,12 @@ void rebut(t_minishell *all_command)
         free(command->command_and_flags);
         free(command->command);
         free(command->flags);
-        i = 0;
-        /*
+        i = 1;
         while(command->array_flags[i])
         {
             free(command->array_flags[i]);
             i++;
         }
-        */
         free(command->array_flags);
         tmp = command->next;
         free(command);
@@ -30,7 +30,9 @@ void rebut(t_minishell *all_command)
 
 void create_signal_controller()
 {
-    signal(SIGINT, signal_manager);
+    signal(SIGINT, &signal_manager);
+	g_global_pid = 0;
+	signal(SIGQUIT, &signal_manager);
 }
 
 void allocate(t_minishell *all_command)
@@ -58,9 +60,9 @@ void print_command(t_minishell *command_list)
     command = command_list->head;
     while (command)
     {
-        command->f_error = 0;
+        //command->f_error = 0;
         //command->array_flags[1] = NULL;
-      //  printf("%s\n", command->command_and_flags);
+        //printf("%s\n", command->command_and_flags);
         printf("command name:%s\n", command->command);
         printf("pape:%d\n", command->pape);
         i = 0;
@@ -87,6 +89,7 @@ int main(int argc,char **argv,char **env)
     command = "\0";
     all_command.head = &command_and_flag;
     allocate(&all_command);
+    cmd_manager();
     create_signal_controller();
     all_command.path = find_path();
     while(1 != 0)
