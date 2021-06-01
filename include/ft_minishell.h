@@ -71,10 +71,14 @@ void                 signal_manager(int sig);
 void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
 int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
-int                 ft_pwd(t_minishell *all);
+void               ft_pwd(char **env);
 int                 ft_env(t_minishell *all);
 int                 ft_cd(t_minishell *all);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 int                 cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);
+//lists for ececbw
+t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
+void	ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);
+void ft_list_clear(t_command_and_flag *command);
 #endif
