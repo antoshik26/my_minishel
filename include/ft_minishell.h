@@ -7,6 +7,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/types.h>
+# include <sys/ioctl.h>
 # include <sys/stat.h>
 # define NEW_COMMAND    0
 # define DIRECT_LINE    1
@@ -40,6 +41,8 @@ typedef struct s_minishell
     int doublecovkey;
     t_command_and_flag *head;
     t_term_sistem *term[2];
+    t_term_sistem *term_until[2];
+    struct winsize *win;
     char **env;
     char **path;
     int  g_global_pid; //как же криво работают сигналы
@@ -67,6 +70,6 @@ int                 ft_pwd(t_minishell *all);
 int                 ft_env(t_minishell *all);
 int                 ft_cd(t_minishell *all);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
-int                 cmd_manager();
+int                 cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);
 #endif

@@ -88,6 +88,7 @@ int check_stat_command(t_minishell *all_command, t_command_and_flag *command)
             }
             i++;
             free (path_and_command);
+            path_and_command = NULL;
         }
     }
     if(path_and_command != NULL)
