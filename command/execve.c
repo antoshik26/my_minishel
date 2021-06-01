@@ -1,11 +1,104 @@
 #include "ft_minishell.h"
+/*t_list_pid	*ft_create_elem(pid_t *data,int size)
+{
+	t_list_pid	 *elem;
 
-void test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
+	elem = (t_list_pid *)malloc(sizeof(t_list_pid));
+	elem->pid = data;
+	elem->size=size;
+	elem->next = 0;
+	return (elem);
+}
+
+void	ft_list_clear_wait(t_list_pid *begin_list)
+{
+	t_list_pid	*elem;
+	int	status;
+	while (begin_list)
+	{
+		while(begin_list->size>=0)
+			waitpid(begin_list->pid[begin_list->size--],&status,0);
+		elem = begin_list->next;
+		free(begin_list->pid);
+		free(begin_list);
+		begin_list = elem;
+	}
+}
+void	ft_list_push_front(t_list_pid *begin_list, pid_t *data,int size)
+{
+	t_list_pid *elem;
+
+	if (begin_list != 0)
+	{
+		elem = ft_create_elem(data,size);
+		elem->next = begin_list;
+		begin_list = elem;
+	}
+	else
+		begin_list = ft_create_elem(data,size);
+}*/
+t_command_and_flag	*ft_create_elem(t_command_and_flag *data)
+{
+	t_command_and_flag	 *elem;
+	int i;
+
+	i = 0;
+	elem = (t_command_and_flag *)malloc(sizeof(t_command_and_flag));
+	elem->pape=data->pape;
+	elem->f_error=data->f_error;
+	elem->command = ft_strdup(data->command);
+	while(data->array_flags[i])
+		i++;
+	elem->array_flags=malloc(sizeof(char*)*(i+1));
+	i=-1;
+	while(data->array_flags[++i])
+		elem->array_flags[i]=ft_strdup(data->array_flags[i]);
+	elem->array_flags[i]=NULL;
+	elem->next = 0;
+	return (elem);
+}
+void	ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data)
+{
+	t_command_and_flag *elem;
+
+	if (begin_list != 0)
+	{
+		elem = ft_create_elem(data);
+		elem->next = *begin_list;
+		*begin_list = elem;
+	}
+	else
+		*begin_list = ft_create_elem(data);
+}
+
+void ft_list_clear(t_command_and_flag *command)
+{
+    int i;
+    t_command_and_flag *tmp;
+
+    while(command)
+    {
+		if(!command->f_error)
+        free(command->command);
+        i = 1;
+       	while(command->array_flags[i])
+        {
+            free(command->array_flags[i]);
+            i++;
+        }
+        free(command->array_flags);
+        tmp = command->next;
+        free(command);
+        command = tmp;
+    }
+}
+pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
 {
 	
 	if(pipe_2!=0)
 		pipe(pipe_2);
-	if(!fork())
+	pid_t pid=fork();
+	if(!pid)
 	{
 		if(pipe_1!=0)
 		{
@@ -31,13 +124,18 @@ void test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd, char **env)
 		close(pipe_1[1]);
 		close(pipe_1[0]);
 	}
+	return(pid);
 }
-t_command_and_flag *number_of_pipes(int *size,t_command_and_flag *head)
+t_command_and_flag *number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **new_head)
 {
 	//1 | 2 > 3 >> 4 < 5; 6 eof
+	t_command_and_flag *head;
+
+	head=*head1;
 	*size=0;
 	if(head->pape==2)
 		*size=-1;
+	ft_list_push_front(new_head,head);
 	if(!head->f_error)
 		head=head->next;
 	else
@@ -47,12 +145,12 @@ t_command_and_flag *number_of_pipes(int *size,t_command_and_flag *head)
 	}
 	while(head)
 	{
-		if(!head->f_error)
-			*size+=1;
-		else
+		if(head->f_error)
 			return(head);
-		if(head->pape==2 || head->pape==3 ||head->pape==4 || head->pape==5 || head->pape==0)
-			return head->next;
+		if(head->pape==2 || head->pape==3 ||head->pape==4 || head->pape==5)
+			return head;
+		ft_list_push_front(new_head,head);
+		*size+=1;
 		head = head->next;
 	}
 	return head;
@@ -78,10 +176,11 @@ void find_function(int size,char **env,t_command_and_flag *head)
 	int **pipe;
 	int i;
 	int fd;
-
+	pid_t *pid;
 	i = -1;
 	fd = 0;
 	pipe = make_pipe(size);
+	pid=malloc(sizeof(pid)*(size+1));
 	while(++i<=size)
 	{
 		if(head->pape==4 ||head->pape==2)//add function check pipe to chosw correct options for open
@@ -89,12 +188,12 @@ void find_function(int size,char **env,t_command_and_flag *head)
 			fd=open(head->command,O_WRONLY);
 			head=head->next;
 		}
-		test(head,pipe[i],pipe[i+1],fd,env);
+		pid[i]=test(head,pipe[i],pipe[i+1],fd,env);
 		fd = 0;
 		head=head->next;
 	}
-	while(size--)
-		wait(0);
+	while(size>=0)
+		waitpid(pid[size--],&fd,0);
 	if(i>0)
 	{
 		i = 0;
@@ -105,31 +204,32 @@ void find_function(int size,char **env,t_command_and_flag *head)
 		free(pipe);
 	}
 }
-
-/*void do_redirect()
-{
-
-}*/
 void functions_launch(t_command_and_flag **head,char **env)
 {
 	t_command_and_flag *current_head;
 	t_command_and_flag *tmp;
 	int size;
-
+	pid_t pid;
+	tmp=0;
 	current_head=*head;
+
 	while(current_head)
 	{
-		tmp = number_of_pipes(&size,current_head);
-		printf("%d %s %p\n",size,current_head->command,tmp);
+		tmp=0;
+		current_head=number_of_pipes(&size,&current_head,&tmp);
+		//printf("%d %s\n",size,current_head->command);
 		if(size==-1 && tmp->f_error)
-			printf("zsh: command not found:%s\n",current_head->command);
-/*		else if(current_head->pape==4 && size==-1)
-		{
-			do_redirect()
-		}*/
-		else if(size>=0)
-			find_function(size,env,current_head);
-		current_head=tmp;
+			printf("zsh: command not found:\n"/*,tmp->command*/);//waiting for wrong command name abort with wrong command
+		else if(size>0 || (size==0 && tmp->pape==2))
+			find_function(size,env,tmp);
+		else if(size==0)
+		{	
+			pid = test(tmp,0,0,0,env);
+			waitpid(pid,&size,0);
+		}
+		ft_list_clear(tmp);
+			//printf("%s\n",tmp->command);
+			//printf("%p\n",tmp->next);
 	}
 }
 

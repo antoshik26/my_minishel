@@ -38,7 +38,12 @@ typedef struct s_minishell
     char **path;
     int  g_global_pid; //как же криво работают сигналы
 }               t_minishell;
-
+typedef struct s_list_pid
+{
+    pid_t   *pid;
+    int size;
+    struct s_list_pid *next;
+}               t_list_pid;
 int parser_commands(char *command, t_minishell *all_command);
 
 void                functions_launch(t_command_and_flag **head,char **env);
