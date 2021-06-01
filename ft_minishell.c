@@ -8,6 +8,8 @@ void rebut(t_minishell *all_command)
     t_command_and_flag *command;
     t_command_and_flag *tmp;
 
+    all_command->onecovkey = 0;
+    all_command->doublecovkey = 0;
     command = all_command->head;
     while(command)
     {
@@ -81,13 +83,25 @@ int main(int argc,char **argv,char **env)
     t_minishell all_command;
     t_command_and_flag command_and_flag;
     char *command;
+    t_term_sistem term_in_util;
+    t_term_sistem term_out_util;
+    t_term_sistem term_in;
+    t_term_sistem term_out;
+    struct winsize w;
     (void)argc;
     (void)argv;
     (void)env;
+
+    all_command.term_until[0] = &term_in_util;
+    all_command.term_until[1] = &term_out_util;
+    all_command.term[0] = &term_in;
+    all_command.term[1] = &term_out;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    all_command.win = &w;
     command = "\0";
     all_command.head = &command_and_flag;
     allocate(&all_command);
-    cmd_manager();
+    //cmd_manager(&all_command);
     create_signal_controller();
     all_command.path = find_path();
     while(1 != 0)
@@ -102,5 +116,6 @@ int main(int argc,char **argv,char **env)
         }
     }
     rebut(&all_command);
+    return_settings_term(&all_command);
     return (0);
 }

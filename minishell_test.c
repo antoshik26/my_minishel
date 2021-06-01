@@ -154,6 +154,15 @@ int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
 https://www.opennet.ru/man.shtml?topic=tcsetattr&category=3&russian=2
 */
 /*
+http://programming-lang.com/ru/comp_programming/metyu/0/j174.html
+*/
+//https://askdev.ru/q/peremeschenie-kursora-v-programme-na-yazyke-c-236505/
+/*
+typedef struct s_term_sistem
+{
+    struct termios *term;
+}               t_term_sistem;
+
 #include <stdio.h>
 #include <signal.h>
 #include <termios.h> 
@@ -162,13 +171,14 @@ https://www.opennet.ru/man.shtml?topic=tcsetattr&category=3&russian=2
 int main()
 {
 	int a;
+	t_term_sistem term;
 	struct termios termios_p;
 
 	a = 0;
 	a = tcgetattr(0, &termios_p);
 	if (a == 0)
 	{
-		
+		term.term = &termios_p;
 	}
 	else
 	{
@@ -442,5 +452,154 @@ int main(int argc,char **argv,char **env)
 {
 	int i;
 	return (0);
+}
+*/
+/*
+#include <stdio.h>
+
+#include <unistd.h>
+
+#include <stdlib.h>
+
+#include <termios.h>
+
+char *menu[] = {
+
+ "a — add new record",
+
+ "d — delete record",
+
+ "q - quit",
+
+ NULL,
+
+};
+
+2. Затем нужно объявить пару новых переменных в функции main:
+
+int getchoice(char *greet, char *choices[], FILE *in, FILE *out);
+
+int main() {
+
+ int choice = 0;
+
+ FILE *input;
+
+ FILE *output;
+
+ struct termios initial_settengs, new_settings;
+
+3. Перед вызовом функции getchoice вам следует изменить характеристики терминала, этим определяется место следующих строк:
+
+ if (!isatty(fileno(stdout))) {
+
+  fprintf(stderr, "You are not a terminal, OK.\n");
+
+ }
+
+ input = fopen("/dev/tty", "r");
+
+ output = fopen("/dev/tty", "w");
+
+ if (!input || !output) {
+
+  fprintf(stderr, "Unable to open /dev/tty\n");
+
+  exit(1);
+
+ }
+
+ tcgetattr(fileno(input), &initial_settings);
+
+ new_settings = initial_settings;
+
+ new_settings.c_lfag &= ~ICANON;
+
+ new_settings.c_lflag &= ~ECHO;
+
+ new_settings.c_cc[VMIN] = 1;
+
+ new_settings.c_cc[VTIME] = 0;
+
+ new_settings.c_lflag &= ~ISIG;
+
+ if (tcsetattr(fileno(input), TCSANOW, &new_settings) != 0) {
+
+  fprintf(stderr, "could not set attributes\n");
+
+ }
+
+4. Перед завершением вы также должны вернуть первоначальные значения:
+
+ do {
+
+  choice = getchoice("Please select an action", menu, input, output);
+
+  printf("You have chosen: %c\n", choice);
+
+ } while (choice != 'q');
+
+ tcsetattr(fileno(input), TCSANOW, &initial_settings);
+
+ exit(0);
+
+}
+
+5. Теперь, когда вы в неканоническом режиме, необходимо проверить на соответствие возвраты каретки, поскольку стандартное преобразование CR (возврат каретки) в LF (переход на новую строку) больше не выполняется:
+
+int getchoice (char *greet, char *choices[], FILE *in, FILE *out) {
+
+ int chosen = 0;
+
+ int selected;
+
+ char **option;
+
+ do {
+
+  fprintf(out, "Choice: %s\n", greet);
+
+  option = choices;
+
+  while (*option) {
+
+   fprintf(but, "%s\n", *option);
+
+   option++;
+
+  }
+
+  do {
+
+   selected = fgetc(in);
+
+  } while (selected == '\n' || selected == '\r');
+
+  option = choices;
+
+  while (*option) {
+
+   if (selected == *option[0]) {
+
+    chosen = 1;
+
+    break;
+
+   }
+
+   option++;
+
+  }
+
+  if (!chosen) {
+
+   fprintf(out, "Incorrect choice, select again\n");
+
+  }
+
+ } while(!chosen);
+
+ return selected;
+
 }
 */
