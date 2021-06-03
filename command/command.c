@@ -1,6 +1,29 @@
 #include "ft_minishell.h"
+void ft_pwd(char **env)
+{
+	int i;
+	int i1;
 
-int ft_pwd(t_minishell *all)
+	i = -1;
+	while(env[i])
+	{
+		if(!ft_strncmp(env[i],"PWD=",4))
+		{
+			i1=3;
+			while(env[i][++i1])
+				printf("%c",env[i][i1]);
+			printf("\n");
+            exit(0);
+		}
+	}
+	/*char buf[32000];
+	getcwd(buf,32000);
+	if(!buf)
+		return(1);
+	fprintf("%s",buf);*/
+	exit(0);
+}
+/*int ft_pwd(t_minishell *all)
 {
 	int i;
 	int i1;
@@ -20,16 +43,16 @@ int ft_pwd(t_minishell *all)
 		}
 	}
 	char buf[32000];
-	getcwd(buf,32000);
+	getcwd(buf,32000);*/
     /*
 	if(!buf)
 		return(1);
     */
-	printf("%s",buf);
+/*	printf("%s",buf);
 	return(0);
 }
-
-int ft_env(t_minishell *all)
+*/
+/*int ft_env(t_minishell *all)
 {
 	int i;
 
@@ -39,19 +62,19 @@ int ft_env(t_minishell *all)
 	while (all->env[++i])
 		printf("%s\n",all->env[i]);
 	return(0);
-}
+}*/
 
-int ft_cd(t_minishell *all)
+/*int ft_cd(t_minishell *all)
 {
 	int i;
 	char buf[32000];
 	
-	getcwd(buf,32000);
+	getcwd(buf,32000);*/
     /*
 	if(!buf)
 		return(1);
     */
-	i = -1;
+	/*i = -1;
 	if(!all->env[1] || all->env[2])
 		return(1);
 	if(chdir(all->env[1])==-1)
@@ -76,4 +99,4 @@ int ft_cd(t_minishell *all)
 		}
 	}
 	return(0);
-}
+}*/

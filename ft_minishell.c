@@ -62,11 +62,9 @@ void print_command(t_minishell *command_list)
     command = command_list->head;
     while (command)
     {
-        //command->f_error = 0;
-        //command->array_flags[1] = NULL;
-        //printf("%s\n", command->command_and_flags);
-        printf("command name:%s\n", command->command);
+        printf("command name:|%s|\n", command->command);
         printf("pape:%d\n", command->pape);
+        printf("error:%d\n",command->f_error);
         i = 0;
         while (command->array_flags[i])
         {

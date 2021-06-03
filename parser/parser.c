@@ -193,7 +193,8 @@ int create_list_command(char *command, t_minishell *all_command, int pipe)
 {
     t_command_and_flag *new_command;
     new_command = ft_lstnew(command, pipe);
-    ft_lstadd_front(&all_command->head, new_command);
+   // ft_lstadd_front(&all_command->head, new_command);
+   ft_lstadd_back(&all_command->head, new_command);
     return (0);
 }
 
