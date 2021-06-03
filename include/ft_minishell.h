@@ -1,6 +1,7 @@
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 # include <stdio.h>
+# include <curses.h>
 # include <termios.h> 
 # include <stdlib.h>
 # include <signal.h>
@@ -9,6 +10,9 @@
 # include <sys/types.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
+# include <term.h>
+# include <string.h>
+# define MAX_LINE       15
 # define NEW_COMMAND    0
 # define DIRECT_LINE    1
 # define MORE           2
@@ -37,6 +41,7 @@ typedef struct  s_command_and_flag
 typedef struct s_minishell
 {
     char *count_command[15];
+    char *file_history;
     int onecovkey;
     int doublecovkey;
     t_command_and_flag *head;
@@ -72,4 +77,6 @@ int                 ft_cd(t_minishell *all);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 int                 cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);
+char                *reeder_from_term(t_minishell *all_command);
+int                 ft_putchar(int c);
 #endif
