@@ -77,6 +77,31 @@ void print_command(t_minishell *command_list)
 
 }
 
+int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
+{
+    char *path;
+    int len;
+    int fd;
+
+    path = argv[0];
+    len = ft_strlen(path);
+    while(len)
+    {
+        if (path[len] == '/')
+        {
+            path[len] = '\0';
+            break ;
+        }
+        len--;
+    }
+    path = ft_strjoin(path, "/tmp/lvl1");
+    fd = open(path, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
+    if (fd == -1)
+        return (-1);
+    all_command->file_history = path;
+    close(fd);
+    return (0);
+}
 
 int main(int argc,char **argv,char **env)
 {
@@ -87,23 +112,22 @@ int main(int argc,char **argv,char **env)
     t_term_sistem term_out_util;
     t_term_sistem term_in;
     t_term_sistem term_out;
-    struct winsize w;
     (void)argc;
     (void)argv;
     all_command.term_until[0] = &term_in_util;
     all_command.term_until[1] = &term_out_util;
     all_command.term[0] = &term_in;
     all_command.term[1] = &term_out;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    all_command.win = &w;
-    command = "\0";
+    all_command.path = find_path();
+    command = NULL;
     all_command.head = &command_and_flag;
     allocate(&all_command);
-    //cmd_manager(&all_command);
+    crete_or_cheak_file_history(&all_command, argv);
     create_signal_controller();
-    all_command.path = find_path();
     while(1 != 0)
     {
+        //cmd_manager(&all_command);
+        //return_settings_term(&all_command);
         get_next_line(0, &command);
         if (command != NULL)
         {
@@ -112,8 +136,9 @@ int main(int argc,char **argv,char **env)
             functions_launch(&all_command.head, env);
             rebut(&all_command);
         }
+        //написать смену файла tmp/lvl в зависимост от левла минишела
     }
     rebut(&all_command);
-    return_settings_term(&all_command);
+    //return_settings_term(&all_command);
     return (0);
 }

@@ -3,7 +3,18 @@
 int shift_comand(char *command, t_minishell *all_command)
 {
     int i;
-
+    int fd;
+    char a[5];
+    
+    fd = open(all_command->file_history, O_RDWR);
+    if (fd == -1)
+        return (-1);
+    i = 1;
+    while (i != 0)
+        i = read(fd, a, 1);
+    write(fd, command, ft_strlen(command));
+    write(fd, "\n", 1);
+    close(fd);
     i = 1;
     while(i < 15)
     {
