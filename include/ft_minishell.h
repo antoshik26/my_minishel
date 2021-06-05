@@ -54,7 +54,8 @@ typedef struct s_list_pid
     struct s_list_pid *next;
 }               t_list_pid;
 int parser_commands(char *command, t_minishell *all_command);
-
+void                ft_putchar_fd(char c, int fd);
+void                ft_putstr_fd(char *s, int fd);;
 void                functions_launch(t_command_and_flag **head,char **env);
 int                 *stat_command(t_minishell *all_command);
 char			    **ft_split(char const *s, char c);
@@ -71,9 +72,9 @@ void                 signal_manager(int sig);
 void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
 int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
-void               ft_pwd(char **env);
-int                 ft_env(t_minishell *all);
-int                 ft_cd(t_minishell *all);
+void               ft_pwd(char **env,int fd);
+void                ft_env(char **env,int fd);
+void ft_cd(t_command_and_flag *all,char **env);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 int                 cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);

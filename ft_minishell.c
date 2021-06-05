@@ -90,8 +90,6 @@ int main(int argc,char **argv,char **env)
     struct winsize w;
     (void)argc;
     (void)argv;
-    (void)env;
-
     all_command.term_until[0] = &term_in_util;
     all_command.term_until[1] = &term_out_util;
     all_command.term[0] = &term_in;

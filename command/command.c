@@ -1,102 +1,76 @@
 #include "ft_minishell.h"
-void ft_pwd(char **env)
+
+void ft_pwd(char **env,int fd)
 {
 	int i;
 	int i1;
+	//char c;
 
+	//c='\n';
 	i = -1;
-	while(env[i])
+	while(env[++i])
 	{
 		if(!ft_strncmp(env[i],"PWD=",4))
 		{
 			i1=3;
 			while(env[i][++i1])
-				printf("%c",env[i][i1]);
-			printf("\n");
-            exit(0);
-		}
-	}
-	/*char buf[32000];
-	getcwd(buf,32000);
-	if(!buf)
-		return(1);
-	fprintf("%s",buf);*/
-	exit(0);
-}
-/*int ft_pwd(t_minishell *all)
-{
-	int i;
-	int i1;
-
-	i = -1;
-	if(all->env[1])
-		return(1);
-	while(all->env[i])
-	{
-		if(!ft_strncmp(all->env[i],"PWD=",4))
-		{
-			i1=3;
-			while(all->env[i][++i1])
-				printf("%c",all->env[i][i1]);
-			printf("\n");
-			return(0);
+				ft_putchar_fd(env[i][i1],fd);
+			ft_putchar_fd('\n',fd);
+			exit(0);
 		}
 	}
 	char buf[32000];
-	getcwd(buf,32000);*/
-    /*
-	if(!buf)
-		return(1);
-    */
-/*	printf("%s",buf);
-	return(0);
+	getcwd(buf,32000);
+	//if(!buf)
+//		exit(1);
+	ft_putstr_fd(buf,fd);
+	exit(0);
 }
-*/
-/*int ft_env(t_minishell *all)
+
+void ft_env(char **env,int fd)
 {
 	int i;
 
 	i = -1;
-	if(all->env[1])
-		return(1);
-	while (all->env[++i])
-		printf("%s\n",all->env[i]);
-	return(0);
-}*/
+	while (env[++i])
+	{	
+		if(!ft_strncmp(env[i],"_=/Users/lbones/Desktop/my_minishel_private/./a.out",52))
+			ft_putstr_fd("_=/usr/bin/env",fd);
+		else
+			ft_putstr_fd(env[i],fd);
+		ft_putchar_fd('\n',fd);
+	}
+	exit(0);
+}
 
-/*int ft_cd(t_minishell *all)
+void ft_cd(t_command_and_flag *all,char **env)
 {
 	int i;
 	char buf[32000];
 	
-	getcwd(buf,32000);*/
-    /*
-	if(!buf)
-		return(1);
-    */
-	/*i = -1;
-	if(!all->env[1] || all->env[2])
-		return(1);
-	if(chdir(all->env[1])==-1)
-		return(1);
-	while(all->env[++i])
+	getcwd(buf,32000);
+	i = -1;
+	if(chdir(all->array_flags[1])==-1)
+		exit(1);
+	while(env[++i])
 	{
-		if(!ft_strncmp(all->env[i],"OLDPWD=",7))
+		if(!ft_strncmp(env[i],"OLDPWD=",7))
 		{
-			free(all->env[i]);
-			all->env[i]=buf;
+			free(env[i]);
+			env[i]=ft_strdup(buf);
 			break;
 		}
 	}
 	getcwd(buf,32000);
-	while(all->env[++i])
+	while(env[++i])
 	{
-		if(!ft_strncmp(all->env[i],"PWD=",4))
+		if(!ft_strncmp(env[i],"PWD=",4))
 		{
-			free(all->env[i]);
-			all->env[i]=buf;
+			free(env[i]);
+			env[i]=ft_strdup(buf);
 			break;
 		}
 	}
-	return(0);
-}*/
+	//free(buf);
+	exit(0);
+}

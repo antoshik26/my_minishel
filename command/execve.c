@@ -1,5 +1,21 @@
 #include "ft_minishell.h"
-
+void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1,char **env)
+{
+	if(!ft_strncmp(all->command,"/bin/pwd",9) && fd1)
+		ft_pwd(env,fd1);
+	if(!ft_strncmp(all->command,"/bin/pwd",9) && pipe_1!=0)
+		ft_pwd(env,pipe_1[1]);
+	if(!ft_strncmp(all->command,"/bin/pwd",9))
+		ft_pwd(env,0);
+	if(!ft_strncmp(all->command,"/usr/bin/env",13) && fd1)
+		ft_env(env,fd1);
+	if(!ft_strncmp(all->command,"/usr/bin/env",13) && pipe_1!=0)
+		ft_env(env,pipe_1[1]);
+	if(!ft_strncmp(all->command,"/usr/bin/env",13))
+		ft_env(env,0);
+	if(!ft_strncmp(all->command,"/usr/bin/cd",13))//in process
+		ft_cd(all,env);
+}
 pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, char **env)
 {
 	
@@ -8,6 +24,7 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, char
 	pid_t pid=fork();
 	if(!pid)
 	{
+		check_build_in(all,pipe_1,fd1,env);
 		if(pipe_1!=0)
 		{
 			dup2(pipe_1[1],1);
@@ -30,10 +47,7 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, char
 			dup2(fd2,0);
 			close(fd2);
 		}
-		if(!ft_strncmp(all->command,"/bin/pwd",9))
-			ft_pwd(env);
-		else
-			execve(all->command,all->array_flags,env);
+		execve(all->command,all->array_flags,env);
 	}
 	if(pipe_1!=0)
 	{
@@ -107,8 +121,6 @@ void find_function(int size,char **env,t_command_and_flag *head)
 	pid=malloc(sizeof(pid)*(size+1));
 	while(++i<=size)
 	{
-		//if(!strncmp(head->command,"/bin/pwd",9))
-		//	ft_pwd(env);
 		if(head->pape==MORE)
 		{
 			fd1=open(head->command,O_WRONLY|O_TRUNC);
@@ -156,7 +168,7 @@ void functions_launch(t_command_and_flag **head,char **env)
 	{
 		tmp=0;
 		current_head=number_of_pipes(&size,&current_head,&tmp);
-		//printf("%d\n",size);
+		printf("%d\n",size);
 		if(size==-1 && tmp->f_error)
 			printf("zsh: command not found:%s\n",tmp->command);//waiting for wrong command name abort with wrong command
 		else if(size>0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
