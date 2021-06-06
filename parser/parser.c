@@ -12,8 +12,17 @@ int shift_comand(char *command, t_minishell *all_command)
     i = 1;
     while (i != 0)
         i = read(fd, a, 1);
-    write(fd, command, ft_strlen(command));
-    write(fd, "\n", 1);
+    if (all_command->flag == 1)
+    {
+        write(fd, "\n", 1);
+        write(fd, command, ft_strlen(command));
+        all_command->flag = 0;
+    }
+    else
+    {
+        write(fd, "\n", 1);    
+        write(fd, command, ft_strlen(command));
+    }
     close(fd);
     i = 1;
     while(i < 15)

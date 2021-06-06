@@ -44,6 +44,8 @@ typedef struct s_minishell
     char *file_history;
     int onecovkey;
     int doublecovkey;
+    int flag;
+    int lvl;
     t_command_and_flag *head;
     t_term_sistem *term[2];
     t_term_sistem *term_until[2];
@@ -58,7 +60,7 @@ typedef struct s_list_pid
     int size;
     struct s_list_pid *next;
 }               t_list_pid;
-int parser_commands(char *command, t_minishell *all_command);
+int                 parser_commands(char *command, t_minishell *all_command);
 void                ft_putchar_fd(char c, int fd);
 void                ft_putstr_fd(char *s, int fd);;
 void                functions_launch(t_command_and_flag **head,char **env);
@@ -79,9 +81,9 @@ int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
 void               ft_pwd(char **env,int fd);
 void                ft_env(char **env,int fd);
-void ft_cd(t_command_and_flag *all,char **env);
+void                ft_cd(t_command_and_flag *all,char **env);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
-int                 cmd_manager(t_minishell *all_command);
+char                *cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);

@@ -40,8 +40,9 @@ int return_settings_term(t_minishell *all_command)
     return(0);
 }
 
-int cmd_manager(t_minishell *all_command)
+char *cmd_manager(t_minishell *all_command)
 {
+    char *command;
     save_sistem_term(all_command);
     //create_new_sistem_term(all_command);
     /*
@@ -53,7 +54,7 @@ int cmd_manager(t_minishell *all_command)
     termios_p_in.c_lflag &= ~(ECHO);
     tcsetattr(0, TCSANOW, &termios_p_in);
     */    
-    reeder_from_term(all_command);
-    return_settings_term(all_command);
-    return (0);
+    command = reeder_from_term(all_command);
+    //return_settings_term(all_command);
+    return (command);
 }

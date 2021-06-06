@@ -62,6 +62,7 @@ void print_command(t_minishell *command_list)
     command = command_list->head;
     while (command)
     {
+        printf("\n");
         printf("command name:|%s|\n", command->command);
         printf("pape:%d\n", command->pape);
         printf("error:%d\n",command->f_error);
@@ -119,6 +120,8 @@ int main(int argc,char **argv,char **env)
     all_command.term[0] = &term_in;
     all_command.term[1] = &term_out;
     all_command.path = find_path();
+    all_command.flag = 1;
+    all_command.lvl = 0;
     command = NULL;
     all_command.head = &command_and_flag;
     allocate(&all_command);
@@ -126,17 +129,30 @@ int main(int argc,char **argv,char **env)
     create_signal_controller();
     while(1 != 0)
     {
-        //cmd_manager(&all_command);
+        command = cmd_manager(&all_command);
         //return_settings_term(&all_command);
-        get_next_line(0, &command);
-        if (command != NULL)
+        //get_next_line(0, &command);
+        if (command == NULL)
+        {
+            if (all_command.lvl == 0)
+            {
+                break;
+            }
+            else
+            {
+                all_command.lvl--;
+            }
+        }
+        //нехватает системы lvlx
+        if (command[0] != '\0' || command != NULL)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
             functions_launch(&all_command.head, env);
+            free(command);
             rebut(&all_command);
         }
-        //написать смену файла tmp/lvl в зависимост от левла минишела
+        
     }
     rebut(&all_command);
     //return_settings_term(&all_command);
