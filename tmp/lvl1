@@ -1,7 +1,9 @@
 
 pwd
 cd ..
+cd ...
 cd ..
+<<<<<<< HEAD
 cd /gnl
 cd gnl
 pwd
@@ -62,3 +64,22 @@ unset TERM
 unset TERM
 unset _
 env
+=======
+cd ..
+cd ..
+cd ..
+ls
+ls -la
+ls -la
+ls
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+owd
+pwd
+pwd
+cd ..
+>>>>>>> 8c28db629b9a5d5aa84f0916242887f0d5d9d8a7
