@@ -126,7 +126,7 @@ int main(int argc,char **argv,char **env)
     all_command.head = &command_and_flag;
     allocate(&all_command);
     crete_or_cheak_file_history(&all_command, argv);
-    create_signal_controller();
+    //create_signal_controller();
     while(1 != 0)
     {
         command = cmd_manager(&all_command);
@@ -143,8 +143,8 @@ int main(int argc,char **argv,char **env)
                 all_command.lvl--;
             }
         }
-        //нехватает системы lvlx
-        if (command[0] != '\0' || command != NULL)
+        //нехватает системы lvlx 
+        if (ft_strlen(command) != 0 && command != NULL)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
