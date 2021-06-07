@@ -103,3 +103,46 @@ pwd
 pw
 pwd
 pwd
+
+cd ..
+cd ..
+pwd
+pwd
+pwd
+ls
+pwd
+ls -la
+cd /Users/dmadelei
+cd /Users/dmadelei
+cd ..
+ls
+pwd
+cd ..
+cd ..
+ls
+ls
+ls
+cat -e
+ls -la
+yes|head|wc
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+ls -la
+ls
+ls -la
+cd ..
+cd ..
+pwd
+cd ..
+pwd
+cd ..
+cd ..

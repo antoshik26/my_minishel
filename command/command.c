@@ -46,10 +46,12 @@ void ft_cd(t_command_and_flag *all,char **env)
 	char *tmp;
 	getcwd(buf,32000);
 	i = -1;
-	printf("%s",all->array_flags[1]);
+	ft_putstr_fd("sdfihbvjgfd \n", 0);
+	//printf("%s",all->array_flags[1]);
 	if(chdir(all->array_flags[1])==-1)
 	{
-		printf("wrong directory\n");
+		ft_putstr_fd("sdfihbvjgfd", 0);
+		//printf("wrong directory\n");
 		return;
 	}
 	while(env[++i])
@@ -63,6 +65,7 @@ void ft_cd(t_command_and_flag *all,char **env)
 			break;
 		}
 	}
+	ft_putstr_fd("sdfihbvjgfd\n", 0);
 	getcwd(buf,32000);
 	i=-1;
 	while(env[++i])
@@ -76,6 +79,7 @@ void ft_cd(t_command_and_flag *all,char **env)
 			break;
 		}
 	}
+	ft_putstr_fd("sdfihbvjgfd\n ", 0);
 	//free(buf);
 	//exit(0);
 }
