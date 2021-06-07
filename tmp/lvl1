@@ -61,3 +61,64 @@ l
 yes|head|wc
 yes|head|wc
 yes|head|wc;ls -la
+pwd
+env
+cd
+pwd
+cd|pwd
+cd|pwd
+cd
+pwd
+pwd
+
+cd
+pwd
+cd|pwd
+cd
+cd ..
+cd ..
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd
+cd chdir(all->array_flags[1])
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+pwd
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+lfl
+cd /Users/lbones/Desktop
+cd /Users/lbones/Desktop
+pwd
+pw
+pwd
+pwd
+
+p
+
+
+
+
+
+
+
+
+
+pwd
+pwd
+cd
+cd ..
+cd ..
+cd ..
+pwd
+ls
+cd ..
