@@ -14,7 +14,10 @@ void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1,char **env)
 	if(!ft_strncmp(all->command,"/usr/bin/env",13))
 		ft_env(env,0);
 	if(!ft_strncmp(all->command,"/usr/bin/cd",13))//in process
+	{	
 		ft_cd(all,env);
+		exit(0);
+	}
 }
 pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, char **env)
 {
@@ -173,6 +176,8 @@ void functions_launch(t_command_and_flag **head,char **env)
 			printf("zsh: command not found:%s\n",tmp->command);//waiting for wrong command name abort with wrong command
 		else if(size>0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 			find_function(size,env,tmp);
+		else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
+			ft_cd(tmp,env);
 		else if(size==0)
 		{	
 			pid = test(tmp,0,0,0,0,env);

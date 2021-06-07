@@ -4,9 +4,7 @@ void ft_pwd(char **env,int fd)
 {
 	int i;
 	int i1;
-	//char c;
 
-	//c='\n';
 	i = -1;
 	while(env[++i])
 	{
@@ -21,8 +19,6 @@ void ft_pwd(char **env,int fd)
 	}
 	char buf[32000];
 	getcwd(buf,32000);
-	//if(!buf)
-//		exit(1);
 	ft_putstr_fd(buf,fd);
 	exit(0);
 }
@@ -47,30 +43,39 @@ void ft_cd(t_command_and_flag *all,char **env)
 {
 	int i;
 	char buf[32000];
-	
+	char *tmp;
 	getcwd(buf,32000);
 	i = -1;
+	printf("%s",all->array_flags[1]);
 	if(chdir(all->array_flags[1])==-1)
-		exit(1);
+	{
+		printf("wrong directory\n");
+		return;
+	}
 	while(env[++i])
 	{
 		if(!ft_strncmp(env[i],"OLDPWD=",7))
 		{
-			free(env[i]);
-			env[i]=ft_strdup(buf);
+			tmp=env[i];
+			env[i]=ft_strjoin("OLDPWD=",buf);
+			//printf("%s\n",env[i]);
+			//free(tmp);
 			break;
 		}
 	}
 	getcwd(buf,32000);
+	i=-1;
 	while(env[++i])
 	{
 		if(!ft_strncmp(env[i],"PWD=",4))
 		{
-			free(env[i]);
-			env[i]=ft_strdup(buf);
+			tmp=env[i];
+			env[i]=ft_strjoin("PWD=",buf);
+			//printf("%s\n",env[i]);
+			//free(tmp);
 			break;
 		}
 	}
 	//free(buf);
-	exit(0);
+	//exit(0);
 }
