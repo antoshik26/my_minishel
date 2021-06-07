@@ -75,6 +75,7 @@ char *reeder_from_term(t_minishell *all_command)
     stat_1 = tcgetattr(0, &termios_p_in);
     termios_p_in.c_lflag &= ~(ICANON);
     termios_p_in.c_lflag &= ~(ECHO);
+    termios_p_in.c_lflag &= ~(ISIG);
     tcsetattr(0, TCSANOW, &termios_p_in);
     tgetent(0, term_name);
     history_slider = ft_strlen_history(all_command);
@@ -82,6 +83,7 @@ char *reeder_from_term(t_minishell *all_command)
     i = 0;
     //https://docs.google.com/document/d/1OzX0XRMcIUvCoE5ZTidod0K6yN3Kfs0wH0k-jTz45Lk/edit#
     //tputs(tgoto(tgetstr("cm", &buffer), 2, 2), 1, ft_putint);
+    write(1, "minishell$ ", 11);
     tputs(save_cursor, 1, ft_putchar);
     while (1 != 0)
     {
@@ -97,8 +99,10 @@ char *reeder_from_term(t_minishell *all_command)
                 write(1, history_line, ft_strlen(history_line));
                 history_slider--;
                 free(command);
+                command[0] = '\0';
                 command = ft_strjoin(command, history_line);
                 free(history_line);
+                i = ft_strlen(command);
             }
         }
         else if(!strcmp(str, "\e[B"))
@@ -111,8 +115,10 @@ char *reeder_from_term(t_minishell *all_command)
                 write(1, history_line, ft_strlen(history_line));
                 history_slider++;
                 free(command);
+                command[0] = '\0';
                 command = ft_strjoin(command, history_line);
                 free(history_line);
+                i = ft_strlen(command);
             }
         }
         else if (!strcmp(str, "\e[C"))
@@ -125,12 +131,17 @@ char *reeder_from_term(t_minishell *all_command)
         }
         else if (!strcmp(str, "\177"))
         {
-            tputs(cursor_left, 1, ft_putchar);
-            tputs(tgetstr("dc", 0), 1, ft_putchar);
-            command[ft_strlen(command) - 1] = '\0';
+            if (i != 0)
+            {
+                tputs(cursor_left, 1, ft_putchar);
+                tputs(tgetstr("dc", 0), 1, ft_putchar);
+                command[ft_strlen(command) - 1] = '\0';
+                i--;
+            }
         }
         else if (!strcmp(str, "\n"))
         {
+            write(1, "\n", 1);
             break ;
         }
         else if(!strcmp(str, "\4"))
@@ -138,6 +149,16 @@ char *reeder_from_term(t_minishell *all_command)
             if (ft_strlen(command) == 0)
                 command = NULL;
             break ;
+        }
+        else if(!strcmp(str, "\3"))
+        {
+            tputs(restore_cursor, 1, ft_putchar);
+            tputs(tigetstr("ed"), 1, ft_putchar);
+            write(1, "\n", 1);
+            free(command);
+            command  = malloc(sizeof(char) * 1);
+            command[0] = '\0';
+            break;
         }
         else
         {

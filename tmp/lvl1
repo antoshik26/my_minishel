@@ -61,6 +61,7 @@ l
 yes|head|wc
 yes|head|wc
 yes|head|wc;ls -la
+<<<<<<< HEAD
 pwd
 env
 cd
@@ -104,6 +105,34 @@ pwd
 pwd
 
 p
+=======
+yes
+yes
+ls -la
+ls
+yes|head|wc
+lyesyes|head|wc;ls -layes|head|wc;ls -layesls -la4yes|head|wclsyes|head|wcyes|head|wclsyes|head|wcyes|head|wclsls -lapwd
+pwd
+env
+pwd
+pwd
+pwdpwdenv
+pwdpwdenvpwdpwdpwdenvpwd
+pwdpwdenvpwdpwdpwdenvpwdpwdpwdenvpwdenvyes|head|wcpwdlspwdenvenvpwdpwdpwdenvpwdpwdenvpwdpwdpwdenvpwdpwdpwdenvpwdpwdpwdenvpwdpwdpwdenvpwdenv
+pwd>a
+env>a
+env|wc
+dfgffsadfadf
+ls -la
+sdfghpdsfgsdfg
+sdfgl]psdflg]sd
+sdpflg]spdflg]psd
+spflg]sdlfg]pls
+s]dpfgl]spdlfg]p
+sdpfgl]sddlfg
+ls
+
+>>>>>>> cd935193dafa53a0a84546d1e9714667a935a1eb
 
 
 
@@ -113,12 +142,26 @@ p
 
 
 
+<<<<<<< HEAD
 pwd
 pwd
 cd
 cd ..
 cd ..
 cd ..
+pwd
+ls
+cd ..
+=======
+sdfpkgs]dpfgl]spdlfg]psdfgh
+sdfpkgs]dpfgl]spdlfg]psdfgh
+sdfpkgs]dpfgl]spdlfg]psdfgh
+sdfpkgs]dpfgl]spdlfg]psdfgh
+sdfpkgs]dpfgl]spdlfg]psdfgh
+sdfpkgs]dpfgl]spdlfg]psdfgh
+ewpirtg0weriwerijw
+>>>>>>> cd935193dafa53a0a84546d1e9714667a935a1eb
+
 pwd
 ls
 cd ..

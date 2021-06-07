@@ -30,7 +30,10 @@ void ft_env(char **env,int fd)
 	i = -1;
 	while (env[++i])
 	{	
-		ft_putstr_fd(env[i],fd);
+		//if(!ft_strncmp(env[i],"_=/Users/lbones/Desktop/my_minishel_private/./a.out",52))
+		//	ft_putstr_fd("_=/usr/bin/env",fd);
+		//else
+			ft_putstr_fd(env[i],fd);
 		ft_putchar_fd('\n',fd);
 	}
 	exit(0);
