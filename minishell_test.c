@@ -603,4 +603,4 @@ int getchoice (char *greet, char *choices[], FILE *in, FILE *out) {
 
 }
 */
-stty -a
+//stty -a

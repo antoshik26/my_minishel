@@ -126,7 +126,7 @@ int main(int argc,char **argv,char **env)
     all_command.head = &command_and_flag;
     allocate(&all_command);
     crete_or_cheak_file_history(&all_command, argv);
-    //create_signal_controller();
+    create_signal_controller();
     while(1 != 0)
     {
         command = cmd_manager(&all_command);
