@@ -83,9 +83,12 @@ int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
     char *path;
     int len;
     int fd;
+    char **a;
 
-    path = argv[0];
+    a = argv;
+    path = getenv("PWD");
     len = ft_strlen(path);
+    /*
     while(len)
     {
         if (path[len] == '/')
@@ -95,6 +98,7 @@ int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
         }
         len--;
     }
+    */
     path = ft_strjoin(path, "/tmp/lvl1");
     fd = open(path, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
     if (fd == -1)

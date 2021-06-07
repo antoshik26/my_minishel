@@ -177,10 +177,7 @@ void functions_launch(t_command_and_flag **head,char **env)
 		else if(size>0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 			find_function(size,env,tmp);
 		else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
-		{
 			ft_cd(tmp,env);
-			ft_putstr_fd("a\n", 0);
-		}
 		else if(size==0)
 		{	
 			pid = test(tmp,0,0,0,0,env);
