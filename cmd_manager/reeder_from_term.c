@@ -18,10 +18,10 @@ int ft_strlen_history(t_minishell *all_command)
     fd = open(all_command->file_history, O_RDONLY);
     while (get_next_line(fd, &line) != 0)
     {
-        free(line);
+        //free(line);
         histori_slider++;
     }
-    free(line);
+    //free(line);
     close(fd);
     return (histori_slider);
 }
@@ -62,7 +62,6 @@ char *reeder_from_term(t_minishell *all_command)
 
     tcgetattr(fileno(stdin), &termios_und);
     a = all_command;
-    history_slider = 15;
     command = (char *)malloc(sizeof(char) * 1);
     command[0] = '\0';
     if (!isatty(fileno(stdin)))
@@ -78,7 +77,8 @@ char *reeder_from_term(t_minishell *all_command)
     termios_p_in.c_lflag &= ~(ISIG);
     tcsetattr(0, TCSANOW, &termios_p_in);
     tgetent(0, term_name);
-    history_slider = ft_strlen_history(all_command);
+    history_slider = 15;
+    //history_slider = ft_strlen_history(all_command);
     str = (char *)malloc(sizeof(char) * 101);
     i = 0;
     //https://docs.google.com/document/d/1OzX0XRMcIUvCoE5ZTidod0K6yN3Kfs0wH0k-jTz45Lk/edit#

@@ -1,0 +1,64 @@
+
+pwd
+cd ..
+cd ..
+cd /gnl
+cd gnl
+pwd
+cd /Users/lbones/Desktop/my_minishel_pri
+cd .
+pwd
+cd .
+pwd
+cd ../my_minishel_private/.
+pwd
+cd ../..
+cd ..
+export
+export
+l
+cat k
+pwd
+cd /gnlmake test
+export
+cd ..
+cd ../../..
+echo -n -n
+cd ..
+echo -n "hello" "world"
+echo "jel"
+echo "k"|wc
+export
+export
+export
+export
+export
+export
+export
+cd ..
+export
+make test
+export
+export
+export
+env
+unset TERM
+env
+unset TERM
+unset TERM
+env
+unset _
+env
+unse TERM
+unset TERM
+
+cd /Users/lbones/Desktop/my_minishel_pri
+cd .
+
+;
+exit
+unset TERM
+
+unset TERM
+unset _
+env
