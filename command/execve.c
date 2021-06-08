@@ -1,19 +1,29 @@
 #include "ft_minishell.h"
 void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1,char **env)
 {
+	//pwd
 	if(!ft_strncmp(all->command,"/bin/pwd",9) && fd1)
 		ft_pwd(env,fd1);
 	if(!ft_strncmp(all->command,"/bin/pwd",9) && pipe_1!=0)
 		ft_pwd(env,pipe_1[1]);
 	if(!ft_strncmp(all->command,"/bin/pwd",9))
 		ft_pwd(env,0);
+	//env
 	if(!ft_strncmp(all->command,"/usr/bin/env",13) && fd1)
 		ft_env(env,fd1);
 	if(!ft_strncmp(all->command,"/usr/bin/env",13) && pipe_1!=0)
 		ft_env(env,pipe_1[1]);
 	if(!ft_strncmp(all->command,"/usr/bin/env",13))
 		ft_env(env,0);
-	if(!ft_strncmp(all->command,"/usr/bin/cd",13))//in process
+	//echo
+	if(!ft_strncmp(all->command,"/bin/echo",10)&& fd1)
+		ft_echo(all,fd1);
+	if(!ft_strncmp(all->command,"/bin/echo",10)&& pipe_1!=0)
+		ft_echo(all,pipe_1[1]);
+	if(!ft_strncmp(all->command,"/bin/echo",10))
+		ft_echo(all,0);
+	//cd
+	if(!ft_strncmp(all->command,"/usr/bin/cd",13))
 	{	
 		ft_cd(all,env);
 		exit(0);
@@ -70,7 +80,7 @@ t_command_and_flag *number_of_pipes(int *size,t_command_and_flag **head1,t_comma
 	if(head->pape==MORE || head->pape==DOUBLE_MORE)
 		*size=-1;
 	ft_list_push_front(new_head,head);
-	if(!head->f_error)
+	if(!head->f_error || !ft_strncmp(head->command,"export",7)||!ft_strncmp(head->command,"unset",6))
 		head=head->next;
 	else
 	{
@@ -157,7 +167,6 @@ void find_function(int size,char **env,t_command_and_flag *head)
 		free(pipe[i]);
 		free(pipe);
 	}
-	//close(fd2);
 }
 void functions_launch(t_command_and_flag **head,char **env)
 {
@@ -173,7 +182,11 @@ void functions_launch(t_command_and_flag **head,char **env)
 		tmp=0;
 		current_head=number_of_pipes(&size,&current_head,&tmp);
 		printf("%d\n",size);
-		if(size==-1 && tmp->f_error)
+		if(!ft_strncmp(tmp->command,"export",7))
+			ft_export(tmp,env,0);
+		if(!ft_strncmp(tmp->command,"unset",6))
+			ft_unset(tmp,env);
+		else if(size==-1 && tmp->f_error)
 			printf("zsh: command not found:%s\n",tmp->command);//waiting for wrong command name abort with wrong command
 		else if(size>0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 			find_function(size,env,tmp);
@@ -187,52 +200,3 @@ void functions_launch(t_command_and_flag **head,char **env)
 		ft_list_clear(tmp);
 	}
 }
-
-/*int main(int argc,char **argv,char **env)
-{
-	//function_lounch test
-	//t_minishell *all;
-	argc=0;
-	printf("%s\n\n",argv[0]);
-	//free(argv[0]);
-	//char *a[2];
-	//a[1] = argv[0];
-	//a[2]=NULL;
-	t_command_and_flag *head1;
-	t_command_and_flag *head2;
-	t_command_and_flag *head3;
-	t_command_and_flag *head4;
-	//all=malloc(sizeof(t_minishell));
-	head1 = malloc(sizeof(t_command_and_flag));
-	head2 = malloc(sizeof(t_command_and_flag));
-	head3 = malloc(sizeof(t_command_and_flag));
-	head4 = malloc(sizeof(t_command_and_flag));
-	head1->command=ftstrdup("/usr/bin/wc");
-	head1->next=0;
-	head1->pape=1;
-	head1->f_error=0;
-	head2->command=ftstrdup("/bin/ls");
-	head2->next=0;
-	head2->pape=5;
-	head2->f_error=0;
-	head3->command=ftstrdup("/bin/ls");
-	head3->next=0;
-	head3->pape=1;
-	head3->f_error=0;
-	head4->command=NULL;
-	//char a[3];
-	head4->array_flags=malloc(sizeof(3));
-	head4->array_flags[0]=argv[0];
-	head4->array_flags[1]="k";
-	head4->array_flags[2]=0;
-	head4->next=0;
-	head4->pape=4;
-	head4->f_error=0;
-	head1->next=head3;
-	head1->array_flags=argv;
-	head2->array_flags=argv;
-	head3->array_flags=argv;
-	//head3->next=head4;
-	functions_launch(&head1,env);
-
-}*/

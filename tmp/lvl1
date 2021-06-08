@@ -1,75 +1,5 @@
-cd ..
-cd ..
 
-ls
+pwd
 cd ..
 cd ...
 cd ..
-cd ..
-cd ..
-cd ..
-ls
-ls -la
-ls -la
-ls
-cd ..
-cd ..
-cd ..
-cd ..
-cd ..
-cd ..
-owd
-pwd
-pwd
-cd ..
-cd ..
-cd ..
-cd ..
-cd ..
-yes|head|wc
-ls>a
-ls>b
-diff a b
-diff "a" "b"
-echo -n "sdfgsdfg" "asdfgdsfg"
-echo -n "sdfgsdfg" "asdfgdsfg"
-echo -n "sdfgsdfg" "asdfgdsfg
-cd ..
-cd ..
-cd ..
-cd ..
-cd ..
-pwd
-cd ..
-cd ..c
-cd ..
-pwd
-sdghkjdfpkgmhdpf
-sdghkjdfpkgmhdpf
-spfkg[psd[3~
-[osdkg[ksd
-spdfkg]psdlf
-spdkfg[plksdf
-sd[fkgp]sdkfg
-sd[fkgp]sdkfg
-s;fkd
-cat
-cat
-cat
-cat
-cat
-cat
-s;ifghdsp
-cat -e
-cat -e
-cat -e
-cat
-cat
-cat 
-cat 
-cat
-cat
-cat
-cat
-cat
-cat
