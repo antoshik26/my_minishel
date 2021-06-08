@@ -10,28 +10,23 @@ int create_term_win(t_minishell *all_command)
 
 int ft_strlen_history(t_minishell *all_command)
 {
-    int histori_slider;
+    int history_slider;
     int fd;
     char *line;
 
-    histori_slider = 0;
+    history_slider = 0;
     fd = open(all_command->file_history, O_RDONLY);
-    if (fd < 0)
-    {
-        printf("%s\n", all_command->file_history);    
-    }
-    printf("%s\n", all_command->file_history); 
     while (get_next_line(fd, &line) != 0)
     {
-        //free(line);
-        histori_slider++;
+        free(line);
+        history_slider++;
     }
-    //free(line);
+    free(line);
     close(fd);
-    return (histori_slider);
+    return (history_slider);
 }
 
-char *reader_history_line(t_minishell *all_command, int histori_slider)
+char *reader_history_line(t_minishell *all_command, int history_slider)
 {
     char *history_line;
     int fd;
@@ -39,7 +34,7 @@ char *reader_history_line(t_minishell *all_command, int histori_slider)
 
     i = 0;
     fd = open(all_command->file_history, O_RDONLY);
-    while (i < histori_slider)
+    while (i < history_slider)
     {
         get_next_line(fd, &history_line);
         free(history_line);

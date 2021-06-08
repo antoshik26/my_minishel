@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-int  g_global_pid;
+
 
 void rebut(t_minishell *all_command)
 {
@@ -88,17 +88,6 @@ int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
     a = argv;
     path = getenv("PWD");
     len = ft_strlen(path);
-    /*
-    while(len)
-    {
-        if (path[len] == '/')
-        {
-            path[len] = '\0';
-            break ;
-        }
-        len--;
-    }
-    */
     path = ft_strjoin(path, "/tmp/lvl1");
     fd = open(path, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
     if (fd == -1)

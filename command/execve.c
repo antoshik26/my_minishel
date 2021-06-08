@@ -25,6 +25,7 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, char
 	if(pipe_2!=0)
 		pipe(pipe_2);
 	pid_t pid=fork();
+	 g_global_pid = pid; /// add global pid
 	if(!pid)
 	{
 		check_build_in(all,pipe_1,fd1,env);

@@ -3,14 +3,24 @@
 void signal_manager(int sig)
 {
     int i;
-    int global_pid;
-    char *line;
 
     i = 0;
-    global_pid = 0;
+    if (g_global_pid != 0 && sig == SIGINT)
+    {
+        kill(g_global_pid, sig);
+        write(1, "\n", 1);
+        g_global_pid = 0;
+    }
+    if (g_global_pid != 0 && sig == SIGQUIT)
+    {
+        kill(g_global_pid, sig);
+        write(1, "Quit: 3\n", 8);
+        g_global_pid = 0;
+    }
+    /*
     if (sig == SIGINT) //ctrl-c
     {
-        if (global_pid != 0)
+        if (g_global_pid != 0)
         {
             write(1, "\n", 1);
         }
@@ -29,11 +39,11 @@ void signal_manager(int sig)
     }
     if (sig == SIGQUIT) //ctrl-/
     {
-        if (global_pid != 0)
+        if (g_global_pid != 0)
         {
-            kill(global_pid, sig);
+            kill(g_global_pid, sig);
             write(1, "Quit: 3\n", 8);
             global_pid = 0;
         }
-    }
+    }*/
 }

@@ -19,7 +19,7 @@
 # define DOUBLE_MORE    3 
 # define LESS           4
 # define SEMICOLON      5
-
+pid_t  g_global_pid;
 typedef struct s_term_sistem
 {
     struct termios *term;

@@ -236,8 +236,9 @@ int	ft_putchar(int c)
 {
 	return (write(1, &c, 1));
 }
+//написать strcmp
 /*
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int		ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	len_s1;
 	size_t	len_s2;
@@ -246,22 +247,12 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	if (n > len_s1 || n > len_s2)
+	while (i != (len_s1 + 1) || i != (len_s2 + 1))
 	{
-		while (i != (len_s1 + 1) || i != (len_s2 + 1))
-		{
-			if (s1[i] != s2[i])
-				return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-			i++;
-		}
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
-	else
-		while (i != n)
-		{
-			if (s1[i] != s2[i])
-				return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-			i++;
-		}
 	return (0);
 }
 */

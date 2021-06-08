@@ -165,7 +165,19 @@ int check_stat_file(t_command_and_flag *command)
     }
     return (i_stat);
 }
+/*
+int check_stat_build_in(t_command_and_flag *command)
+{
+    int stat;
 
+    stat = -1;
+    if (ft_strcmp() || ft_strcmp() || )
+    {
+
+    }
+    return (stat);
+}
+*/
 int *stat_command(t_minishell *all_command)
 {
     int i_stat;
@@ -175,6 +187,11 @@ int *stat_command(t_minishell *all_command)
     while (command)
     {
         i_stat = -1;
+        /*
+        if (check_stat_build_in(command) = 1)
+        {
+        }
+        */
         if (command->pape == DOUBLE_MORE || command->pape == MORE || command->pape == LESS)
             i_stat = check_stat_file(command);
         else
