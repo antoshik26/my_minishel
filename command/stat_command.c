@@ -165,19 +165,26 @@ int check_stat_file(t_command_and_flag *command)
     }
     return (i_stat);
 }
-/*
+
 int check_stat_build_in(t_command_and_flag *command)
 {
     int stat;
 
     stat = -1;
-    if (ft_strcmp() || ft_strcmp() || )
+    if (!ft_strncmp(command->command, "echo", 4) ||
+    !ft_strncmp(command->command, "cd", 2) ||
+    !ft_strncmp(command->command, "pwd", 3) ||
+    !ft_strncmp(command->command, "minishell", 9) ||
+    !ft_strncmp(command->command, "export", 6) ||
+    !ft_strncmp(command->command, "unser", 5) ||
+    !ft_strncmp(command->command, "env", 3) ||
+    !ft_strncmp(command->command, "exit", 4))
     {
-
+        stat = 1;
     }
     return (stat);
 }
-*/
+
 int *stat_command(t_minishell *all_command)
 {
     int i_stat;
@@ -188,8 +195,11 @@ int *stat_command(t_minishell *all_command)
     {
         i_stat = -1;
         /*
-        if (check_stat_build_in(command) = 1)
+        if (check_stat_build_in(command) == 1)
         {
+            command->f_error = 0;
+            command = command->next;
+            continue ; 
         }
         */
         if (command->pape == DOUBLE_MORE || command->pape == MORE || command->pape == LESS)

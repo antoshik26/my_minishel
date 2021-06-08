@@ -3,6 +3,7 @@ a
 a.out
 a.out.dSYM
 auxiliary_functions
+b
 cmd_manager
 command
 ft_minishell.c

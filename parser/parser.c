@@ -1,5 +1,55 @@
 #include "ft_minishell.h"
 
+int ft_clear_command_from_kov(t_minishell *all_command, t_command_and_flag *command)
+{
+    int i;
+    int j;
+    int len;
+    int k;
+    //int onecovkey;
+    //int doublecovkey;
+
+    j = 0;
+    i = 0;
+    while (command->command[i])
+    {
+        if (command->command[i] == '\'' && all_command->doublecovkey != 1)
+        {
+            if (all_command->onecovkey == 0)
+                all_command->onecovkey = 1;
+            else
+                all_command->onecovkey = 0;
+            j = i;
+            k = 0;
+            len = ft_strlen(&command->command[i]);
+            while(k < len)
+            {
+                command->command[j] = command->command[j + 1];
+                j++;
+                k++;
+            }
+        }
+        if (command->command[i] == '\"' && all_command->onecovkey != 1)
+        {
+            if (all_command->doublecovkey == 0)
+                all_command->doublecovkey = 1;
+            else
+                all_command->doublecovkey = 0;
+            j = i;
+            k = 0;
+            len = ft_strlen(&command->command[i]);
+            while(k < len)
+            {
+                command->command[j] = command->command[j + 1];
+                j++;
+                k++;
+            }
+        }
+        i++;
+    }
+    return (0);
+}
+
 int shift_comand(char *command, t_minishell *all_command)
 {
     int i;
@@ -97,11 +147,14 @@ int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
 {
     int i;
     int j;
+    int k;
 
     i = 0;
     j = 0;
+    k = 0;
     while (one_command->flags[i] == ' ')
         i++;
+    //k = i;
     while (one_command->flags[i])
     {
         if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
@@ -111,6 +164,7 @@ int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
             else
                 all_command->onecovkey = 0;
             i++;
+            continue ;
         }
         if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
         {
@@ -119,9 +173,11 @@ int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
             else
                 all_command->doublecovkey = 0;
             i++;
+            continue ;
         }
         if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1) || (one_command->flags[i + 1] == '\0'))
-            j++;
+            //if (i != k)
+                j++;
         i++;
     }
     one_command->array_flags = (char **)malloc(sizeof(char *) * (j + 2));
@@ -202,10 +258,11 @@ int create_list_command(char *command, t_minishell *all_command, int pipe)
 {
     t_command_and_flag *new_command;
     new_command = ft_lstnew(command, pipe);
-   // ft_lstadd_front(&all_command->head, new_command);
-   ft_lstadd_back(&all_command->head, new_command);
+    // ft_lstadd_front(&all_command->head, new_command);
+    ft_lstadd_back(&all_command->head, new_command);
     return (0);
 }
+
 
 
 int parser_command(t_minishell *all_command)
@@ -234,6 +291,7 @@ int parser_command(t_minishell *all_command)
                 else
                     all_command->onecovkey = 0;
                 i++;
+                continue ;
             }
             if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
             {
@@ -242,6 +300,7 @@ int parser_command(t_minishell *all_command)
                 else
                     all_command->doublecovkey = 0;
                 i++;
+                continue ;
             }
             if (one_command->command_and_flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1)
                 break ;
@@ -256,6 +315,7 @@ int parser_command(t_minishell *all_command)
             k++;
         }
         one_command->command[j] = '\0';
+        ft_clear_command_from_kov(all_command, one_command);
         j = 0;
         one_command->flags = (char *)malloc(sizeof(char) * (len - i + 1));
         while(i < len)
