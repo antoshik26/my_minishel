@@ -6,8 +6,6 @@ int ft_clear_command_from_kov(t_minishell *all_command, t_command_and_flag *comm
     int j;
     int len;
     int k;
-    //int onecovkey;
-    //int doublecovkey;
 
     j = 0;
     i = 0;
@@ -49,6 +47,66 @@ int ft_clear_command_from_kov(t_minishell *all_command, t_command_and_flag *comm
     }
     return (0);
 }
+
+int ft_clear_flags_from_kov(t_minishell *all_command)
+{
+    int i;
+    int j;
+    int len;
+    int k;
+    int l;
+    t_command_and_flag *command;
+
+    command = all_command->head;
+    while (command)
+    {
+        i = 0;
+        while (command->array_flags[i])
+        {
+            j = 0;
+            while (command->array_flags[i][j])
+            {
+                if (command->array_flags[i][j] == '\'' && all_command->doublecovkey != 1)
+                {
+                    if (all_command->onecovkey == 0)
+                        all_command->onecovkey = 1;
+                    else
+                        all_command->onecovkey = 0;
+                    l = j;
+                    k = 0;
+                    len = ft_strlen(&command->array_flags[i][j]);
+                    while(k < len)
+                    {
+                        command->array_flags[i][l] = command->array_flags[i][l + 1];
+                        l++;
+                        k++;
+                    }
+                }
+                if (command->array_flags[i][j] == '\"' && all_command->onecovkey != 1)
+                {
+                    if (all_command->doublecovkey == 0)
+                        all_command->doublecovkey = 1;
+                    else
+                        all_command->doublecovkey = 0;
+                    l = j;
+                    k = 0;
+                    len = ft_strlen(&command->array_flags[i][j]);
+                    while(k < len)
+                    {
+                        command->array_flags[i][l] = command->array_flags[i][l + 1];
+                        l++;
+                        k++;
+                    }
+                }
+                j++;
+            }
+            i++;
+        }
+        command = command->next;
+    }
+    return (0);
+}
+
 
 int shift_comand(char *command, t_minishell *all_command)
 {
@@ -131,6 +189,8 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
             env_varianles = getenv(name_varianled);
             command = replacement(command, &i, j--, env_varianles);
         }
+        if (command[i] == '\0')
+            break ;
         i++;
     }
     return (command);
@@ -154,29 +214,33 @@ int split_flags(t_command_and_flag *one_command, t_minishell *all_command)
     k = 0;
     while (one_command->flags[i] == ' ')
         i++;
-    //k = i;
+    k = i;
     while (one_command->flags[i])
     {
-        if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
+        if (one_command->flags[i] == '\'' && all_command->doublecovkey == 0)
         {
             if (all_command->onecovkey == 0)
                 all_command->onecovkey = 1;
             else
                 all_command->onecovkey = 0;
+            if (one_command->flags[i + 1] == '\0')
+                j++;
             i++;
             continue ;
         }
-        if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
+        if (one_command->flags[i] == '\"' && all_command->onecovkey == 0)
         {
             if (all_command->doublecovkey == 0)
                 all_command->doublecovkey = 1;
             else
                 all_command->doublecovkey = 0;
+            if (one_command->flags[i + 1] == '\0')
+                j++;
             i++;
             continue ;
         }
         if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1) || (one_command->flags[i + 1] == '\0'))
-            //if (i != k)
+            if (i != k)
                 j++;
         i++;
     }
@@ -212,25 +276,62 @@ int parser_flags(t_minishell *all_command)
                 j++;
                 i++;
             }
-            if (one_command->command_and_flags[i] == '\'' && all_command->doublecovkey == 0)
+            if (one_command->flags[i] == '\'' && all_command->doublecovkey == 0)
             {
                 if (all_command->onecovkey == 0)
                     all_command->onecovkey = 1;
                 else
                     all_command->onecovkey = 0;
+                if (one_command->flags[i + 1] == '\0')
+                {
+                    i++;
+                    one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+                    if (one_command->array_flags[k] == NULL)
+                        return (-1);
+                    z = 0;
+                    while (j < i)
+                    {
+                        one_command->array_flags[k][z] = one_command->flags[j];
+                        z++;
+                        j++;
+                    }
+                    one_command->array_flags[k][z] = '\0';
+                    k++;
+                    j = i;
+                    i++;
+                    break ;
+                }
                 i++;
             }
-            if (one_command->command_and_flags[i] == '\"' && all_command->onecovkey == 0)
+            if (one_command->flags[i] == '\"' && all_command->onecovkey == 0)
             {
                 if (all_command->doublecovkey == 0)
                     all_command->doublecovkey = 1;
                 else
                     all_command->doublecovkey = 0;
-                i++;
-            }
-            if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1) || one_command->flags[i + 1] == '\0')
-            {
                 if (one_command->flags[i + 1] == '\0')
+                {
+                    i++;
+                    one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+                    if (one_command->array_flags[k] == NULL)
+                        return (-1);
+                    z = 0;
+                    while (j < i)
+                    {
+                        one_command->array_flags[k][z] = one_command->flags[j];
+                        z++;
+                        j++;
+                    }
+                    one_command->array_flags[k][z] = '\0';
+                    k++;
+                    j = i;
+                    i++;
+                    break ;
+                }
+            }
+            if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1 && j != i) || (one_command->flags[i + 1] == '\0' && j != i))
+            {
+                if (one_command->flags[i + 1] == '\0' && one_command->flags[i] != ' ')
                     i++;
                 one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
                 if (one_command->array_flags[k] == NULL)
@@ -250,6 +351,7 @@ int parser_flags(t_minishell *all_command)
         }
         one_command->array_flags[k] = NULL;
         one_command = one_command->next;
+        //ft_clear_flags_from_kov(all_command);
     }
     return (0);
 }
@@ -361,6 +463,8 @@ int parser_commands(char *command, t_minishell *all_command)
                 all_command->onecovkey = 1;
             else
                 all_command->onecovkey = 0;
+            if (command[i + 1] == '\0')
+                break;
             i++;
             
         }
@@ -370,6 +474,8 @@ int parser_commands(char *command, t_minishell *all_command)
                 all_command->doublecovkey = 1;
             else
                 all_command->doublecovkey = 0;
+            if (command[i + 1] == '\0')
+                break;
             i++;
         }
         if (all_command->onecovkey != 1 && all_command->doublecovkey != 1)
@@ -403,11 +509,24 @@ int parser_commands(char *command, t_minishell *all_command)
             }
             if (command[i] == '<')
             {
-                new_command = create_command(command, i, j);
-                create_list_command(new_command, all_command, pipe);
-                pipe = LESS;
-                i++;
-                j = i;
+
+                if (command[i + 1] == '<')
+                {
+                    new_command = create_command(command, i, j);
+                    create_list_command(new_command, all_command, pipe);
+                    pipe = DOUBLE_LESS;
+                    i = i + 2;
+                    j = i;
+                }
+                else
+                {
+                    new_command = create_command(command, i, j);
+                    create_list_command(new_command, all_command, pipe);
+                    pipe = LESS;
+                    i++;
+                    j = i;
+                }
+                
             }
             if (command[i] == ';')
             {

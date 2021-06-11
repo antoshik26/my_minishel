@@ -134,6 +134,7 @@ int main(int argc,char **argv,char **env)
             else
             {
                 all_command.lvl--;
+                write(1, "\n", 1);
             }
         }
         //нехватает системы lvlx 

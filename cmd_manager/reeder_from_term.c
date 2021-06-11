@@ -34,7 +34,7 @@ char *reader_history_line(t_minishell *all_command, int history_slider)
 
     i = 0;
     fd = open(all_command->file_history, O_RDONLY);
-    while (i < history_slider)
+    while (i != history_slider)
     {
         get_next_line(fd, &history_line);
         free(history_line);
@@ -52,7 +52,7 @@ char *reeder_from_term(t_minishell *all_command)
     char *str;
     char *command;
     char *term_name;
-    //char *tmp;
+    char *tmp;
     int history_slider;
     char *history_line;
     void *a;
@@ -98,8 +98,11 @@ char *reeder_from_term(t_minishell *all_command)
                 write(1, history_line, ft_strlen(history_line));
                 history_slider--;
                 free(command);
+                command = (char *)malloc(sizeof(char) * 1);
                 command[0] = '\0';
+                tmp = command;
                 command = ft_strjoin(command, history_line);
+                free(tmp);
                 free(history_line);
                 i = ft_strlen(command);
             }
@@ -114,8 +117,11 @@ char *reeder_from_term(t_minishell *all_command)
                 write(1, history_line, ft_strlen(history_line));
                 history_slider++;
                 free(command);
+                command = (char *)malloc(sizeof(char) * 1);
                 command[0] = '\0';
+                tmp = command;
                 command = ft_strjoin(command, history_line);
+                free(tmp);
                 free(history_line);
                 i = ft_strlen(command);
             }
@@ -146,8 +152,10 @@ char *reeder_from_term(t_minishell *all_command)
         else if(!strcmp(str, "\4"))
         {
             if (ft_strlen(command) == 0)
+            {
                 command = NULL;
-            break ;
+                break ;
+            }
         }
         else if(!strcmp(str, "\3"))
         {
@@ -161,9 +169,9 @@ char *reeder_from_term(t_minishell *all_command)
         }
         else
         {
-            //tmp = command;
+            tmp = command;
             command = ft_strjoin(command, str);
-            //free(tmp);
+            free(tmp);
             write(1, str, len);
             i++;    
         }

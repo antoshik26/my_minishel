@@ -19,7 +19,10 @@
 # define DOUBLE_MORE    3 
 # define LESS           4
 # define SEMICOLON      5
-pid_t  g_global_pid;
+# define DOUBLE_LESS    6
+
+pid_t  g_global_pid; //как же криво работают сигналы
+
 typedef struct s_term_sistem
 {
     struct termios *term;
@@ -52,7 +55,6 @@ typedef struct s_minishell
     struct winsize *win;
     char **env;
     char **path;
-    int  g_global_pid; //как же криво работают сигналы
 }               t_minishell;
 typedef struct s_list_pid
 {
