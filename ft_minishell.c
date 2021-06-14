@@ -124,9 +124,28 @@ void changes_path_history(t_minishell *all_command)
 t_env *allocate_env(char **env)
 {
     t_env *env1;
+    int i;
+    int i1;
+
+    i=-1;
     env1=malloc(sizeof(t_env));
     env1->env=ft_strdup_array_of_strings(env);
     env1->env_lvl=0;
+    while (env[++i]){};
+    env1->keys=(char**)malloc(sizeof(char*)*(i+1));
+	env1->values=(char**)malloc(sizeof(char*)*(i+1));
+    i=-1;
+	while (env[++i])
+	{
+        i1=-1;	
+        while(env[i][++i1]!='='){};
+        env1->env[i][i1]='\0';
+        env1->keys[i]=ft_strdup(env1->env[i]);
+        env1->env[i][i1]='=';
+        env1->values[i]=ft_strdup(&env1->env[i][++i1]);
+    }
+    env1->values[i]=0;
+    env1->keys[i]=0;
     return(env1);
 }
 
@@ -160,6 +179,12 @@ int main(int argc,char **argv,char **env)
     t_term_sistem term_out;
     t_env *struct_env;
     struct_env=allocate_env(env);
+    int lvl;
+    if(!argv[1])
+        lvl=0;
+    else
+        lvl=ft_atoi(argv[1]);
+    printf("\nlvl1:%d\n",lvl);
     (void)argc;
     (void)argv;
     all_command.term_until[0] = &term_in_util;
@@ -187,7 +212,7 @@ int main(int argc,char **argv,char **env)
             else
             {
                 lvl--;
-                changes_path_history(&all_command);
+                //changes_path_history(&all_command);
                 write(1, "\n", 1);
             }
         }
@@ -196,7 +221,7 @@ int main(int argc,char **argv,char **env)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-            functions_launch(&all_command.head, struct_env);
+            functions_launch(&all_command.head, struct_env,&lvl);
             free(command);
             rebut(&all_command);
         }
