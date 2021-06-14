@@ -2,7 +2,7 @@
 void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env)
 {
 	//pwd
-	if(!ft_strncmp(all->command,"/bin/pwd",9) && fd1)
+	if((!ft_strncmp(all->command,"/bin/pwd",9) || !ft_strncmp(all->command,"pwd",4))  && fd1)
 		ft_pwd(all,env->env,fd1);
 	if(!ft_strncmp(all->command,"/bin/pwd",9) && pipe_1!=0)
 		ft_pwd(all,env->env,pipe_1[1]);
@@ -162,7 +162,6 @@ void number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **n
 		ft_list_push_front(new_head,head);
 		head = head->next;
 	}
-	//return head;
 }
 int **make_pipe(int size)
 {
@@ -273,6 +272,8 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env)
 		ft_unset(tmp,struct_env);
 	else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
 		ft_cd(tmp,struct_env->env);
+	else if(size==0 &&!ft_strncmp(tmp->command,"exit",5))
+		ft_exit(tmp);
 	else if(size>=0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 		find_function(size,struct_env,tmp,current_head);
 	ft_list_clear(tmp);

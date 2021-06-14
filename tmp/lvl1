@@ -416,3 +416,8 @@ cd ..
 ls
 pwd
 cd jhgsf
+cd .
+.out
+unset PATH
+ls
+env
