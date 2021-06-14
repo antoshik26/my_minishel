@@ -22,7 +22,6 @@
 # define DOUBLE_LESS    6
 
 pid_t  g_global_pid; //как же криво работают сигналы
-static int lvl;
 typedef struct s_env
 {
     char **env;
@@ -70,7 +69,7 @@ typedef struct s_list_pid
 int                 parser_commands(char *command, t_minishell *all_command);
 void                ft_putchar_fd(char c, int fd);
 void                ft_putstr_fd(char *s, int fd);;
-void functions_launch(t_command_and_flag **head,t_env *struct_env);
+void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl);
 int                 *stat_command(t_minishell *all_command);
 char			    **ft_split(char const *s, char c);
 char                **find_path();
@@ -111,5 +110,7 @@ int ft_check_name(char *name);
 void			ft_putnbr_fd(int n, int fd);
 int	ft_isalpha(int c);
 int	ft_isalnum(int c);
+char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
 
 #endif

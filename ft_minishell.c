@@ -141,6 +141,12 @@ int main(int argc,char **argv,char **env)
     t_term_sistem term_out;
     t_env *struct_env;
     struct_env=allocate_env(env);
+    int lvl;
+    if(!argv[1])
+        lvl=0;
+    else
+        lvl=ft_atoi(argv[1]);
+    printf("\nlvl1:%d\n",lvl);
     (void)argc;
     (void)argv;
     all_command.term_until[0] = &term_in_util;
@@ -168,16 +174,16 @@ int main(int argc,char **argv,char **env)
             else
             {
                 lvl--;
-                changes_path_history(&all_command);
+                //changes_path_history(&all_command);
                 write(1, "\n", 1);
             }
         }
         //нехватает системы lvlx 
-        if (ft_strlen(command) != 0 && command != NULL)
+        if (command != NULL)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-            functions_launch(&all_command.head, struct_env);
+            functions_launch(&all_command.head, struct_env,&lvl);
             free(command);
             rebut(&all_command);
         }

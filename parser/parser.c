@@ -354,7 +354,7 @@ int parser_flags(t_minishell *all_command)
         }
         one_command->array_flags[k] = NULL;
         one_command = one_command->next;
-        ft_clear_flags_from_kov(all_command);
+        //ft_clear_flags_from_kov(all_command);
     }
     return (0);
 }

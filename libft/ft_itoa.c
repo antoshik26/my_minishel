@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		create_buf(char **buf, int n, size_t i)
+static int		create_buf(char **buf, int n, size_t i)
 {
 	if (n <= 0)
 	{
