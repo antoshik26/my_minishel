@@ -338,3 +338,75 @@ ls | cat -e | cat -e; ls | cat -e|cat -e
 ls | cat -e | cat -e; ls | cat -e|cat -e
 ls | cat -e | cat -e
 ls | cat -e | cat -e
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+ls
+ls -la
+ls
+ls     
+ls       -la
+ls | cat -e | cat -e
+"ls"
+echo "sfdgsdfgsd" "sdfgsdfg"
+cd ...
+cd ...
+cd sdkf;gvnfdmsa
+fgjlfnjdsl
+cd sdkfbjdgk
+cd sdkfgnkflsda;
+cd dflkgjfda
+cd slkjhdgfk;ajsdf
+cd hgfdsadfgh
+cd fghjgfdsafgn
+cd fghjkjjgfdsafghjk
+cd fghjhgfdsfghjgfd
+cd dfghjgfdsgh
+cd fghfdsfghjmhgfds
+echo $?
+echo &$PATH
+&?
+$?
+a.out
+./a.out
+./a.out
+./a.out
+./a.out
+cat -e
+jfkdls
+sfdgsd
+sfdgsfdg
+minishell
+./minishell
+ls
+ls -la
+ls
+ls -la
+echo "sfdgsdfgsd" "sdfgsdfg"
+ls
+ls -la
+cat -e
+ls -la
+ls -la
+cat -e
+ls
+ls -la
+echo "sfdgsdfgsd" "sdfgsdfg"
+echo "sfdgsdfgsd" "sdfgsdfg"
+echo "sfdgsdfgsd" "sdfgsdfg"
+echo "sfdgsdfgsd" "sdfgsdfg"
+echo &>?
+echo &>$?
+echo &?
+echo $?
+ls
+"esdfggfds"
+sdcvhgfgxdasxcv
+ls -la
+ls -la
+make test
+echo &>?

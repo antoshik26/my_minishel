@@ -41,6 +41,20 @@ char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
 	return (result);
 }
 
+char	*ft_strcpy(char *dst, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
 char	*chek_remain(char *ostatoc, char **result)
 {
 	char *p_n;
@@ -110,18 +124,4 @@ char	*ft_strchr(const char *s, int c)
 	if (c == '\0')
 		return (&a[i]);
 	return (NULL);
-}
-
-char	*ft_strcpy(char *dst, char *src)
-{
-	int i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
 }

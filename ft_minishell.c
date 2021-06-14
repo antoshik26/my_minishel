@@ -1,7 +1,5 @@
 #include "ft_minishell.h"
 
-
-
 void rebut(t_minishell *all_command)
 {
     int i;
@@ -30,6 +28,11 @@ void rebut(t_minishell *all_command)
     all_command->head = NULL;
 }
 
+void clear_malloc(t_minishell *all_command)
+{
+    free(all_command->file_history);
+}
+
 void create_signal_controller()
 {
     signal(SIGINT, &signal_manager);
@@ -47,7 +50,6 @@ void allocate(t_minishell *all_command)
         all_command->count_command[i] = NULL;
         i++;
     }
-    all_command->env = NULL;
     all_command->onecovkey = 0;
     all_command->doublecovkey = 0;
     all_command->head = NULL;
@@ -97,6 +99,27 @@ int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
     return (0);
 }
 
+void changes_path_history(t_minishell *all_command)
+{
+    int len;
+    int i;
+    //char *tmp;
+
+    i = 0;
+    len = ft_strlen(all_command->file_history);
+    if (all_command->lvl < 10)
+    {
+        all_command->file_history[len -1] = all_command->lvl + '0';
+    }
+    else
+    {
+        i = len;
+        while(ft_isdigit(all_command->file_history[i]))
+            i--;
+        
+    }
+}
+
 int main(int argc,char **argv,char **env)
 {
     t_minishell all_command;
@@ -134,6 +157,7 @@ int main(int argc,char **argv,char **env)
             else
             {
                 all_command.lvl--;
+                changes_path_history(&all_command);
                 write(1, "\n", 1);
             }
         }
@@ -149,6 +173,7 @@ int main(int argc,char **argv,char **env)
         
     }
     rebut(&all_command);
+    clear_malloc(&all_command);
     //return_settings_term(&all_command);
     return (0);
 }

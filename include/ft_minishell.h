@@ -53,8 +53,8 @@ typedef struct s_minishell
     t_term_sistem *term[2];
     t_term_sistem *term_until[2];
     struct winsize *win;
-    char **env;
     char **path;
+    int exit;
 }               t_minishell;
 typedef struct s_list_pid
 {
@@ -76,7 +76,7 @@ char                *ft_strjoin(char const *s1, char const *s2);
 char                *create_command(char *command, int i, int j);
 int                 get_next_line(int fd, char **line);
 char                *create_cloth_cov(t_minishell *all_command, char *command_and_flags);
-char                *replacement(char *command, int *i, int j, char* env_varianles);
+char                *replacement(char *command, int *i, int j, char* env_varianles, char *name_varianled, t_minishell *all_command);
 void                 signal_manager(int sig);
 void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
 int                 find_slash_dot(char *line);
@@ -90,6 +90,7 @@ void	ft_echo(t_command_and_flag *all,int fd);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 char                *cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);
+int                 ft_isdigit(int c);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void	ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);

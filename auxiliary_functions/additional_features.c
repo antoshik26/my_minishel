@@ -140,7 +140,7 @@ char *create_cloth_cov(t_minishell *all_command, char *command_and_flags)
 	return (new_command_and_flags);
 }
 
-char *replacement(char *command, int *i, int j, char* env_varianles)
+char *replacement(char *command, int *i, int j, char* env_varianles, char *name_varianled, t_minishell *all_command)
 {
 	int k;
 	int len_env;
@@ -149,6 +149,34 @@ char *replacement(char *command, int *i, int j, char* env_varianles)
 	int c;
 	char *new_command;
 
+	len_env = 0;
+	a = 0;
+	if (env_varianles == NULL)
+	{
+		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
+		{
+			all_command->exit = a;
+			while (a > 0)
+			{
+				a = a / 10;
+				len_env++;
+			}
+			env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+			all_command->exit = a;
+			env_varianles[len_env] = '\0';
+			while (len_env)
+			{
+				env_varianles[len_env] = a % 10;
+				a = a / 10;
+				len_env--;
+			}
+		}
+		else
+		{
+			env_varianles = (char *)malloc(sizeof(char) * 1);
+			env_varianles[0] = '\0';
+		}
+	}
 	c = *i;
 	k = j;
 	a = c - j;

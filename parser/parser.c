@@ -148,6 +148,7 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
     int j;
     char *env_varianles;
     char *name_varianled;
+    char *tmp;
 
     i = 0;
     j = 0;
@@ -167,7 +168,7 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
                 all_command->onecovkey = 1;
             else
                 all_command->onecovkey = 0;
-            i++; 
+            i++;
         }
         if (command[i] == '\"' && all_command->onecovkey == 0)
         {
@@ -181,13 +182,16 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
         {   
             i++;
             j = i;
-            while(command[i] != ' ' && command[i] != '\"')
+            while(command[i] != ' ' && command[i] != '\0')
             {
                 i++;
             }
             name_varianled = create_command(command, i, j);
             env_varianles = getenv(name_varianled);
-            command = replacement(command, &i, j--, env_varianles);
+            tmp = command;
+            command = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
+            free(name_varianled);
+            free(tmp);
         }
         if (command[i] == '\0')
             break ;
@@ -301,7 +305,6 @@ int parser_flags(t_minishell *all_command)
                     i++;
                     break ;
                 }
-                i++;
             }
             if (one_command->flags[i] == '\"' && all_command->onecovkey == 0)
             {
@@ -351,7 +354,7 @@ int parser_flags(t_minishell *all_command)
         }
         one_command->array_flags[k] = NULL;
         one_command = one_command->next;
-        //ft_clear_flags_from_kov(all_command);
+        ft_clear_flags_from_kov(all_command);
     }
     return (0);
 }
