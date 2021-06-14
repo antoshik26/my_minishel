@@ -228,16 +228,6 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	return (new_command);
 }
 
-void free_array_of_strings(char **array)
-{
-	int i;
-
-	i = -1;
-	while(array[++i])
-		free(array[i]);
-	free(array);
-}
-
 char  **find_path()
 {
 	char **path;
