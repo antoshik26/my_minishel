@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 pwd
 cd ..
@@ -421,3 +422,5 @@ cd .
 unset PATH
 ls
 env
+=======
+>>>>>>> 3e539aa535b796a4f8bf793d6d4864abf7a12083

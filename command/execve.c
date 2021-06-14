@@ -272,8 +272,8 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env)
 		ft_unset(tmp,struct_env);
 	else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
 		ft_cd(tmp,struct_env->env);
-	else if(size==0 &&!ft_strncmp(tmp->command,"exit",5))
-		ft_exit(tmp);
+	//else if(size==0 &&!ft_strncmp(tmp->command,"exit",5))
+	//	ft_exit(tmp);
 	else if(size>=0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 		find_function(size,struct_env,tmp,current_head);
 	ft_list_clear(tmp);

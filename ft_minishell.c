@@ -52,6 +52,7 @@ void allocate(t_minishell *all_command)
     }
     all_command->onecovkey = 0;
     all_command->doublecovkey = 0;
+    all_command->exit = 255;
     all_command->head = NULL;
 }
 
@@ -110,7 +111,7 @@ void changes_path_history(t_minishell *all_command)
     if (all_command->lvl < 10)
     {
         all_command->file_history[len -1] = all_command->lvl + '0';
-    }
+    }/*
     else
     {
         i = len;
@@ -118,6 +119,7 @@ void changes_path_history(t_minishell *all_command)
             i--;
         
     }
+    */
 }
 t_env *allocate_env(char **env)
 {
@@ -155,8 +157,6 @@ int main(int argc,char **argv,char **env)
     while(1 != 0)
     {
         command = cmd_manager(&all_command);
-        //return_settings_term(&all_command);
-        //get_next_line(0, &command);
         if (command == NULL)
         {
             if (all_command.lvl == 0)
