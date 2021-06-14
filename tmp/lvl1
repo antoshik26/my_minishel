@@ -624,3 +624,23 @@ echo $?
 echo $?
 echo $?
 echo $?
+echo hello
+echo $?
+echo $?
+echo $?
+echo $?
+echo
+echo ;
+echo grrrrb
+echo grrrrbtrrgwretg
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+
+ls
+ /Users/lbones/.vscode/extensions/vadimcn.vscode-lldb-1.6.4/adapter/codelldb terminal-agent --port=59878 
+d

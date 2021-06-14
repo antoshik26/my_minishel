@@ -27,7 +27,8 @@ typedef struct s_env
     char **env;
     char **keys;
     char **values;
- char **env_lvl;
+    char **env_lvl;
+    int exit_num;
  } t_env;
 typedef struct s_term_sistem
 {
@@ -60,7 +61,6 @@ typedef struct s_minishell
     t_term_sistem *term_until[2];
     struct winsize *win;
     char **path;
-    int exit;
 }               t_minishell;
 typedef struct s_list_pid
 {
@@ -92,7 +92,7 @@ void ft_env(t_command_and_flag *all,char **env,int fd);
 int ft_cd(t_command_and_flag *all,char **env);
 void ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
 int ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/);
-void	ft_echo(t_command_and_flag *all,int fd);
+void	ft_echo(t_command_and_flag *all,int fd,t_env *env);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 char                *cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);

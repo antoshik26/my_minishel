@@ -39,7 +39,7 @@ void ft_env(t_command_and_flag *all,char **env,int fd)
 	}
 	exit(0);
 }
-void	ft_echo(t_command_and_flag *all,int fd)
+void	ft_echo(t_command_and_flag *all,int fd,t_env *env)
 {
 	int i=0;
 	if(!all->array_flags[1])
@@ -48,6 +48,11 @@ void	ft_echo(t_command_and_flag *all,int fd)
 		exit(0);
 	}
 	while(!ft_strncmp(all->array_flags[++i],"-n",3));
+	if(!ft_strncmp(all->array_flags[++i],"hello",6))
+	{
+		ft_putstr_fd(ft_itoa(env->exit_num),fd);
+		ft_putstr_fd("%n",fd);
+	}
 	while(all->array_flags[i])
 	{
 		ft_putstr_fd(all->array_flags[i++],fd);

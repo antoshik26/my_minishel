@@ -17,11 +17,11 @@ void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env)
 		ft_env(all,env->env,0);
 	//echo
 	if(!ft_strncmp(all->command,"/bin/echo",10)&& fd1)
-		ft_echo(all,fd1);
+		ft_echo(all,fd1,env);
 	if(!ft_strncmp(all->command,"/bin/echo",10)&& pipe_1!=0)
-		ft_echo(all,pipe_1[1]);
+		ft_echo(all,pipe_1[1],env);
 	if(!ft_strncmp(all->command,"/bin/echo",10))
-		ft_echo(all,0);
+		ft_echo(all,0,env);
 	//cd
 	if(!ft_strncmp(all->command,"/usr/bin/cd",13))
 		exit(ft_cd(all,env->env));
@@ -181,7 +181,7 @@ int **make_pipe(int size)
 	return(pipe);
 	
 }
-void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size)
+void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *env)
 {
 	int fd1;
 
@@ -216,6 +216,10 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size)
 		size--;
 		reverse_head=reverse_head->next;
 	}
+	if(fd1==0 || fd1==256)
+		env->exit_num=0;
+	else
+		env->exit_num=127;
 
 }
 void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_flag *reverse_head)
@@ -246,7 +250,7 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 		fd2=0;
 		head=head->next;
 	}
-	print_errors(pid,reverse_head,size);
+	print_errors(pid,reverse_head,size,env);
 	i=size;
 	if(i>0)
 	{
@@ -277,8 +281,10 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
 		ft_putstr_fd("hello\n",0);
+		if(tmp->command_and_flags[1])
+				struct_env->exit_num=ft_atoi(tmp->array_flags[1])%256;
 		if(*lvl==0)
-			exit(0);
+			exit(struct_env->exit_num);
 		else
 			*lvl= *lvl -1;
 		write(1, "\n", 1);
@@ -293,6 +299,5 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		current_head->array_flags[1]=ft_strdup(ft_itoa(*lvl));
 		current_head->array_flags[2]=0;
 		execve(current_head->command,current_head->array_flags,struct_env->env);
-		//waitpid(pid,&size,0);
 	}
 }
