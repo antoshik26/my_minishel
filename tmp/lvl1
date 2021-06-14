@@ -1,2 +1,23 @@
 
 ls -la
+ls -la
+echo $?
+echo $?
+echo $?
+ls
+ls -la
+cat -e
+echo "sdfghgfdsa" sdffdsasd  "asdfgfddsdasdfg"
+echo "asdfgdfS"
+echo "asdfgdf"
+ls
+ls -la
+echo
+echo $?
+echo ddfgdfsdf
+a.out
+ls
+ls -la
+a.out
+ls
+ls -la

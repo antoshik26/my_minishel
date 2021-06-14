@@ -55,14 +55,12 @@ typedef struct s_minishell
     int onecovkey;
     int doublecovkey;
     int flag;
-    int lvl;
     t_command_and_flag *head;
     t_term_sistem *term[2];
     t_term_sistem *term_until[2];
     struct winsize *win;
     char **path;
     t_env *env;
-    int exit;
 }               t_minishell;
 
 

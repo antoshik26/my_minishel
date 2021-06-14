@@ -89,7 +89,7 @@ int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
     a = argv;
     path = getenv("PWD");
     len = ft_strlen(path);
-    path = ft_strjoin(path, "/tmp/lvl1");
+    path = ft_strjoin(path, "/tmp/lvl0");
     fd = open(path, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
     if (fd == -1)
         return (-1);
@@ -98,18 +98,23 @@ int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
     return (0);
 }
 
-void changes_path_history(t_minishell *all_command)
+int changes_path_history(t_minishell *all_command, int lvl)
 {
     int len;
     int i;
-    //char *tmp;
+    int fd;
 
     i = 0;
     len = ft_strlen(all_command->file_history);
-    if (all_command->lvl < 10)
+    if (lvl < 10)
     {
-        all_command->file_history[len -1] = all_command->lvl + '0';
-    }/*
+        all_command->file_history[len -1] = lvl + '0';
+        fd = open(all_command->file_history, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
+        if (fd == -1)
+            return (-1);
+        close(fd);
+    }
+    /*
     else
     {
         i = len;
@@ -118,6 +123,7 @@ void changes_path_history(t_minishell *all_command)
         
     }
     */
+    return (0);
 }
 
 t_env *allocate_env(char **env)
@@ -152,6 +158,7 @@ t_env *allocate_env(char **env)
 int find_path_from_new_env(t_minishell *all_command)
 {
     int i;
+    char *tmp;
     char *path;
 
     i = 0;
@@ -160,7 +167,14 @@ int find_path_from_new_env(t_minishell *all_command)
         if (ft_strnstr(all_command->env->keys[i], "PATH", ft_strlen(all_command->env->keys[i])))
         {
             path = all_command->env->values[i];
-            //while()
+	        all_command->path = ft_split(path,':');
+	        while (all_command->path[i])
+	        {
+		        tmp = all_command->path[i];
+		        all_command->path[i] = ft_strjoin(all_command->path[i], "/");
+		        free(tmp);
+		        i++;
+	        }
             break ;
         }
         i++;
@@ -212,7 +226,7 @@ int main(int argc,char **argv,char **env)
             else
             {
                 lvl--;
-                //changes_path_history(&all_command);
+                changes_path_history(&all_command, lvl);
                 write(1, "\n", 1);
             }
         }

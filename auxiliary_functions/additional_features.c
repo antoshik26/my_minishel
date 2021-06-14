@@ -155,6 +155,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	{
 		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
 		{
+			all_command->env->exit_num = a;
 //			all_command->exit = a;
 			while (a > 0)
 			{
@@ -172,6 +173,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 			{
 				len_env = 1;
 				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+				all_command->env->exit_num = a;
 			//	all_command->exit = a;
 				env_varianles[len_env] = '\0';
 				while (len_env)
@@ -235,7 +237,7 @@ char  **find_path()
 	int i;
 
 	i = 0;
-	
+
 	tmp = getenv("PATH");
 	path = ft_split(tmp,':');
 	while (path[i])
