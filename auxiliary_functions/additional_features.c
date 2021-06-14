@@ -161,15 +161,27 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 				a = a / 10;
 				len_env++;
 			}
-			env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
-			all_command->exit = a;
-			env_varianles[len_env] = '\0';
-			while (len_env)
+			if (a == 0)
 			{
-				env_varianles[len_env] = a % 10;
-				a = a / 10;
-				len_env--;
+				len_env = 1;
+				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+				env_varianles[0] = '0';
+				env_varianles[1] = '\0';
 			}
+			else
+			{
+				len_env = 1;
+				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+				all_command->exit = a;
+				env_varianles[len_env] = '\0';
+				while (len_env)
+				{
+					env_varianles[len_env] = a % 10;
+					a = a / 10;
+					len_env--;
+				}
+			}
+
 		}
 		else
 		{

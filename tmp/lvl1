@@ -410,3 +410,36 @@ ls -la
 ls -la
 make test
 echo &>?
+ls
+ls -la
+echo $?
+echo $?
+echo $?
+echo $a
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+ls
+-la
+ls -al
+ls -la
+make
+make clean
+make clean
+make
+make clean
+ls -la
+echo $?
+sdcvhgfgxdasxcv
+dghd
+    
+    				
+			
+     
+     		 
+echo "sdfgsdfg" fsgsdfgsdfg "sdgsdfgsdfG"
+echo "sdfgsdfg sxdfgsdfgsdfg"adsfasdfasd
+echo "sdfgsdfg sxdfgsdfgsdfg" adfasdfasdf
