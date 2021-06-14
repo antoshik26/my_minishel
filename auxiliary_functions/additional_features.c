@@ -235,6 +235,7 @@ char  **find_path()
 	int i;
 
 	i = 0;
+	
 	tmp = getenv("PATH");
 	path = ft_split(tmp,':');
 	while (path[i])

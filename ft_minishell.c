@@ -78,7 +78,6 @@ void print_command(t_minishell *command_list)
         printf("ar[%d]:%s\n",i,command->array_flags[i]);
         command = command->next;
     }
-
 }
 
 int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
@@ -121,6 +120,7 @@ void changes_path_history(t_minishell *all_command)
     }
     */
 }
+
 t_env *allocate_env(char **env)
 {
     t_env *env1;
@@ -128,6 +128,25 @@ t_env *allocate_env(char **env)
     env1->env=ft_strdup_array_of_strings(env);
     env1->env_lvl=0;
     return(env1);
+}
+
+int find_path_from_new_env(t_minishell *all_command)
+{
+    int i;
+    char *path;
+
+    i = 0;
+    while (all_command->env->key[i])
+    {
+        if (ft_strnstr(all_command->env->key[i], "PATH", ft_strlen(all_command->env->key[i])))
+        {
+            path = all_command->env->meaning[i];
+            //while()
+            break ;
+        }
+        i++;
+    }
+    return (0);
 }
 
 int main(int argc,char **argv,char **env)
@@ -147,16 +166,16 @@ int main(int argc,char **argv,char **env)
     all_command.term_until[1] = &term_out_util;
     all_command.term[0] = &term_in;
     all_command.term[1] = &term_out;
-    all_command.path = find_path();
     all_command.flag = 1;
+    all_command.env = struct_env;
     command = NULL;
     all_command.head = &command_and_flag;
+    all_command.path = find_path();
     allocate(&all_command);
     crete_or_cheak_file_history(&all_command, argv);
     create_signal_controller();
     while(1 != 0)
     {
-        all_command.path = find_path();
         command = cmd_manager(&all_command);
         if (command == NULL)
         {
@@ -173,7 +192,7 @@ int main(int argc,char **argv,char **env)
             }
         }
         //нехватает системы lvlx 
-        if (ft_strlen(command) != 0 && command != NULL)
+        if (command != NULL)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
@@ -181,7 +200,7 @@ int main(int argc,char **argv,char **env)
             free(command);
             rebut(&all_command);
         }
-        
+        find_path_from_new_env(&all_command);
     }
     rebut(&all_command);
     clear_malloc(&all_command);
