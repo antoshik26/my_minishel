@@ -25,6 +25,8 @@ pid_t  g_global_pid; //как же криво работают сигналы
 typedef struct s_env
 {
     char **env;
+    char **keys;
+    char **values;
  char **env_lvl;
  } t_env;
 typedef struct s_term_sistem

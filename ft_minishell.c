@@ -124,9 +124,28 @@ void changes_path_history(t_minishell *all_command)
 t_env *allocate_env(char **env)
 {
     t_env *env1;
+    int i;
+    int i1;
+
+    i=-1;
     env1=malloc(sizeof(t_env));
     env1->env=ft_strdup_array_of_strings(env);
     env1->env_lvl=0;
+    while (env[++i]){};
+    env1->keys=(char**)malloc(sizeof(char*)*(i+1));
+	env1->values=(char**)malloc(sizeof(char*)*(i+1));
+    i=-1;
+	while (env[++i])
+	{
+        i1=-1;	
+        while(env[i][++i1]!='='){};
+        env1->env[i][i1]='\0';
+        env1->keys[i]=ft_strdup(env1->env[i]);
+        env1->env[i][i1]='=';
+        env1->values[i]=ft_strdup(&env1->env[i][++i1]);
+    }
+    env1->values[i]=0;
+    env1->keys[i]=0;
     return(env1);
 }
 

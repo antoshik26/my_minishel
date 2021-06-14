@@ -295,5 +295,4 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		execve(current_head->command,current_head->array_flags,struct_env->env);
 		//waitpid(pid,&size,0);
 	}
-	printf("HELLO\n");
 }

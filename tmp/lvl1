@@ -590,3 +590,37 @@ a.out
 o.out
 a.out
 export hello
+export a=5
+export
+export hello
+export
+unset a
+unset a
+unset
+unset hello
+export
+export j
+export
+export
+export j
+export j
+export 
+
+export
+export k
+export k
+a.out
+export k
+export k
+a.out
+a.out
+a.out
+a.out
+a.out
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
