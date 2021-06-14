@@ -155,11 +155,11 @@ int find_path_from_new_env(t_minishell *all_command)
     char *path;
 
     i = 0;
-    while (all_command->env->key[i])
+    while (all_command->env->keys[i])
     {
-        if (ft_strnstr(all_command->env->key[i], "PATH", ft_strlen(all_command->env->key[i])))
+        if (ft_strnstr(all_command->env->keys[i], "PATH", ft_strlen(all_command->env->keys[i])))
         {
-            path = all_command->env->meaning[i];
+            path = all_command->env->values[i];
             //while()
             break ;
         }
@@ -216,7 +216,6 @@ int main(int argc,char **argv,char **env)
                 write(1, "\n", 1);
             }
         }
-        //нехватает системы lvlx 
         if (command != NULL)
         {
             parser_commands(command, &all_command);

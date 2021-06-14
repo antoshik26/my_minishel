@@ -25,8 +25,8 @@ pid_t  g_global_pid; //как же криво работают сигналы
 typedef struct s_env
 {
     char **env;
-    char **key;
-    char **meaning;
+    char **keys;
+    char **values;
     char **env_lvl;
 }              t_env;
 typedef struct s_term_sistem
@@ -90,6 +90,8 @@ void                 signal_manager(int sig);
 void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
 int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
+char                *ft_itoa(int n);
+int                 ft_atoi(const char *str);
 void                ft_pwd(t_command_and_flag *all,char **env,int fd);
 void                ft_env(t_command_and_flag *all,char **env,int fd);
 int                 ft_cd(t_command_and_flag *all,char **env);
