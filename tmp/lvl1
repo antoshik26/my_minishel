@@ -410,3 +410,9 @@ ls -la
 ls -la
 make test
 echo &>?
+ls
+ls
+cd ..
+ls
+pwd
+cd jhgsf

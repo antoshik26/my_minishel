@@ -119,7 +119,14 @@ void changes_path_history(t_minishell *all_command)
         
     }
 }
-
+t_env *allocate_env(char **env)
+{
+    t_env *env1;
+    env1=malloc(sizeof(t_env));
+    env1->env=ft_strdup_array_of_strings(env);
+    env1->env_lvl=0;
+    return(env1);
+}
 int main(int argc,char **argv,char **env)
 {
     t_minishell all_command;
@@ -129,6 +136,8 @@ int main(int argc,char **argv,char **env)
     t_term_sistem term_out_util;
     t_term_sistem term_in;
     t_term_sistem term_out;
+    t_env *struct_env;
+    struct_env=allocate_env(env);
     (void)argc;
     (void)argv;
     all_command.term_until[0] = &term_in_util;
@@ -166,7 +175,7 @@ int main(int argc,char **argv,char **env)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-            functions_launch(&all_command.head, env);
+            functions_launch(&all_command.head, struct_env);
             free(command);
             rebut(&all_command);
         }

@@ -22,7 +22,11 @@
 # define DOUBLE_LESS    6
 
 pid_t  g_global_pid; //как же криво работают сигналы
-
+typedef struct s_env
+{
+    char **env;
+ char **env_lvl;
+ } t_env;
 typedef struct s_term_sistem
 {
     struct termios *term;
@@ -65,7 +69,7 @@ typedef struct s_list_pid
 int                 parser_commands(char *command, t_minishell *all_command);
 void                ft_putchar_fd(char c, int fd);
 void                ft_putstr_fd(char *s, int fd);;
-void                functions_launch(t_command_and_flag **head,char **env);
+void functions_launch(t_command_and_flag **head,t_env *struct_env);
 int                 *stat_command(t_minishell *all_command);
 char			    **ft_split(char const *s, char c);
 char                **find_path();
@@ -81,11 +85,11 @@ void                 signal_manager(int sig);
 void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
 int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
-void               ft_pwd(char **env,int fd);
-void                ft_env(char **env,int fd);
-void                ft_cd(t_command_and_flag *all,char **env);
-void                ft_export(t_command_and_flag *all,char **env,int fd);
-void ft_unset(t_command_and_flag *all,char **env);
+void ft_pwd(t_command_and_flag *all,char **env,int fd);
+void ft_env(t_command_and_flag *all,char **env,int fd);
+int ft_cd(t_command_and_flag *all,char **env);
+void ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
+int ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/);
 void	ft_echo(t_command_and_flag *all,int fd);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 char                *cmd_manager(t_minishell *all_command);
@@ -97,4 +101,14 @@ void	ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *dat
 void ft_list_clear(t_command_and_flag *command);
 char                *reeder_from_term(t_minishell *all_command);
 int                 ft_putchar(int c);
+//array 
+void free_array_of_strings(char **array);
+char **new_array_add(char **array,char *str);
+char **new_array_rm(char **array,int index);
+char **ft_strdup_array_of_strings(char **env);
+int ft_check_name(char *name);
+void			ft_putnbr_fd(int n, int fd);
+int	ft_isalpha(int c);
+int	ft_isalnum(int c);
+
 #endif
