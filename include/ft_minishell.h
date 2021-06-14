@@ -22,6 +22,7 @@
 # define DOUBLE_LESS    6
 
 pid_t  g_global_pid; //как же криво работают сигналы
+static int lvl;
 typedef struct s_env
 {
     char **env;

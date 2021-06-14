@@ -149,7 +149,6 @@ int main(int argc,char **argv,char **env)
     all_command.term[1] = &term_out;
     all_command.path = find_path();
     all_command.flag = 1;
-    all_command.lvl = 0;
     command = NULL;
     all_command.head = &command_and_flag;
     allocate(&all_command);
@@ -157,16 +156,18 @@ int main(int argc,char **argv,char **env)
     create_signal_controller();
     while(1 != 0)
     {
+        all_command.path = find_path();
         command = cmd_manager(&all_command);
         if (command == NULL)
         {
-            if (all_command.lvl == 0)
+            if (lvl == 0)
             {
+                printf("%d\n", lvl);
                 break;
             }
             else
             {
-                all_command.lvl--;
+                lvl--;
                 changes_path_history(&all_command);
                 write(1, "\n", 1);
             }
