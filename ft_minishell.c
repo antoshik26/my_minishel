@@ -129,6 +129,7 @@ t_env *allocate_env(char **env)
     env1->env_lvl=0;
     return(env1);
 }
+
 int main(int argc,char **argv,char **env)
 {
     t_minishell all_command;
