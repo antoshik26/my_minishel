@@ -52,7 +52,6 @@ void allocate(t_minishell *all_command)
     }
     all_command->onecovkey = 0;
     all_command->doublecovkey = 0;
-    all_command->exit = 255;
     all_command->head = NULL;
 }
 
@@ -146,6 +145,7 @@ t_env *allocate_env(char **env)
     }
     env1->values[i]=0;
     env1->keys[i]=0;
+    env1->exit_num=0;
     return(env1);
 }
 
