@@ -6,3 +6,51 @@ a.out
 a.out
 a.out
 ls -la
+ls
+echo sdfgfgdsa
+ls
+ls -la
+ls -la
+ls
+ls -la
+ls
+ls
+ls
+ls -la
+ls
+ls
+ls -la
+ls
+echo dsfghgfdsfghnmgfdsadfg
+echo dsfghgfdsfghnmgfdsadfgasdfgdsdasdffasdfv
+echo sdfgfdsadfghmngfdsafghmhgfdssdfghgfds
+echo a sfdggfdsadfghdsadfgfdsaDFGFDSAdfgfdsadfgfdsadfghfds
+ls
+ls -la
+echo asdfgfdsa
+ls -la
+ls -la
+ls
+ls -la
+ls
+ls -la
+ls
+ls -la
+ls 
+ls -la
+ls
+ls -la
+ls -la
+ls -la
+ls
+ls
+make
+make clean
+ls
+ls
+ls
+ls
+echo $?
+echo $PATH
+echo sdfgfdsadf asdfgnmnbvcsdf swdfghjjhgfdsd
+echo $>Z?
