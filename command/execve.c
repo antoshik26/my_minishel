@@ -262,11 +262,13 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 		free(pipe);
 	}
 }
-void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
+int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 {
 	t_command_and_flag *current_head;
 	t_command_and_flag *tmp;
 	int size;
+	int ret;
+	ret = 0;	
 	tmp=0;
 	current_head=*head;
 	size=0;
@@ -289,6 +291,7 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 			*lvl= *lvl -1;
 		write(1, "\n", 1);
 		ft_putnbr_fd(*lvl, 0);
+		ret=1;
 	}
 	else if(size>=0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 		find_function(size,struct_env,tmp,*head);
@@ -300,4 +303,5 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		current_head->array_flags[2]=0;
 		execve(current_head->command,current_head->array_flags,struct_env->env);
 	}
+	return(ret);
 }

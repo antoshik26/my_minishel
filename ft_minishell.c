@@ -192,6 +192,7 @@ int main(int argc,char **argv,char **env)
     t_term_sistem term_in;
     t_term_sistem term_out;
     t_env *struct_env;
+    int ret;
     struct_env=allocate_env(env);
     int lvl;
     if(!argv[1])
@@ -234,7 +235,7 @@ int main(int argc,char **argv,char **env)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-            functions_launch(&all_command.head, struct_env,&lvl);
+           ret = functions_launch(&all_command.head, struct_env,&lvl);
             free(command);
             rebut(&all_command);
         }
