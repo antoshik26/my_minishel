@@ -233,3 +233,10 @@ echo $?
 echo $?
 dfgthjk
 echo $?
+wc<<a
+ujh
+ddddz
+
+
+
+ls|wc<<a
