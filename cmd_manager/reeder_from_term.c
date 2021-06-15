@@ -161,6 +161,7 @@ char *reeder_from_term(t_minishell *all_command)
         {
             if (ft_strlen(command) == 0)
             {
+                free(command);
                 command = NULL;
                 break ;
             }

@@ -51,7 +51,6 @@ void clear_malloc(t_minishell *all_command)
     free(all_command->env->env);
     free(all_command->env->keys);
     free(all_command->env->values);
-    /*
     i = 0;
     while (all_command->env->env_lvl[i])
     {
@@ -59,7 +58,6 @@ void clear_malloc(t_minishell *all_command)
         i++;
     }
     free(all_command->env->env_lvl);
-    */
 }
 
 void create_signal_controller()
@@ -282,8 +280,8 @@ int main(int argc,char **argv,char **env)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-            functions_launch(&all_command.head, struct_env,&lvl);
             free(command);
+            functions_launch(&all_command.head, struct_env,&lvl);
             rebut(&all_command);
         }
         find_path_from_new_env(&all_command);
