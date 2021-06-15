@@ -184,6 +184,7 @@ int **make_pipe(int size)
 void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *env)
 {
 	int fd1;
+	struct stat buff;
 
 	while(size>=0)
 	{	
@@ -191,6 +192,8 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
 			reverse_head=reverse_head->next;
 		ft_putnbr_fd(fd1,0);
+		ft_putstr_fd(reverse_head->command,0);
+		ft_putstr_fd("\n",0);
 		if(fd1!=0 && fd1!=256)
 		{	
 			if(!ft_strncmp(reverse_head->command,"/bin/pwd",9))
@@ -200,26 +203,27 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 				ft_putstr_fd("env: ",0);
 				ft_putstr_fd(reverse_head->array_flags[1],0);
 				ft_putstr_fd(": No such file or directory",0);
+				env->exit_num=127;
 			}
 			else if(!ft_strncmp(reverse_head->command,"/usr/bin/cd",13))
 			{
 				ft_putstr_fd("cd: no such file or directory: ",0);
 				ft_putstr_fd(reverse_head->array_flags[1],0);
+				env->exit_num=127;
 			}
-			else
+			else if(stat(reverse_head->command,&buff))
 			{
 				ft_putstr_fd("zsh: command not found:",0);
 				ft_putstr_fd(reverse_head->command,0);
+				env->exit_num=127;
 			}
+			else 
+				env->exit_num=0;
 			ft_putstr_fd("\n",0);
 		}
 		size--;
 		reverse_head=reverse_head->next;
 	}
-	if(fd1==0 || fd1==256)
-		env->exit_num=0;
-	else
-		env->exit_num=127;
 
 }
 void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_flag *reverse_head)
@@ -267,8 +271,8 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	t_command_and_flag *current_head;
 	t_command_and_flag *tmp;
 	int size;
-	int ret;
-	ret = 0;	
+	int ret=0;
+	char **argv;
 	tmp=0;
 	current_head=*head;
 	size=0;
@@ -283,8 +287,8 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
 		ft_putstr_fd("hello\n",0);
-		if(tmp->command_and_flags[1])
-				struct_env->exit_num=ft_atoi(tmp->array_flags[1])%256;
+		//if(tmp->command_and_flags[1])
+		//		struct_env->exit_num=ft_atoi(tmp->array_flags[1])%256;
 		if(*lvl==0)
 			exit(struct_env->exit_num);
 		else
@@ -299,9 +303,12 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	if(!ft_strncmp(current_head->command,"a.out",5))
 	{
 		(*lvl)++;
-		current_head->array_flags[1]=ft_strdup(ft_itoa(*lvl));
-		current_head->array_flags[2]=0;
-		execve(current_head->command,current_head->array_flags,struct_env->env);
+		argv=(char**)malloc(sizeof(char*)*3);
+		argv[0]=ft_strdup("a.out");
+		argv[1]=ft_strdup(ft_itoa(*lvl));
+		argv[2]=0;
+		//execve(current_head->command,current_head->array_flags,struct_env->env);
+		main_dup(2,argv,struct_env->env);
 	}
 	return(ret);
 }

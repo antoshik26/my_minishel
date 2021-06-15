@@ -21,3 +21,7 @@ ls -la
 a.out
 ls
 ls -la
+ls
+ls -la
+a.out
+cat -e

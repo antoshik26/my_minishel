@@ -150,19 +150,19 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	char *new_command;
 	
 	len_env = 0;
-	a = 0;
+	//a = 0;
 	if (env_varianles == NULL)
 	{
 		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
 		{
-			all_command->env->exit_num = a;
+			//all_command->env->exit_num = a;
 //			all_command->exit = a;
-			while (a > 0)
+			while (all_command->env->exit_num > 0)
 			{
-				a = a / 10;
+				all_command->env->exit_num = all_command->env->exit_num / 10;
 				len_env++;
 			}
-			if (a == 0)
+			if (all_command->env->exit_num == 0)
 			{
 				len_env = 1;
 				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
@@ -173,13 +173,13 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 			{
 				len_env = 1;
 				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
-				all_command->env->exit_num = a;
+				//all_command->env->exit_num = all_command->env->exit_num;
 			//	all_command->exit = a;
 				env_varianles[len_env] = '\0';
 				while (len_env)
 				{
-					env_varianles[len_env] = a % 10;
-					a = a / 10;
+					env_varianles[len_env] = all_command->env->exit_num % 10;
+					all_command->env->exit_num = all_command->env->exit_num / 10;
 					len_env--;
 				}
 			}

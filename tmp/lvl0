@@ -92,6 +92,7 @@ ls
 ls
 ls -la
 ls
+<<<<<<< HEAD
 >>>>>>> 286760f8cfb1e2f86d7c3dac3163a5fa9708484e
 
 ls
@@ -121,3 +122,114 @@ export
 export
 export
 dd
+=======
+
+
+
+ls
+ls
+ls 
+ls -la
+lsl
+lvl
+export a
+export
+a.out
+export
+export b
+export
+export
+a.out
+a.out
+a.out
+a.out
+a.out
+exit
+a.out
+a.out
+a.out
+a.out
+exit
+a.out
+a.out
+a.out
+a.out
+exit
+a.out
+exit 2
+a.out
+ls
+ls
+export a
+export
+a.out
+export
+export b
+export
+exit
+export
+exit
+aout
+a.out
+a.out
+a.out
+a.out
+exit
+a.out
+exit
+exit
+a.out
+exit
+a.out
+exit
+export a
+export
+a.out
+export f
+export
+exit
+export f
+export
+a.out
+exit
+out
+a.out
+a.out
+exit
+a.out
+exit
+exit
+a.out
+a.out
+exit
+a.out
+exit
+a.out
+exit
+a.out
+a.out
+exit
+a.out
+a.out
+a.out
+exit
+exit
+exit
+ls
+a.out
+>>>>>>> f38893e059a3bcc6a8e7878d2879bd1f308eebaa
+
+ls
+ls -la
+ls
+ls
+ls
+
+ls
+echo $?
+fghjkl
+fghjkl
+echo $?
+echo $?
+dfgthjk
+echo $?

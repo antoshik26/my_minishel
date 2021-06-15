@@ -118,4 +118,6 @@ int                 ft_check_name(char *name);
 void			    ft_putnbr_fd(int n, int fd);
 int                 ft_isalpha(int c);
 int                 ft_isalnum(int c);
+int main_dup(int argc,char **argv,char **env);
+
 #endif
