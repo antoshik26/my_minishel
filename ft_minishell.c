@@ -75,14 +75,6 @@ void create_signal_controller()
 
 void allocate(t_minishell *all_command)
 {
-    int i;
-
-    i = 0;
-    while (i < 15)
-    {
-        all_command->count_command[i] = NULL;
-        i++;
-    }
     all_command->onecovkey = 0;
     all_command->doublecovkey = 0;
     all_command->head = NULL;
@@ -117,11 +109,17 @@ int crete_or_cheak_file_history(t_minishell *all_command,  int lvl)
     char *path;
     int len;
     int fd;
+    char *tmp;
+    char *itoa;
 
     path = getenv("PWD");
     len = ft_strlen(path);
     path = ft_strjoin(path, "/tmp/lvl");
-    path=ft_strjoin(path,ft_itoa(lvl));
+    tmp = path;
+    itoa = ft_itoa(lvl);
+    path = ft_strjoin(path, itoa);
+    free(tmp);
+    free(itoa);
     fd = open(path, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
     if (fd == -1)
         return (-1);
@@ -294,7 +292,7 @@ int main_dup(int argc,char **argv,char **env)
         find_path_from_new_env(&all_command);
     }
     rebut(&all_command);
-  //  clear_malloc(&all_command);
+    clear_malloc(&all_command);
     return (0);
 }
 int main(int argc,char **argv,char **env)

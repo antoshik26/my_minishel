@@ -25,3 +25,4 @@ ls
 ls -la
 a.out
 cat -e
+a.out

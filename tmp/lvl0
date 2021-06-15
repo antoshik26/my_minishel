@@ -263,3 +263,21 @@ fghjk
 echo $?
 git add ,
 git add .
+ls
+ls -la
+ls
+ls
+ls
+ls -la
+ls
+ls -la
+ls
+ls -la
+exit
+ls
+ls -la
+ls
+a.out
+ls
+ls -la
+ls -la

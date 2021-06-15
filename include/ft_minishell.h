@@ -50,7 +50,6 @@ typedef struct  s_command_and_flag
 
 typedef struct s_minishell
 {
-    char *count_command[15];
     char *file_history;
     int onecovkey;
     int doublecovkey;
