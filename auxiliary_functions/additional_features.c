@@ -148,14 +148,14 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	int a;
 	int c;
 	char *new_command;
-	
+
 	len_env = 0;
 	a = 0;
 	if (env_varianles == NULL)
 	{
 		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
 		{
-			all_command->env->exit_num = a;
+			a = all_command->env->exit_num ;
 //			all_command->exit = a;
 			while (a > 0)
 			{
