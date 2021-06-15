@@ -294,7 +294,7 @@ int main_dup(int argc,char **argv,char **env)
         find_path_from_new_env(&all_command);
     }
     rebut(&all_command);
-    clear_malloc(&all_command);
+  //  clear_malloc(&all_command);
     return (0);
 }
 int main(int argc,char **argv,char **env)

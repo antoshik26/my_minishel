@@ -17,11 +17,11 @@ void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env)
 		ft_env(all,env->env,0);
 	//echo
 	if(!ft_strncmp(all->command,"/bin/echo",10)&& fd1)
-		ft_echo(all,fd1,env);
+		ft_echo(all,fd1);
 	if(!ft_strncmp(all->command,"/bin/echo",10)&& pipe_1!=0)
-		ft_echo(all,pipe_1[1],env);
+		ft_echo(all,pipe_1[1]);
 	if(!ft_strncmp(all->command,"/bin/echo",10))
-		ft_echo(all,0,env);
+		ft_echo(all,0);
 	//cd
 	if(!ft_strncmp(all->command,"/usr/bin/cd",13))
 		exit(ft_cd(all,env->env));
@@ -184,6 +184,7 @@ int **make_pipe(int size)
 void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *env)
 {
 	int fd1;
+	struct stat buff;
 
 	while(size>=0)
 	{	
@@ -191,6 +192,8 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
 			reverse_head=reverse_head->next;
 		ft_putnbr_fd(fd1,0);
+		ft_putstr_fd(reverse_head->command,0);
+		ft_putstr_fd("\n",0);
 		if(fd1!=0 && fd1!=256)
 		{	
 			if(!ft_strncmp(reverse_head->command,"/bin/pwd",9))
@@ -200,26 +203,27 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 				ft_putstr_fd("env: ",0);
 				ft_putstr_fd(reverse_head->array_flags[1],0);
 				ft_putstr_fd(": No such file or directory",0);
+				env->exit_num=127;
 			}
 			else if(!ft_strncmp(reverse_head->command,"/usr/bin/cd",13))
 			{
 				ft_putstr_fd("cd: no such file or directory: ",0);
 				ft_putstr_fd(reverse_head->array_flags[1],0);
+				env->exit_num=127;
 			}
-			else
+			else if(stat(reverse_head->command,&buff))
 			{
 				ft_putstr_fd("zsh: command not found:",0);
 				ft_putstr_fd(reverse_head->command,0);
+				env->exit_num=127;
 			}
+			else 
+				env->exit_num=0;
 			ft_putstr_fd("\n",0);
 		}
 		size--;
 		reverse_head=reverse_head->next;
 	}
-	if(fd1==0 || fd1==256)
-		env->exit_num=0;
-	else
-		env->exit_num=127;
 
 }
 void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_flag *reverse_head)
@@ -280,6 +284,8 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		ft_unset(tmp,struct_env);
 	else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
 		ft_cd(tmp,struct_env->env);
+	else if(size==0 &&!ft_strncmp(tmp->command,"bin/echo",13))
+		ft_echo(tmp,0);
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
 		ft_putstr_fd("hello\n",0);

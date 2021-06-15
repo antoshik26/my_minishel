@@ -7,6 +7,29 @@ a.out
 a.out
 ls -la
 ls
+<<<<<<< HEAD
+ls
+ls
+ls
+ls
+ls
+a.out
+exit
+ls
+ls
+ddd
+
+
+
+
+zz
+
+
+
+
+exit
+exit
+=======
 echo sdfgfgdsa
 ls
 ls -la
@@ -69,6 +92,37 @@ ls
 ls
 ls -la
 ls
+<<<<<<< HEAD
+>>>>>>> 286760f8cfb1e2f86d7c3dac3163a5fa9708484e
+
+ls
+ls
+
+ls
+ls
+a.out
+a.ot
+a.out
+a.out
+a.out
+exit
+a.out
+exit
+a.out
+exit
+exit
+export hello
+export
+a.out
+export
+export h
+export
+export
+export
+export
+export
+dd
+=======
 
 
 
@@ -163,3 +217,49 @@ exit
 exit
 ls
 a.out
+>>>>>>> f38893e059a3bcc6a8e7878d2879bd1f308eebaa
+
+ls
+ls -la
+ls
+ls
+ls
+
+ls
+echo $?
+fghjkl
+fghjkl
+echo $?
+echo $?
+dfgthjk
+echo $?
+sdfgh
+echo $?
+asdfghgfdsadf
+echo $?
+asdfghgfd
+echo $?
+asdfgh
+echo $?
+echo $?
+echo $?
+sdfghj
+echo $?
+asdfgh
+echo $?
+asdfg
+echo $?
+sdfghjhgfds
+echo $?
+sdfghjhgfds
+echo $?
+echo $?
+sretyuio
+echo $?
+echo sdrfghjk
+echo sdrfghjk
+echo $?
+fghjk
+echo $?
+git add ,
+git add .
