@@ -15,12 +15,15 @@ void rebut(t_minishell *all_command)
         free(command->command);
         free(command->flags);
         i = 1;
-        while(command->array_flags[i])
+        if (command->array_flags != NULL)
         {
-            free(command->array_flags[i]);
-            i++;
+            while(command->array_flags[i])
+            {
+                free(command->array_flags[i]);
+                i++;
+            }
+            free(command->array_flags);
         }
-        free(command->array_flags);
         tmp = command->next;
         free(command);
         command = tmp;
@@ -52,12 +55,15 @@ void clear_malloc(t_minishell *all_command)
     free(all_command->env->keys);
     free(all_command->env->values);
     i = 0;
-    while (all_command->env->env_lvl[i])
+    if (all_command->env->env_lvl != NULL)
     {
-        free(all_command->env->env_lvl[i]);
-        i++;
-    }
+        while (all_command->env->env_lvl[i])
+        {
+            free(all_command->env->env_lvl[i]);
+            i++;
+        }
     free(all_command->env->env_lvl);
+    }
 }
 
 void create_signal_controller()
@@ -106,17 +112,16 @@ void print_command(t_minishell *command_list)
     }
 }
 
-int crete_or_cheak_file_history(t_minishell *all_command, char **argv)
+int crete_or_cheak_file_history(t_minishell *all_command,  int lvl)
 {
     char *path;
     int len;
     int fd;
-    char **a;
 
-    a = argv;
     path = getenv("PWD");
     len = ft_strlen(path);
-    path = ft_strjoin(path, "/tmp/lvl0");
+    path = ft_strjoin(path, "/tmp/lvl");
+    path=ft_strjoin(path,ft_itoa(lvl));
     fd = open(path, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
     if (fd == -1)
         return (-1);
@@ -230,7 +235,7 @@ int changes_lvl_in_env(t_minishell *all_command, int lvl)
 }
 
 
-int main(int argc,char **argv,char **env)
+int main_dup(int argc,char **argv,char **env)
 {
     t_minishell all_command;
     t_command_and_flag command_and_flag;
@@ -259,7 +264,7 @@ int main(int argc,char **argv,char **env)
     all_command.head = &command_and_flag;
     all_command.path = find_path();
     allocate(&all_command);
-    crete_or_cheak_file_history(&all_command, argv);
+    crete_or_cheak_file_history(&all_command, lvl);
     create_signal_controller();
     while(1 != 0)
     {
@@ -274,14 +279,16 @@ int main(int argc,char **argv,char **env)
                 changes_path_history(&all_command, lvl);
                 changes_lvl_in_env(&all_command, lvl);
                 write(1, "\n", 1);
+                break;
             }
         }
         if (command != NULL)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-            free(command);
-            functions_launch(&all_command.head, struct_env,&lvl);
+              free(command);
+            if(functions_launch(&all_command.head, struct_env,&lvl))
+                break;
             rebut(&all_command);
         }
         find_path_from_new_env(&all_command);
@@ -289,4 +296,8 @@ int main(int argc,char **argv,char **env)
     rebut(&all_command);
     clear_malloc(&all_command);
     return (0);
+}
+int main(int argc,char **argv,char **env)
+{
+    main_dup(argc,argv,env);
 }

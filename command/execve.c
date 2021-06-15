@@ -262,11 +262,13 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 		free(pipe);
 	}
 }
-void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
+int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 {
 	t_command_and_flag *current_head;
 	t_command_and_flag *tmp;
 	int size;
+	int ret=0;
+	char **argv;
 	tmp=0;
 	current_head=*head;
 	size=0;
@@ -281,14 +283,15 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
 		ft_putstr_fd("hello\n",0);
-		if(tmp->command_and_flags[1])
-				struct_env->exit_num=ft_atoi(tmp->array_flags[1])%256;
+		//if(tmp->command_and_flags[1])
+		//		struct_env->exit_num=ft_atoi(tmp->array_flags[1])%256;
 		if(*lvl==0)
 			exit(struct_env->exit_num);
 		else
 			*lvl= *lvl -1;
 		write(1, "\n", 1);
 		ft_putnbr_fd(*lvl, 0);
+		ret=1;
 	}
 	else if(size>=0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 		find_function(size,struct_env,tmp,*head);
@@ -296,8 +299,12 @@ void functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	if(!ft_strncmp(current_head->command,"a.out",5))
 	{
 		(*lvl)++;
-		current_head->array_flags[1]=ft_strdup(ft_itoa(*lvl));
-		current_head->array_flags[2]=0;
-		execve(current_head->command,current_head->array_flags,struct_env->env);
+		argv=(char**)malloc(sizeof(char*)*3);
+		argv[0]=ft_strdup("a.out");
+		argv[1]=ft_strdup(ft_itoa(*lvl));
+		argv[2]=0;
+		//execve(current_head->command,current_head->array_flags,struct_env->env);
+		main_dup(2,argv,struct_env->env);
 	}
+	return(ret);
 }
