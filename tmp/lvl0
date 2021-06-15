@@ -7,6 +7,7 @@ a.out
 a.out
 ls -la
 ls
+<<<<<<< HEAD
 ls
 ls
 ls
@@ -28,3 +29,95 @@ ddd
 
 exit
 exit
+=======
+echo sdfgfgdsa
+ls
+ls -la
+ls -la
+ls
+ls -la
+ls
+ls
+ls
+ls -la
+ls
+ls
+ls -la
+ls
+echo dsfghgfdsfghnmgfdsadfg
+echo dsfghgfdsfghnmgfdsadfgasdfgdsdasdffasdfv
+echo sdfgfdsadfghmngfdsafghmhgfdssdfghgfds
+echo a sfdggfdsadfghdsadfgfdsaDFGFDSAdfgfdsadfgfdsadfghfds
+ls
+ls -la
+echo asdfgfdsa
+ls -la
+ls -la
+ls
+ls -la
+ls
+ls -la
+ls
+ls -la
+ls 
+ls -la
+ls
+ls -la
+ls -la
+ls -la
+ls
+ls
+make
+make clean
+ls
+ls
+ls
+ls
+echo $?
+echo $PATH
+echo sdfgfdsadf asdfgnmnbvcsdf swdfghjjhgfdsd
+echo $>Z?
+ls 
+ls -la
+ls
+ls
+ls -la
+âˆexit
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls -la
+ls
+>>>>>>> 286760f8cfb1e2f86d7c3dac3163a5fa9708484e
+
+ls
+ls
+
+ls
+ls
+a.out
+a.ot
+a.out
+a.out
+a.out
+exit
+a.out
+exit
+a.out
+exit
+exit
+export hello
+export
+a.out
+export
+export h
+export
+export
+export
+export
+export
+dd

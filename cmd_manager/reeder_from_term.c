@@ -63,6 +63,8 @@ char *reeder_from_term(t_minishell *all_command)
     tcgetattr(fileno(stdin), &termios_und);
     a = all_command;
     command = (char *)malloc(sizeof(char) * 1);
+    if (command == NULL)
+        return (NULL);
     command[0] = '\0';
     if (!isatty(fileno(stdin)))
         return (NULL);
@@ -79,6 +81,8 @@ char *reeder_from_term(t_minishell *all_command)
     tgetent(0, term_name);
     history_slider = ft_strlen_history(all_command);
     str = (char *)malloc(sizeof(char) * 101);
+    if (str == NULL)
+        return (NULL);
     i = 0;
     //https://docs.google.com/document/d/1OzX0XRMcIUvCoE5ZTidod0K6yN3Kfs0wH0k-jTz45Lk/edit#
     //tputs(tgoto(tgetstr("cm", &buffer), 2, 2), 1, ft_putint);
@@ -99,6 +103,8 @@ char *reeder_from_term(t_minishell *all_command)
                 history_slider--;
                 free(command);
                 command = (char *)malloc(sizeof(char) * 1);
+                if (command == NULL)
+                    return (NULL);
                 command[0] = '\0';
                 tmp = command;
                 command = ft_strjoin(command, history_line);
@@ -118,6 +124,8 @@ char *reeder_from_term(t_minishell *all_command)
                 history_slider++;
                 free(command);
                 command = (char *)malloc(sizeof(char) * 1);
+                if (command == NULL)
+                    return (NULL);
                 command[0] = '\0';
                 tmp = command;
                 command = ft_strjoin(command, history_line);
@@ -153,6 +161,7 @@ char *reeder_from_term(t_minishell *all_command)
         {
             if (ft_strlen(command) == 0)
             {
+                free(command);
                 command = NULL;
                 break ;
             }
@@ -164,6 +173,8 @@ char *reeder_from_term(t_minishell *all_command)
             write(1, "\n", 1);
             free(command);
             command  = malloc(sizeof(char) * 1);
+            if (command == NULL)
+                return (NULL);
             command[0] = '\0';
             break;
         }
@@ -177,6 +188,6 @@ char *reeder_from_term(t_minishell *all_command)
         }
     }
     tcsetattr(fileno(stdin), TCSANOW, &termios_und);
+    free(str);
     return(command);
 }
-

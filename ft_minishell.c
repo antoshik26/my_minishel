@@ -25,12 +25,39 @@ void rebut(t_minishell *all_command)
         free(command);
         command = tmp;
     }
+    i = 0;
+    while (all_command->path[i])
+    {
+        free(all_command->path[i]);
+        i++;
+    }
+    free(all_command->path);
     all_command->head = NULL;
 }
 
 void clear_malloc(t_minishell *all_command)
 {
+    int i;
+    
+    i = 0;
     free(all_command->file_history);
+    while(all_command->env->env[i])
+    {
+        free(all_command->env->env[i]);
+        free(all_command->env->keys[i]);
+        free(all_command->env->values[i]);
+        i++;
+    }
+    free(all_command->env->env);
+    free(all_command->env->keys);
+    free(all_command->env->values);
+    i = 0;
+    while (all_command->env->env_lvl[i])
+    {
+        free(all_command->env->env_lvl[i]);
+        i++;
+    }
+    free(all_command->env->env_lvl);
 }
 
 void create_signal_controller()
@@ -114,15 +141,14 @@ int changes_path_history(t_minishell *all_command, int lvl)
             return (-1);
         close(fd);
     }
-    /*
     else
     {
+        free(all_command->file_history);
         i = len;
         while(ft_isdigit(all_command->file_history[i]))
             i--;
         
     }
-    */
     return (0);
 }
 
@@ -168,6 +194,7 @@ int find_path_from_new_env(t_minishell *all_command)
         {
             path = all_command->env->values[i];
 	        all_command->path = ft_split(path,':');
+            i = 0;
 	        while (all_command->path[i])
 	        {
 		        tmp = all_command->path[i];
@@ -182,6 +209,27 @@ int find_path_from_new_env(t_minishell *all_command)
     return (0);
 }
 
+int changes_lvl_in_env(t_minishell *all_command, int lvl)
+{
+    int i;
+    char *chislo;
+
+    i = 0;
+    while (all_command->env->keys[i])
+    {
+        if (ft_strnstr(all_command->env->keys[i], "SHLVL", ft_strlen(all_command->env->keys[i])))
+        {
+            free(all_command->env->values[i]);
+            chislo = create_cislo_in_string(lvl);
+            all_command->env->values[i] = chislo;
+        }
+        break ;
+        i++;
+    }
+    return (0);
+}
+
+
 int main(int argc,char **argv,char **env)
 {
     t_minishell all_command;
@@ -192,7 +240,6 @@ int main(int argc,char **argv,char **env)
     t_term_sistem term_in;
     t_term_sistem term_out;
     t_env *struct_env;
-    int ret;
     struct_env=allocate_env(env);
     int lvl;
     if(!argv[1])
@@ -220,14 +267,12 @@ int main(int argc,char **argv,char **env)
         if (command == NULL)
         {
             if (lvl == 0)
-            {
-                printf("%d\n", lvl);
                 break;
-            }
             else
             {
                 lvl--;
                 changes_path_history(&all_command, lvl);
+                changes_lvl_in_env(&all_command, lvl);
                 write(1, "\n", 1);
             }
         }
@@ -235,14 +280,14 @@ int main(int argc,char **argv,char **env)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-           ret = functions_launch(&all_command.head, struct_env,&lvl);
             free(command);
+            if(functions_launch(&all_command.head, struct_env,&lvl))
+                exit(0);
             rebut(&all_command);
         }
         find_path_from_new_env(&all_command);
     }
     rebut(&all_command);
-    clear_malloc(&all_command);
-    //return_settings_term(&all_command);
+  //  clear_malloc(&all_command);
     return (0);
 }

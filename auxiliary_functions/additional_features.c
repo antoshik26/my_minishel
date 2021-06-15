@@ -148,7 +148,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	int a;
 	int c;
 	char *new_command;
-	(void)all_command;
+	
 	len_env = 0;
 	a = 0;
 	if (env_varianles == NULL)
@@ -263,6 +263,33 @@ int find_slash_dot(char *line)
 			return(1);
 	}
 	return(0);
+}
+
+char *create_cislo_in_string(int lvl)
+{
+	char *chislo;
+	int lvl_2;
+	int i;
+
+	i = 0;
+	lvl_2 = lvl;
+	while(lvl_2 > 0)
+	{
+		i++;
+		lvl_2 = lvl_2 / 10;
+	}
+	lvl_2 = lvl;
+	chislo = (char *)malloc(sizeof(char) * i + 1);
+	if (chislo == NULL)
+		return (NULL);
+	chislo[i] = '\0';
+	while(lvl_2)
+	{
+		chislo[i] = (lvl_2 % 10) + '0';
+		lvl_2 = lvl_2 / 10;
+		i--; 
+	}
+	return (chislo);
 }
 
 int	ft_putchar(int c)
