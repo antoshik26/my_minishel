@@ -97,7 +97,7 @@ void                ft_env(t_command_and_flag *all,char **env,int fd);
 int                 ft_cd(t_command_and_flag *all,char **env);
 void                ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
 int                 ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/);
-void                ft_echo(t_command_and_flag *all,int fd,t_env *env);
+void                ft_echo(t_command_and_flag *all,int fd);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
 char                *cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);
@@ -118,6 +118,8 @@ int                 ft_check_name(char *name);
 void			    ft_putnbr_fd(int n, int fd);
 int                 ft_isalpha(int c);
 int                 ft_isalnum(int c);
-int main_dup(int argc,char **argv,char **env);
+int                 main_dup(int argc,char **argv,char **env);
+void                ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *data);
+void                ft_double_less_print(t_command_and_flag *all,int fd);
 
 #endif

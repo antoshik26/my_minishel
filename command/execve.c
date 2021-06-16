@@ -17,11 +17,11 @@ void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env)
 		ft_env(all,env->env,0);
 	//echo
 	if(!ft_strncmp(all->command,"/bin/echo",10)&& fd1)
-		ft_echo(all,fd1,env);
+		ft_echo(all,fd1);
 	if(!ft_strncmp(all->command,"/bin/echo",10)&& pipe_1!=0)
-		ft_echo(all,pipe_1[1],env);
+		ft_echo(all,pipe_1[1]);
 	if(!ft_strncmp(all->command,"/bin/echo",10))
-		ft_echo(all,0,env);
+		ft_echo(all,0);
 	//cd
 	if(!ft_strncmp(all->command,"/usr/bin/cd",13))
 		exit(ft_cd(all,env->env));
@@ -35,6 +35,13 @@ void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env)
 		ft_export(all,pipe_1[1],env);
 	if(!ft_strncmp(all->command,"export",7))
 		ft_export(all,0,env);
+	//<<
+	if(all->pape==DOUBLE_LESS && fd1)
+		ft_double_less_print(all,fd1);
+	if(all->pape==DOUBLE_LESS && pipe_1!=0)
+		ft_double_less_print(all,pipe_1[1]);
+	if(all->pape==DOUBLE_LESS)
+		ft_double_less_print(all,0);
 }
 void redirect(t_command_and_flag *all,int *fd1,int *fd2)
 {
@@ -71,30 +78,10 @@ t_command_and_flag *redirect2(t_command_and_flag *all)
 	}
 	return(all);
 }
-/*void ft_double_less(int fd,t_command_and_flag *all)
-{
-	int len;
-	char *str;
-	str=0;
-	get_next_line(0,&str);
-	len=ft_strlen(all->command);
-	while (!ft_strncmp(all->command,str,len))
-	{
-		ft_putstr_fd(">",0);
-		ft_putstr_fd(str,0);
-		ft_putstr_fd(str,fd);
-		ft_putstr_fd("\n",fd);
-		free(str);
-	}
-	free(str);
-	exit(0);
 
-}*/
 pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, t_env *env)
 {
 	struct stat buff;
-	pid_t tmp=0;
-	int k;
 	if(pipe_2!=0)
 		pipe(pipe_2);
 	pid_t pid=fork();
@@ -114,12 +101,6 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, t_en
 			close(pipe_2[1]);
 			close(pipe_2[0]);
 		}
-		/*if(all->pape==DOUBLE_LESS)
-		{
-			tmp=fork();
-			if(!tmp)
-				ft_double_less(pipe_1[1],all);
-		}*/
 		if(fd1)
 		{
 			dup2(fd1,1);
@@ -132,13 +113,12 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, t_en
 		}
 		if(stat(all->command,&buff))
 		{
-			exit(3);
+			exit(1);
 		}
 		if(!ft_strncmp(all->command,"a.out",6))
 			exit(0);		
-			execve(all->command,all->array_flags,env->env);
+		execve(all->command,all->array_flags,env->env);
 	}
-	waitpid(tmp,&k,0);
 	if(pipe_1!=0)
 	{
 		close(pipe_1[1]);
@@ -146,11 +126,39 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, t_en
 	}
 	return(pid);
 }
+t_command_and_flag *ft_double_less(char *split)
+{
+	char *str;
+	int len;
+	t_command_and_flag *all;
+
+	all=malloc(sizeof(t_command_and_flag));
+	all->command=ft_strdup(split);
+	all->array_flags=0;
+	all->array_flags=new_array_add(all->array_flags,split);
+	len=ft_strlen(split);
+	write(1,">",1);
+	while(1)
+	{
+		get_next_line(0,&str);	// /d
+		if(!ft_strncmp(str,split,len+1))
+			break;
+		all->array_flags=new_array_add(all->array_flags,str);
+		write(1,">",1);
+		free(str);
+	}
+	all->pape=DOUBLE_LESS;
+	free(str);
+	return(all);
+}
+
 void number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **new_head)
 {
 	//1 | 2 > 3 >> 4 < 5; 6 eof
 	t_command_and_flag *head;
-
+	t_command_and_flag *tmp;
+	
+	tmp=0;
 	head=*head1;
 	*size=0;
 	if(head->pape==MORE || head->pape==DOUBLE_MORE)
@@ -159,9 +167,16 @@ void number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **n
 	head=head->next;
 	while(head)
 	{
-		if(head->pape!=MORE && head->pape!=DOUBLE_MORE &&head->pape!=LESS && head->pape!=DOUBLE_LESS)
+		
+		if(head->pape!=MORE && head->pape!=DOUBLE_MORE &&head->pape!=LESS )
 			*size+=1;
-		ft_list_push_front(new_head,head);
+		if(head->pape==DOUBLE_LESS)
+		{
+			tmp=ft_double_less(head->command);
+			ft_list_push_second(new_head,tmp);
+		}
+		else
+			ft_list_push_front(new_head,head);
 		head = head->next;
 	}
 }
@@ -191,6 +206,7 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 		waitpid(pid[size],&fd1,0);
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
 			reverse_head=reverse_head->next;
+		ft_putstr_fd("\n",0);
 		ft_putnbr_fd(fd1,0);
 		ft_putstr_fd(reverse_head->command,0);
 		ft_putstr_fd("\n",0);
@@ -236,19 +252,18 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 	i = -1;
 	fd1 = 0;
 	fd2 = 0;
+	(void)reverse_head;
 	pipe = make_pipe(size);
 	pid=malloc(sizeof(pid)*(size+1));
+	ft_putstr_fd("here\n",0);
 	while(++i<=size)
 	{
 		if(head && ( head->pape==MORE || head->pape==DOUBLE_MORE || head->pape==LESS))
 			redirect(head,&fd1,&fd2);
 		while(head && ( head->pape==MORE || head->pape==DOUBLE_MORE || head->pape==LESS))
 			head = redirect2(head);
-		if(head && head->pape==DOUBLE_LESS)
-		{	
-			fd2=1;
-			ft_putchar_fd('>',0);	//write(1,'>',1);
-		}
+		ft_putstr_fd(head->command,0);
+		ft_putstr_fd("\n",0);
 		pid[i]=test(head,pipe[i],pipe[i+1],fd1,fd2,env);
 		fd1 = 0;
 		fd2=0;
@@ -284,11 +299,10 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		ft_unset(tmp,struct_env);
 	else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
 		ft_cd(tmp,struct_env->env);
+	else if(size==0 &&!ft_strncmp(tmp->command,"bin/echo",13))
+		ft_echo(tmp,0);
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
-		ft_putstr_fd("hello\n",0);
-		//if(tmp->command_and_flags[1])
-		//		struct_env->exit_num=ft_atoi(tmp->array_flags[1])%256;
 		if(*lvl==0)
 			exit(struct_env->exit_num);
 		else
