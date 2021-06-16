@@ -12,6 +12,7 @@
 # include <sys/stat.h>
 # include <term.h>
 # include <string.h>
+#include <errno.h>
 # define MAX_LINE       15
 # define NEW_COMMAND    0
 # define DIRECT_LINE    1
@@ -20,7 +21,7 @@
 # define LESS           4
 # define SEMICOLON      5
 # define DOUBLE_LESS    6
-
+extern int errno;  
 pid_t  g_global_pid; //как же криво работают сигналы
 typedef struct s_env
 {
@@ -50,7 +51,6 @@ typedef struct  s_command_and_flag
 
 typedef struct s_minishell
 {
-    char *count_command[15];
     char *file_history;
     int onecovkey;
     int doublecovkey;

@@ -132,6 +132,7 @@ int shift_comand(char *command, t_minishell *all_command)
         write(fd, command, ft_strlen(command));
     }
     close(fd);
+    /*
     i = 1;
     while(i < 15)
     {
@@ -139,6 +140,7 @@ int shift_comand(char *command, t_minishell *all_command)
         i++;
     }
     all_command->count_command[0] = command;
+    */
     return (0);
 }
 
@@ -148,7 +150,7 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
     int j;
     char *env_varianles;
     char *name_varianled;
-    //char *tmp;
+    char *tmp;
 
     i = 0;
     j = 0;
@@ -188,10 +190,10 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
             }
             name_varianled = create_command(command, i, j);
             env_varianles = getenv(name_varianled);
-            //tmp = command;
+            tmp = command;
             command = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
-            //free(name_varianled);
-            //free(tmp);
+            free(name_varianled);
+            free(tmp);
         }
         if (command[i] == '\0')
             break ;

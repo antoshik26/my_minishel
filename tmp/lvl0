@@ -3,6 +3,7 @@
 wc<<a
 wc<<a
 sdfghj
+<<<<<<< HEAD
 sdfghj
 
 dfghj
@@ -135,3 +136,91 @@ ls|wc<<l
 ls|wc<<l
 ls|wc<<l>l
 cat l
+=======
+echo $?
+asdfgh
+echo $?
+asdfg
+echo $?
+sdfghjhgfds
+echo $?
+sdfghjhgfds
+echo $?
+echo $?
+sretyuio
+echo $?
+echo sdrfghjk
+echo sdrfghjk
+echo $?
+fghjk
+echo $?
+git add ,
+git add .
+ls
+ls -la
+ls
+ls
+ls
+ls -la
+ls
+ls -la
+ls
+ls -la
+exit
+ls
+ls -la
+ls
+a.out
+ls
+ls -la
+ls -la
+>>>>>>> 814d398fcecbb8e3879fa3a3f3d806c77b1428a1
+
+ls
+ls -efrjherifeiorrfrfef
+ls -efrjherifeiorrfrfeferferferferferfrrferferfwerferf
+pwd fffedfefffffffeffefffe
+pwd fffedfefffffffeffefffe
+wc ejroirej
+wc ejroirej
+exit
+a.out
+a.out
+a.out
+exit
+a.out
+echo $?
+a.out
+echo $?
+echo $?
+a.out
+echo $?
+echo $?
+echo $?
+echo $?
+ls|wc[3~
+ls|wc[3~
+ls|wc[3~
+ls|wc[3~
+ls|wc[3~
+ls|wc[3~
+ls|wc[3~
+ls|wc[3~
+ls|wc[3~
+
+
+
+
+ls
+ls|wc
+yes|head|wc
+echo dfghjk
+echo $?
+exit -2
+exit -2
+exit 34
+exit 34
+exit 34
+exit 34
+a.out
+ecgo $?

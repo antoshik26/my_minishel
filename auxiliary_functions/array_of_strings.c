@@ -32,7 +32,7 @@ char **new_array_add(char **array,char *str)
 	new_array[i]=ft_strdup(str);
 	while(--i>=0)
 		new_array[i]=ft_strdup(array[i]);
-	free_array_of_strings(array);	
+//	free_array_of_strings(array);	
 	return(new_array);
 }
 char **new_array_rm(char **array,int index)

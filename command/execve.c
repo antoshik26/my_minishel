@@ -206,10 +206,6 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 		waitpid(pid[size],&fd1,0);
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
 			reverse_head=reverse_head->next;
-		ft_putstr_fd("\n",0);
-		ft_putnbr_fd(fd1,0);
-		ft_putstr_fd(reverse_head->command,0);
-		ft_putstr_fd("\n",0);
 		if(fd1!=0 && fd1!=256)
 		{	
 			if(!ft_strncmp(reverse_head->command,"/bin/pwd",9))
@@ -286,9 +282,9 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	t_command_and_flag *current_head;
 	t_command_and_flag *tmp;
 	int size;
-	int ret=0;
-	char **argv;
+	int ret=-1;
 	tmp=0;
+	char **argv;
 	current_head=*head;
 	size=0;
 	number_of_pipes(&size,&current_head,&tmp);
@@ -303,13 +299,17 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		ft_echo(tmp,0);
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
-		if(*lvl==0)
-			exit(struct_env->exit_num);
+		if(!tmp->array_flags[1])
+			ret=ft_atoi(tmp->array_flags[1])%256;
 		else
-			*lvl= *lvl -1;
-		write(1, "\n", 1);
-		ft_putnbr_fd(*lvl, 0);
-		ret=1;
+			ret=0;
+		//if(*lvl==0)
+		//	exit(ret);
+		//else
+		//	*lvl= *lvl -1;
+		//write(1, "\n", 1);
+		//ft_putnbr_fd(*lvl, 0);
+		
 	}
 	else if(size>=0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 		find_function(size,struct_env,tmp,*head);
@@ -321,8 +321,7 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		argv[0]=ft_strdup("a.out");
 		argv[1]=ft_strdup(ft_itoa(*lvl));
 		argv[2]=0;
-		//execve(current_head->command,current_head->array_flags,struct_env->env);
-		main_dup(2,argv,struct_env->env);
+		struct_env->exit_num=main_dup(2,argv,struct_env->env);
 	}
 	return(ret);
 }

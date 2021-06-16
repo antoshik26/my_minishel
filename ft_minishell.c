@@ -75,14 +75,6 @@ void create_signal_controller()
 
 void allocate(t_minishell *all_command)
 {
-    int i;
-
-    i = 0;
-    while (i < 15)
-    {
-        all_command->count_command[i] = NULL;
-        i++;
-    }
     all_command->onecovkey = 0;
     all_command->doublecovkey = 0;
     all_command->head = NULL;
@@ -117,11 +109,17 @@ int crete_or_cheak_file_history(t_minishell *all_command,  int lvl)
     char *path;
     int len;
     int fd;
+    char *tmp;
+    char *itoa;
 
     path = getenv("PWD");
     len = ft_strlen(path);
     path = ft_strjoin(path, "/tmp/lvl");
-    path=ft_strjoin(path,ft_itoa(lvl));
+    tmp = path;
+    itoa = ft_itoa(lvl);
+    path = ft_strjoin(path, itoa);
+    free(tmp);
+    free(itoa);
     fd = open(path, O_WRONLY | O_CREAT, 0777 | O_TRUNC | O_APPEND);
     if (fd == -1)
         return (-1);
@@ -245,6 +243,9 @@ int main_dup(int argc,char **argv,char **env)
     t_term_sistem term_in;
     t_term_sistem term_out;
     t_env *struct_env;
+    int ret;
+
+    ret=-1;
     struct_env=allocate_env(env);
     int lvl;
     if(!argv[1])
@@ -279,6 +280,7 @@ int main_dup(int argc,char **argv,char **env)
                 changes_path_history(&all_command, lvl);
                 changes_lvl_in_env(&all_command, lvl);
                 write(1, "\n", 1);
+                ret=0;
                 break;
             }
         }
@@ -287,17 +289,19 @@ int main_dup(int argc,char **argv,char **env)
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
               free(command);
-            if(functions_launch(&all_command.head, struct_env,&lvl))
+            ret=functions_launch(&all_command.head, struct_env,&lvl);
+            if(ret!=-1)
                 break;
             rebut(&all_command);
         }
         find_path_from_new_env(&all_command);
     }
     rebut(&all_command);
-  //  clear_malloc(&all_command);
-    return (0);
+    clear_malloc(&all_command);
+    ft_putstr_fd("exit\n",0);
+    return (ret);
 }
 int main(int argc,char **argv,char **env)
 {
-    main_dup(argc,argv,env);
+    exit(main_dup(argc,argv,env));
 }
