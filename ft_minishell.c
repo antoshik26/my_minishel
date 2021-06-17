@@ -62,8 +62,9 @@ void clear_malloc(t_minishell *all_command)
             free(all_command->env->env_lvl[i]);
             i++;
         }
-    free(all_command->env->env_lvl);
+        free(all_command->env->env_lvl);
     }
+    free(all_command->env);
 }
 
 void create_signal_controller()
@@ -288,15 +289,18 @@ int main_dup(int argc,char **argv,char **env)
         }
         if (command != NULL)
         {
-            parser_commands(command, &all_command);
-            print_command(&all_command); //комманда для проверки парсера
-                free(command);
-            ret=functions_launch(&all_command.head, struct_env,&lvl);
-            if(ret!=-1)
-                break;
-            rebut(&all_command);
-            printf("%d\n", errno);
-            printf("%s\n", strerror(errno));
+            if (ft_strlen(command) != 0)
+            {
+                parser_commands(command, &all_command);
+                print_command(&all_command); //комманда для проверки парсера
+                    free(command);
+                ret=functions_launch(&all_command.head, struct_env,&lvl);
+                if(ret!=-1)
+                    break;
+                rebut(&all_command);
+                printf("%d\n", errno);
+                printf("%s\n", strerror(errno));
+            }
         }
         find_path_from_new_env(&all_command);
     }

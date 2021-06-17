@@ -151,7 +151,10 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	int c;
 	char *new_command;
 
+	len_command = 0;
 	len_env = 0;
+	a = 0;
+	k = 0;
 	if (env_varianles == NULL)
 	{
 		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
@@ -206,7 +209,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	}
 	command[k] = '\0';
 	len_command = ft_strlen(command);
-	new_command = (char *)malloc(sizeof(char) * (len_command + len_env + 1));
+	new_command = (char *)malloc(sizeof(char) * (len_command + len_env + 2));
 	if (new_command == NULL)
 		return (NULL);
 	k = 0;
@@ -220,7 +223,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 		{
 			new_command[k - 1] = env_varianles[a];
 			a++;
-			i = &a;
+			(*i) = k;
 		}
 		if (k > j + len_env && command[c] != '\0')
 		{
@@ -229,10 +232,9 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 		}
 		k++;
 	}
-	k++;
 	new_command[k] = '\0';
-	*i = k;
-	free(env_varianles);
+	if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
+		free(env_varianles);
 	return (new_command);
 }
 
@@ -301,6 +303,20 @@ char *create_cislo_in_string(int lvl)
 int	ft_putchar(int c)
 {
 	return (write(1, &c, 1));
+}
+
+char *my_getenv(char *name_env, t_minishell *all_command)
+{
+	int i;
+
+	i = 0;
+	while (all_command->env->keys[i])
+	{
+		if (ft_strnstr(all_command->env->keys[i], name_env, ft_strlen(name_env)))
+			break ;
+		i++;
+	}
+	return (all_command->env->values[i]);
 }
 //написать strcmp
 /*
