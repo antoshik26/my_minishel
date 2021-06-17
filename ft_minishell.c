@@ -296,9 +296,7 @@ int main_dup(int argc,char **argv,char **env)
                 ret=functions_launch(&all_command.head, struct_env,&lvl);
                 if(ret!=-1)
                     break;
-                rebut(&all_command);
-                printf("%d\n", errno);
-                printf("%s\n", strerror(errno));
+                //rebut(&all_command);
             }
         }
         find_path_from_new_env(&all_command);

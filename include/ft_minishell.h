@@ -98,7 +98,7 @@ int                 ft_atoi(const char *str);
 void                ft_pwd(char **env,int fd);
 void                ft_env(t_command_and_flag *all,char **env,int fd);
 int                 ft_cd(t_command_and_flag *all,char **env);
-int                ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
+int                 ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
 int                 ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/);
 void                ft_echo(t_command_and_flag *all,int fd);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);

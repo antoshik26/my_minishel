@@ -1,10 +1,26 @@
 
-<<<
-ls
+export
 export a
+export
+export aa
+export
 export a=5
+export
+export a="6"
+export a="6"
+export a="6"
+export a="6"
+export a="6"
+export a="6"
+export a="6"
+export a="6"
+export a="6"
+export a="6"
 ls
-ls -la
-cat -e
-ls
-wc<<l
+ls -lq
+export
+export a
+export
+export k
+export k
+export
