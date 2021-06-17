@@ -12,7 +12,11 @@
 # include <sys/stat.h>
 # include <term.h>
 # include <string.h>
+<<<<<<< HEAD
 # include <errno.h>
+=======
+#include <errno.h>
+>>>>>>> 01d654131d0ee5b8a10282bfc19545ed5079c797
 # define MAX_LINE       15
 # define NEW_COMMAND    0
 # define DIRECT_LINE    1
@@ -21,7 +25,7 @@
 # define LESS           4
 # define SEMICOLON      5
 # define DOUBLE_LESS    6
-
+extern int errno;  
 pid_t  g_global_pid; //как же криво работают сигналы
 typedef struct s_env
 {
@@ -119,5 +123,7 @@ void			    ft_putnbr_fd(int n, int fd);
 int                 ft_isalpha(int c);
 int                 ft_isalnum(int c);
 int                 main_dup(int argc,char **argv,char **env);
+void                ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *data);
+void                ft_double_less_print(t_command_and_flag *all,int fd);
 
 #endif

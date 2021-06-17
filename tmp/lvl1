@@ -26,3 +26,11 @@ ls -la
 a.out
 cat -e
 a.out
+exit
+exit
+exit
+exit 2
+1
+echo $?
+exit 1234567
+exit 12345

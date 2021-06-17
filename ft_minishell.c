@@ -243,6 +243,9 @@ int main_dup(int argc,char **argv,char **env)
     t_term_sistem term_in;
     t_term_sistem term_out;
     t_env *struct_env;
+    int ret;
+
+    ret=-1;
     struct_env=allocate_env(env);
     int lvl;
     //errno = 0;
@@ -279,6 +282,7 @@ int main_dup(int argc,char **argv,char **env)
                 changes_path_history(&all_command, lvl);
                 changes_lvl_in_env(&all_command, lvl);
                 write(1, "\n", 1);
+                ret=0;
                 break;
             }
         }
@@ -287,7 +291,8 @@ int main_dup(int argc,char **argv,char **env)
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
               free(command);
-            if(functions_launch(&all_command.head, struct_env,&lvl))
+            ret=functions_launch(&all_command.head, struct_env,&lvl);
+            if(ret!=-1)
                 break;
             rebut(&all_command);
             //printf("%d\n", errno);
@@ -297,10 +302,11 @@ int main_dup(int argc,char **argv,char **env)
     }
     rebut(&all_command);
     clear_malloc(&all_command);
-    return (0);
+    ft_putstr_fd("exit\n",0);
+    return (ret);
 }
 
 int main(int argc,char **argv,char **env)
 {
-    main_dup(argc,argv,env);
+    exit(main_dup(argc,argv,env));
 }

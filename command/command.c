@@ -58,6 +58,17 @@ void	ft_echo(t_command_and_flag *all,int fd)
 		ft_putchar_fd('\n',fd);
 	exit(0);
 }
+void	ft_double_less_print(t_command_and_flag *all,int fd)
+{
+	int i=1;
+	while(all->array_flags[i])
+	{
+		ft_putstr_fd(all->array_flags[i++],fd);
+		//if (all->array_flags[i])
+		ft_putchar_fd('\n',fd);
+	}
+	exit(0);
+}
 int ft_cd(t_command_and_flag *all,char **env)
 {
 	int i;

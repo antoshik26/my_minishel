@@ -5,9 +5,10 @@ t_command_and_flag	*ft_create_elem(t_command_and_flag *data)
 	int i;
 
 	i = 0;
+
 	elem = (t_command_and_flag *)malloc(sizeof(t_command_and_flag));
 	elem->pape=data->pape;
-	elem->f_error=data->f_error;
+//	elem->f_error=data->f_error;
 	elem->command = ft_strdup(data->command);
 	while(data->array_flags[i])
 		i++;
@@ -32,7 +33,26 @@ void	ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *dat
 	else
 		*begin_list = ft_create_elem(data);
 }
+void	ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *data)
+{
+	t_command_and_flag *elem1;
+	t_command_and_flag *tmp;
+	
+	elem1 = *begin_list;
+	if (*begin_list == 0)
+		*begin_list = ft_create_elem(data);
+	else
+	{
+		tmp=elem1->next;
+		elem1->next = ft_create_elem(data);
+		elem1->next->next = tmp;
+	}
+}
+/*void ft_list_push_back()
+{
 
+}
+*/
 void ft_list_clear(t_command_and_flag *command)
 {
     int i;
