@@ -188,3 +188,70 @@ export b=3
 ls
 ls
 export a=b
+ls -la
+ls -la
+ls -lq
+ls
+ls
+ls -la
+ls | cat -e | cat -e
+ls | cat -e | cat -e
+dffhbdfgghdf
+sdgfhm,
+asdfghnm
+asdfgh
+pwd
+pwd
+ls
+ls -la
+cat -e
+yes|head|wc
+ls -la
+ls | cat -e | cat -e
+ls | cat -e | cat -e
+ls -la
+export a=5
+ls | grep main.c
+unset $PATGH
+ununset $PATH
+unset $OAPATH
+uset $PATH
+env
+uset $PWVD
+uset $PWVD
+uset $PWVD
+unset $PATGH
+ls
+unset $PATGH
+unset $PATH
+unset $PATGH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+unset $PATH
+ls
+ls -la
+unset $PATH
+unset $PATH
+unset $PATH
+export a=3
+unset PATH
+unset PATH
+unset $PATH
+env
+unset $PATH
+env
+ls
+ls
+ls -la
+unset P$OPARTTH
+ls
+export a=5
