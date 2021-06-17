@@ -52,6 +52,7 @@ cat -e
 ls
 yes|head|wc
 ls
+<<<<<<< HEAD
 >>>>>>> d6de0dbb7989df446f81645b885fba519c5520b5
 
 houhdwedw
@@ -93,10 +94,67 @@ export
 export lk=0 lll l
 export
 export lk=0 lll l
+=======
+ls -la
+echo $PATH
+ls
+ls -la
+echo $?
+ls
+echo $?
+asdfghd
+echo $/
+echo $?
+sdfshfg
+echo $?
+echo &PATH
+echo $PATH
+
+ls
+ls -la
+ls
+ls -la
+ls
+ls -la
+ls
+ls -la
+echo $?
+make test
+ls
+ls -la
+echo #$?
+ls
+ls -la
+fshfgsh
+echo $?
+ls
+ls -la
+adgadfsg
+echo $?
+adhfgdfg
+echo $/
+echo $?
+echo $?
+echo $?
+echo $?
+ls -la
+ls
+ls -al
+ls -la
+ls -la
+ls -la
+wc>>k
+export a
+export
+wc>>k
+export lk=0 lll l
+export
+>>>>>>> 7966e3e4dec6d974d52eaceae0950fd109b33e5a
 export
 export lk=0 lll l
 export
 export lk=0 lll l
+<<<<<<< HEAD
 export lk=0 lll l
 export 
 export lk=0 lll l
@@ -220,3 +278,12 @@ echo l|ls
 ls|export
 ls|export
 ls|export
+=======
+expor
+export
+wc>>k
+wc<<a
+wc<<a
+wc<<a
+wc<<a
+>>>>>>> 7966e3e4dec6d974d52eaceae0950fd109b33e5a

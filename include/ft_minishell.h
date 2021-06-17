@@ -106,6 +106,7 @@ char                *cmd_manager(t_minishell *all_command);
 int                 return_settings_term(t_minishell *all_command);
 int                 ft_isdigit(int c);
 char                *ft_strnstr(const char *haystack, const char *needle, size_t len);
+char                *term_from_double_less();
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);

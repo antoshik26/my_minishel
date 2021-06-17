@@ -206,6 +206,12 @@ int *stat_command(t_minishell *all_command)
             continue ; 
         }
         */
+        if (command->pape == DOUBLE_LESS)
+        {
+            i_stat = 0;
+            command = command->next;
+            continue ;
+        }
         if (command->pape == DOUBLE_MORE || command->pape == MORE || command->pape == LESS)
             i_stat = check_stat_file(command);
         else

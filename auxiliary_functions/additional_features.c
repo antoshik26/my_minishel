@@ -52,6 +52,8 @@ char *create_command(char *command, int i, int j)
 	
 	k = 0;
 	new_command = (char *)malloc(sizeof(char) * (i - j + 1));
+	if (new_command == NULL)
+		return (NULL);
 	while(k < (i - j))
 	{
 		new_command[k] = command[j + k];
@@ -82,7 +84,7 @@ char *create_cloth_cov(t_minishell *all_command, char *command_and_flags)
 				while (command_and_flags[i])
 				{
 					new_command_and_flags[i] = command_and_flags[i];
-					i++;	
+					i++;
 				}
 				new_command_and_flags[i++] = '\"';
 				new_command_and_flags[i++] = '\'';
@@ -150,7 +152,6 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	char *new_command;
 
 	len_env = 0;
-	//a = 0;
 	if (env_varianles == NULL)
 	{
 		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
@@ -165,12 +166,16 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 			{
 				len_env = 1;
 				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+				if (env_varianles == NULL)
+					return (NULL);
 				env_varianles[0] = '0';
 				env_varianles[1] = '\0';
 			}
 			else
 			{
 				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+				if (env_varianles == NULL)
+					return (NULL);
 				env_varianles[len_env] = '\0';
 				len_env--;
 				while (len_env > -1)
@@ -184,6 +189,8 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 		else
 		{
 			env_varianles = (char *)malloc(sizeof(char) * 1);
+			if (env_varianles == NULL)
+				return (NULL);
 			env_varianles[0] = '\0';
 		}
 	}
@@ -200,6 +207,8 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	command[k] = '\0';
 	len_command = ft_strlen(command);
 	new_command = (char *)malloc(sizeof(char) * (len_command + len_env + 1));
+	if (new_command == NULL)
+		return (NULL);
 	k = 0;
 	a = 0;
 	c = j;
@@ -222,7 +231,8 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	}
 	k++;
 	new_command[k] = '\0';
-	*i = k; 
+	*i = k;
+	free(env_varianles);
 	return (new_command);
 }
 
