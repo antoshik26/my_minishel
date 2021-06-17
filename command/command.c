@@ -101,40 +101,46 @@ int ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/)
 	int i;
 	int len;
 	int i1;
+	int num;
+
+	num=0;
 	i1=0;
 	i=0;
 	//errors
-	if(!ft_check_name(all->array_flags[1]))
-	{	
-		ft_putstr_fd("bash: export: nor valid",0);
-		ft_putchar_fd('\n',0);
-		return(2);
-	}
-	// unset
-	len=ft_strlen(all->array_flags[1]);
-	//env
-	while(struct_env->env[i]) 
-	{
-		if(!ft_strncmp(struct_env->env[i],all->array_flags[1],len) && struct_env->env[i][len]=='=')
-		{
-			struct_env->env=new_array_rm(struct_env->env,i);
-			struct_env->keys=new_array_rm(struct_env->keys,i);
-			struct_env->values=new_array_rm(struct_env->values,i);
-			break;
-		}
-		i++;
-	}
-	i=-1;
-	//env_lvl
-	if(!struct_env->env_lvl)
+	if(!all->array_flags[1])
 		return(0);
-	while (struct_env->env_lvl[++i])
+	while(all->array_flags[++num])
 	{
-		if(!ft_strncmp(struct_env->env_lvl[i],all->array_flags[1],len) && struct_env->env_lvl[i][len]=='\0')
+		if(ft_check_name(all->array_flags[num]))
+	// unset
 		{
-			struct_env->env_lvl=new_array_rm(struct_env->env_lvl,i);
-			break;
+			len=ft_strlen(all->array_flags[num]);
+	//env
+			while(struct_env->env[i]) 
+			{
+				if(!ft_strncmp(struct_env->env[i],all->array_flags[num],len) && struct_env->env[i][len]=='=')
+				{
+					struct_env->env=new_array_rm(struct_env->env,i);
+					struct_env->keys=new_array_rm(struct_env->keys,i);
+					struct_env->values=new_array_rm(struct_env->values,i);
+					break;
+				}
+				i++;
+			}
+			i=-1;
+	//env_lvl
+			if(!struct_env->env_lvl)
+				return(0);
+			while (struct_env->env_lvl[++i])
+			{
+				if(!ft_strncmp(struct_env->env_lvl[i],all->array_flags[num],len) && struct_env->env_lvl[i][len]=='\0')
+				{
+					struct_env->env_lvl=new_array_rm(struct_env->env_lvl,i);
+					break;
+				}
+			}
 		}
 	}
 	return(0);
+
 }
