@@ -11,11 +11,12 @@ t_command_and_flag	*ft_create_elem(t_command_and_flag *data)
 	if (elem == NULL)
 		return (NULL);
 	elem->pape=data->pape;
-//	elem->f_error=data->f_error;
 	elem->command = ft_strdup(data->command);
 	while(data->array_flags[i])
 		i++;
 	elem->array_flags=malloc(sizeof(char*)*(i+1));
+	if(!elem->array_flags)
+		return(0);
 	i=-1;
 	while(data->array_flags[++i])
 		elem->array_flags[i]=ft_strdup(data->array_flags[i]);
@@ -51,11 +52,7 @@ void	ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *da
 		elem1->next->next = tmp;
 	}
 }
-/*void ft_list_push_back()
-{
 
-}
-*/
 void ft_list_clear(t_command_and_flag *command)
 {
     int i;

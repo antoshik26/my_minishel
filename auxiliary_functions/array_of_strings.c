@@ -28,6 +28,8 @@ char **new_array_add(char **array,char *str)
 		i+=1;
 	}
 	new_array = (char**)malloc(sizeof(char*)*i+1);
+	if(!new_array)
+		return(0);
 	new_array[i--]=NULL;
 	new_array[i]=ft_strdup(str);
 	while(--i>=0)
@@ -48,6 +50,8 @@ char **new_array_rm(char **array,int index)
     while (array[i])
 		i++;
     new_array = (char**)malloc(sizeof(char*)*(i--));
+	if(!new_array)
+		return(0);
 	i_old=i;
 	new_array[i]=0;
 	while(--i>=0)
@@ -68,6 +72,8 @@ char **ft_strdup_array_of_strings(char **env)
 	while(env[i])
 		i++;
 	new_env=(char**)malloc(sizeof(char*)*(i+1));
+	if(!new_env)
+		return(0);
 	i=-1;
 	while (env[++i])
 		new_env[i]=ft_strdup(env[i]);
