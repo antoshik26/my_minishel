@@ -141,6 +141,8 @@ t_command_and_flag *ft_double_less(char *split)
 	t_command_and_flag *all;
 
 	all=malloc(sizeof(t_command_and_flag));
+	if(!all)
+		return 0;
 	all->command=ft_strdup(split);
 	all->array_flags=0;
 	all->array_flags=new_array_add(all->array_flags,split);
@@ -149,9 +151,7 @@ t_command_and_flag *ft_double_less(char *split)
 	{
 		str = term_from_double_less();
 		if (str == NULL)
-		{
 			break ;
-		}
 		if(!ft_strncmp(str,split,len+1))
 			break;
 		all->array_flags=new_array_add(all->array_flags,str);
@@ -161,7 +161,17 @@ t_command_and_flag *ft_double_less(char *split)
 	free(str);
 	return(all);
 }
-
+void free_tmp(t_command_and_flag *tmp)
+{
+	int i;
+ 	
+	i=-1;
+	free(tmp->command);
+ 	while (tmp->array_flags[++i])
+	 free(tmp->array_flags[i]);
+	free(tmp->array_flags[i]);
+	free(tmp);
+}
 void number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **new_head)
 {
 	//1 | 2 > 3 >> 4 < 5; 6 eof
@@ -184,6 +194,7 @@ void number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **n
 		{
 			tmp=ft_double_less(head->command);
 			ft_list_push_second(new_head,tmp);
+			free_tmp(tmp);
 		}
 		else
 			ft_list_push_front(new_head,head);
@@ -199,39 +210,74 @@ int **make_pipe(int size)
 	if(size < 0)
 		return(0);
 	pipe = malloc(sizeof(int*) * (size + 2));
+	if(!pipe)
+		return 0;
 	pipe[i++] = NULL;
 	while(i <= size)
-		pipe[i++] = malloc(sizeof(int) * 2);
+	{
+		pipe[i] = malloc(sizeof(int) * 2);
+		if(!pipe[i++])
+			return(0);
+	}
 	pipe[size+1]=NULL;
 	return(pipe);
-	
 }
 void export_errors(t_command_and_flag *all)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 	if(!all->array_flags[i])
 		return;
 	while(all->array_flags[i])
 	{
-		ft_putstr_fd("minishell: export: '",0);
-		ft_putstr_fd(all->array_flags[i++],0);
-		ft_putstr_fd(": not a valid identifier\n",0);
+		if(!ft_check_name(all->array_flags[i]))
+		{	
+			ft_putstr_fd("minishell: export: '",0);
+			ft_putstr_fd(all->array_flags[i],0);
+			ft_putstr_fd("': not a valid identifier\n",0);
+		}
+		i++;
 	}
 }
 void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *env)
 {
 	int fd1;
 	//struct stat buff;
-
 	while(size>=0)
 	{	
 		waitpid(pid[size],&fd1,0);
+		pid[size]=0;
+		ft_putstr_fd("\n",0);
+		ft_putstr_fd(reverse_head->command,0);
 		ft_putnbr_fd(fd1, 0);
 		ft_putstr_fd(reverse_head->command,0);
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
-		reverse_head=reverse_head->next;
+		{
+			if(reverse_head->pape==LESS && (reverse_head->f_error==-3 || reverse_head->f_error==-1))
+			{
+				ft_putstr_fd("minishell: ",0);
+				ft_putstr_fd(reverse_head->array_flags[1],0);
+				ft_putstr_fd(": No such file or directory\n",0);
+			}
+			else if(reverse_head->pape==LESS && reverse_head->f_error==-2)
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'",0);
+			else if((reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE)&& reverse_head->f_error==-1)
+			{
+				ft_putstr_fd("minishell: ",0);
+				ft_putstr_fd(reverse_head->array_flags[1],0);
+				ft_putstr_fd(": No such file or directory\n",0);
+			}
+			else if((reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE)&& reverse_head->f_error==-2)
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'",0);
+			else if((reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE)&& reverse_head->f_error==-2)
+			{
+				ft_putstr_fd("minishell: ",0);
+				ft_putstr_fd(reverse_head->array_flags[1],0);
+				ft_putstr_fd(": Permission denied\n",0);
+			}
+			reverse_head=reverse_head->next;
+		}
 		if(!ft_strncmp(reverse_head->command,"export",7))
 			while(reverse_head->array_flags);
 		else if(fd1!=0)
@@ -266,6 +312,32 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 		size--;
 		reverse_head=reverse_head->next;
 	}
+		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
+		{
+			if(reverse_head->pape==LESS && (reverse_head->f_error==-3 || reverse_head->f_error==-1))
+			{
+				ft_putstr_fd("minishell: ",0);
+				ft_putstr_fd(reverse_head->array_flags[1],0);
+				ft_putstr_fd(": No such file or directory\n",0);
+			}
+			else if(reverse_head->pape==LESS && reverse_head->f_error==-2)
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'",0);
+			else if((reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE)&& reverse_head->f_error==-1)
+			{
+				ft_putstr_fd("minishell: ",0);
+				ft_putstr_fd(reverse_head->array_flags[1],0);
+				ft_putstr_fd(": No such file or directory\n",0);
+			}
+			else if((reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE)&& reverse_head->f_error==-2)
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'",0);
+			else if((reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE)&& reverse_head->f_error==-2)
+			{
+				ft_putstr_fd("minishell: ",0);
+				ft_putstr_fd(reverse_head->array_flags[1],0);
+				ft_putstr_fd(": Permission denied\n",0);
+			}
+			reverse_head=reverse_head->next;
+		}
 
 }
 void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_flag *reverse_head)
@@ -280,24 +352,23 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 	fd2 = 0;
 	(void)reverse_head;
 	pipe = make_pipe(size);
-	pid=malloc(sizeof(pid)*(size+1));
-	ft_putstr_fd("here\n",0);
+	pid=malloc(sizeof(pid)*(size+1));//free
+	if(!pid)
+		return;
 	while(++i<=size)
 	{
 		if(head && ( head->pape==MORE || head->pape==DOUBLE_MORE || head->pape==LESS))
 			redirect(head,&fd1,&fd2);
 		while(head && ( head->pape==MORE || head->pape==DOUBLE_MORE || head->pape==LESS))
 			head = redirect2(head);
-		ft_putstr_fd(head->command,0);
-		ft_putstr_fd("\n",0);
+		ft_putnbr_fd(fd1,0);
+		ft_putstr_fd("\n\n\n",0);
 		pid[i]=test(head,pipe[i],pipe[i+1],fd1,fd2,env);
 		fd1 = 0;
 		fd2=0;
 		head=head->next;
 	}
-	//wait(0);
-	//wait(0);
-	//print_errors(pid,reverse_head,size,env);
+	print_errors(pid,reverse_head,size,env);
 	i=size;
 	if(i>0)
 	{
@@ -314,34 +385,33 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	t_command_and_flag *current_head;
 	t_command_and_flag *tmp;
 	int size;
+	int i;
 	int ret=-1;
 	tmp=0;
+	i=0;
 	char **argv;
 	current_head=*head;
 	size=0;
 	number_of_pipes(&size,&current_head,&tmp);
 	printf("%d\n",size);
 	if(!ft_strncmp(tmp->command,"export",7) && size==0)
+	{	
 		ft_export(tmp,0,struct_env);
+		export_errors(tmp);
+	}
 	else if(!ft_strncmp(tmp->command,"unset",6) && size==0)
+	{
 		ft_unset(tmp,struct_env);
+		export_errors(tmp);
+	}
 	else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
 		ft_cd(tmp,struct_env->env);
-	else if(size==0 && !ft_strncmp(tmp->command,"export",13))
-		ft_export(tmp,0,struct_env);
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
-		if(!tmp->array_flags[1])
+		if(tmp->array_flags[1])
 			ret=ft_atoi(tmp->array_flags[1])%256;
 		else
-			ret=0;
-		//if(*lvl==0)
-		//	exit(ret);
-		//else
-		//	*lvl= *lvl -1;
-		//write(1, "\n", 1);
-		//ft_putnbr_fd(*lvl, 0);
-		
+			ret=0;		
 	}
 	else if(size>=0 || (size==0 && tmp->pape==MORE) || (size==0 && tmp->pape==DOUBLE_MORE)||(size==0 && tmp->pape==LESS))
 		find_function(size,struct_env,tmp,*head);
@@ -350,10 +420,15 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	{
 		(*lvl)++;
 		argv=(char**)malloc(sizeof(char*)*3);
+		if(!argv)
+			return(0);
 		argv[0]=ft_strdup("a.out");
 		argv[1]=ft_strdup(ft_itoa(*lvl));
 		argv[2]=0;
 		struct_env->exit_num=main_dup(2,argv,struct_env->env);
+		while (argv[i])
+			free(argv[i++]);
+		free(argv);
 	}
 	return(ret);
 }
