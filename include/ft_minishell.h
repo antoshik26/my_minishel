@@ -12,6 +12,7 @@
 # include <sys/stat.h>
 # include <term.h>
 # include <string.h>
+# include <errno.h>
 # define MAX_LINE       15
 # define NEW_COMMAND    0
 # define DIRECT_LINE    1
@@ -117,6 +118,6 @@ int                 ft_check_name(char *name);
 void			    ft_putnbr_fd(int n, int fd);
 int                 ft_isalpha(int c);
 int                 ft_isalnum(int c);
-int main_dup(int argc,char **argv,char **env);
+int                 main_dup(int argc,char **argv,char **env);
 
 #endif

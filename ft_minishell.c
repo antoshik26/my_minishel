@@ -245,6 +245,7 @@ int main_dup(int argc,char **argv,char **env)
     t_env *struct_env;
     struct_env=allocate_env(env);
     int lvl;
+    //errno = 0;
     if(!argv[1])
         lvl=0;
     else
@@ -266,6 +267,7 @@ int main_dup(int argc,char **argv,char **env)
     create_signal_controller();
     while(1 != 0)
     {
+        errno = 0;
         command = cmd_manager(&all_command);
         if (command == NULL)
         {
@@ -288,6 +290,8 @@ int main_dup(int argc,char **argv,char **env)
             if(functions_launch(&all_command.head, struct_env,&lvl))
                 break;
             rebut(&all_command);
+            //printf("%d\n", errno);
+            //printf("%s\n", strerror(errno));
         }
         find_path_from_new_env(&all_command);
     }
@@ -295,6 +299,7 @@ int main_dup(int argc,char **argv,char **env)
     clear_malloc(&all_command);
     return (0);
 }
+
 int main(int argc,char **argv,char **env)
 {
     main_dup(argc,argv,env);
