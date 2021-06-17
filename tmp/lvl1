@@ -4,3 +4,8 @@ exit 123
 env
 a.out
 env
+env
+cat -e
+ls
+touch b
+ls

@@ -156,3 +156,32 @@ ls
 a.out
 env
 a.out
+ls
+ls -la
+make test
+make test
+make test
+make test
+make test
+make test
+ls
+ls -la
+ls -la
+wc<<k
+wc<<k
+yes|head|wc
+ls
+ls -la
+make
+a.out
+ls
+ls
+ls
+ls
+export a=5
+export a=5
+export a=5
+ls
+ls -la
+export
+export b=3

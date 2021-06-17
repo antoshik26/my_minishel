@@ -3,10 +3,13 @@ t_command_and_flag	*ft_create_elem(t_command_and_flag *data)
 {
 	t_command_and_flag	 *elem;
 	int i;
+	char *tmp;
 
 	i = 0;
 
 	elem = (t_command_and_flag *)malloc(sizeof(t_command_and_flag));
+	if (elem == NULL)
+		return (NULL);
 	elem->pape=data->pape;
 //	elem->f_error=data->f_error;
 	elem->command = ft_strdup(data->command);
@@ -60,9 +63,8 @@ void ft_list_clear(t_command_and_flag *command)
 
     while(command)
     {
-		if(!command->f_error)
         free(command->command);
-        i = 1;
+        i = 0;
        	while(command->array_flags[i])
         {
             free(command->array_flags[i]);

@@ -297,8 +297,8 @@ int main_dup(int argc,char **argv,char **env)
                 if(ret!=-1)
                     break;
                 rebut(&all_command);
-                printf("%d\n", errno);
-                printf("%s\n", strerror(errno));
+                // printf("%d\n", errno);
+                // printf("%s\n", strerror(errno));
             }
         }
         find_path_from_new_env(&all_command);

@@ -31,15 +31,15 @@ void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env)
 	//export
 	if(!ft_strncmp(all->command,"export",7) && fd1)
 	{	
-		exit(ft_export_pipe(all,fd1,env));
+		exit(ft_export(all,fd1,env));
 	}
 	else if(!ft_strncmp(all->command,"export",7) && pipe_1!=0)
 	{
-		exit(ft_export_pipe(all,pipe_1[1],env));
+		exit(ft_export(all,pipe_1[1],env));
 	}
 	else if(!ft_strncmp(all->command,"export",7))
 	{
-		exit(ft_export_pipe(all,0,env));
+		exit(ft_export(all,0,env));
 	}
 	//<<
 	if(all->pape==DOUBLE_LESS && fd1)
@@ -306,6 +306,8 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 		free(pipe[i]);
 		free(pipe);
 	}
+	free(pipe);
+	free(pid);
 }
 int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 {
