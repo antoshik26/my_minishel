@@ -142,6 +142,10 @@ char *reeder_from_term(t_minishell *all_command)
         {
 
         }
+        else if (!strcmp(str, "\t"))
+        {
+            
+        }
         else if (!strcmp(str, "\177"))
         {
             if (i != 0)

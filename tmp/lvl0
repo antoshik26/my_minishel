@@ -1,184 +1,158 @@
 
-
-ls
-ls -la
+ls|export
+ls|export
+ls|export
+ls|export
+ls|export
+ls|export
+ls|export
+export|wc
+export|wc
+export|wc
+export|wc
+export|wc
+export|wc
+export|wc
+export|ls
+export|wc
+export|wc
+export|wc
+export|wc
+export|wc
+export|wc
+export|export
+export|ls
+export|ls
+export
+echo $?
+echo $?
+ls|cat -e
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $? | ls
+echo $? | ls
+echo $? | ls
+./a.	
+echo $?
+ls -la|cat -e|cat -e
+ls -la|cat -e|cat -e
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo "aafghsdfg" | ls
+echo $?
+asdfgnm, 
+echo $?
+adsgfhj
+echo $?
+exit 123
+a.out
 echo $?
 a.out
-exit -1
+echo $?
+ls>ls
+ls>ls
+echo "zfgdsfgs"
+echo "zfgdsfgs" | ls
+a.out
+exit 123
+a.out
+exit 123
+		
+      
+       
+          
+             
 ls
-cat -e
-sdfghj
+Â
+      
+        
+      
+      
+     
+cat<b
+ls>b
+cat<b
+cat<b
+cat>b
+cat<b
+cat>b
+ls
+cat <b
+ls
 ls -la
+ls | cat -e
+ls -la
+ls | cat -e
+ls | cat -e
+ls | cat -e | cat -e
+cat<b
+ls -la
+ls -la | cat -e
+ls -la | cat -e
+ls -la 
+ls -la |cat -e
+cat -e | cat -e
 ls
-sdfghj,
-sdfgh
-dafsdshfg
-cat -e
 ls
 ls -la
-qdfghnm
-sfgsdfhsdfhg
-sdfh
-wc fkhefhue
-ls kejnffhoeuhf
-ls kejnffhoeuhf lkdj
+echo $?
+echo $PATHG
+echo $PATHG[3~
+echo $PATHG[3
+echo $PA$PATH
+echo $PATH
+echo $A
+echo $A
+ls
+echo $A
+echo $b
+echo c
+echo %$A
+echo %$vb
+echo %$c
+echo %$a
+echo %$?
+echo %$PATH
+ls
+echo %$A
+echo $?
+echo $test
+echo $test
+echo $PATGH
+ls -la
+cat -e
+ls
+ls>a
 chmod 000 a
 ls>a
-echo &$?
-âˆâˆ
+pwd
 ls
-ls -la
-echo &$?
-ls
-ls -la
-echo &$?
-
-echo $?
-ls -la
-./a.	
-./a.out
-ls -la
-ls
-ls
-ls -la
-cat -e
-ls
-yes|head|wc
-ls
-ls -la
-echo $PATH
-ls
-ls -la
-echo $?
-ls
-echo $?
-asdfghd
-echo $/
-echo $?
-sdfshfg
-echo $?
-echo &PATH
-echo $PATH
-
-ls
-ls -la
-ls
-ls -la
-ls
-ls -la
-ls
-ls -la
-echo $?
-make test
-ls
-ls -la
-echo #$?
-ls
-ls -la
-fshfgsh
-echo $?
-ls
-ls -la
-adgadfsg
-echo $?
-adhfgdfg
-echo $/
-echo $?
-echo $?
-echo $?
-echo $?
-ls -la
-ls
-ls -al
-ls -la
-ls -la
-ls -la
-wc>>k
-export a
-export
-wc>>k
-export lk=0 lll l
-export
-export
-export lk=0 lll l
-export
-export lk=0 lll l
-expor
-export
-wc>>k
-wc<<a
-wc<<a
-wc<<a
-wc<<a
-ls
-ls -la
-cat -e|ls
-ls|cat -e|cat -e
-ls|cat -e|cat -e
-ls|cat -e|cat -e
-ls
-ls|cat -e|cat -e
-echo "adhsdfsgza"
-ls|cat -e|cat -e
-ls|cat -e
-ls|cat
-echo "adhsdfsgza"
-echo "adhsdfsgza"
-echo "adhsdfsgza"
-echo "adhsdfsgza"
-ls -la
-echo "adhsdfsgza"
-echo $?
+ls>a
+chmod 000 a
+ls>a
+ls>a
 ls>a
 ls
-echo $PATH
-ls
-echo $?
-echo $PATH
 ls
 ls -la
-echo $?
-echo $PATH
-echo $PATH
+env
+env
+a.out
+env
 ls
-echo $PATH
-echo $PATH
 ls
-echo $PATH
-echo $PATH
-echo $PATH
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $PATH
-echo $PATH | ls
-echo $PATH
-echo $PATH
-
-echo $?
-echo $?
-echo $?
-ls
-echo $?
-echo $?
-echo $?
-ls|export
-export|export
-ls|export
-ls|export
-ls|export
-ls|export
-ls|export
-ls|export
-ls|export
-ls|export
+ls -la
+ls -la
+ls 
+a.out
+env
+a.out

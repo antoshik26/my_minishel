@@ -1,13 +1,11 @@
 #include "ft_minishell.h"
 
-void ft_pwd(t_command_and_flag *all,char **env,int fd)
+void ft_pwd(char **env,int fd)
 {
 	int i;
 	int i1;
 
 	i = -1;
-	if(all->array_flags[1])
-		exit(10);
 	while(env[++i])
 	{
 		if(!ft_strncmp(env[i],"PWD=",4))
@@ -31,7 +29,7 @@ void ft_env(t_command_and_flag *all,char **env,int fd)
 
 	i = -1;
 	if(all->array_flags[1])
-		exit(127);
+		exit(1);
 	while (env[++i])
 	{	
 		ft_putstr_fd(env[i],fd);
@@ -106,11 +104,6 @@ int ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/)
 	i1=0;
 	i=0;
 	//errors
-	if(!all->array_flags[1])
-	{	
-		ft_putstr_fd("unset: not enough arguments\n",0);//1
-		return (10);
-	}
 	if(!ft_check_name(all->array_flags[1]))
 	{	
 		ft_putstr_fd("bash: export: nor valid",0);

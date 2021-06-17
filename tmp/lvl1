@@ -1,37 +1,6 @@
 
-ls -la
-ls -la
-echo $?
-echo $?
-echo $?
-ls
-ls -la
-cat -e
-echo "sdfghgfdsa" sdffdsasd  "asdfgfddsdasdfg"
-echo "asdfgdfS"
-echo "asdfgdf"
-ls
-ls -la
-echo
-echo $?
-echo ddfgdfsdf
+exit 123
+exit 123
+env
 a.out
-ls
-ls -la
-a.out
-ls
-ls -la
-ls
-ls -la
-a.out
-cat -e
-a.out
-exit
-exit
-exit
-exit 2
-1
-echo $?
-exit 1234567
-exit 12345
-exit 2
+env

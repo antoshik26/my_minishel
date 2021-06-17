@@ -209,7 +209,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	}
 	command[k] = '\0';
 	len_command = ft_strlen(command);
-	new_command = (char *)malloc(sizeof(char) * (len_command + len_env + 2));
+	new_command = (char *)malloc(sizeof(char) * (len_command + len_env + 1));
 	if (new_command == NULL)
 		return (NULL);
 	k = 0;
@@ -318,6 +318,39 @@ char *my_getenv(char *name_env, t_minishell *all_command)
 	}
 	return (all_command->env->values[i]);
 }
+
+int create_env_lvl(t_env *env, int lvl)
+{
+	int i;
+	int i1;
+	char *new_lvl;
+	char *tmp;
+
+	i = 0;
+	i1 = 0;
+	new_lvl = ft_itoa(lvl);
+	while(env->env[i])
+	{
+		if (ft_strnstr(env->env[i], "SHLVL", ft_strlen("SHLVL")))
+		{
+			while (env->env[i][i1] != '=')
+			{
+				i1++;
+			}
+			i1++;
+			env->env[i][i1] = '\0';
+			tmp = env->env[i];
+			env->env[i] = ft_strjoin(env->env[i], new_lvl);
+			free(tmp);
+		}
+		i++;
+	}
+	free(env->values[i]);
+	env->values[i] = new_lvl;
+	free(new_lvl);
+	return (0);
+}
+
 //написать strcmp
 /*
 int		ft_strcmp(const char *s1, const char *s2)

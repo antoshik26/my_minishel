@@ -95,10 +95,10 @@ int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
 char                *ft_itoa(int n);
 int                 ft_atoi(const char *str);
-void                ft_pwd(t_command_and_flag *all,char **env,int fd);
+void                ft_pwd(char **env,int fd);
 void                ft_env(t_command_and_flag *all,char **env,int fd);
 int                 ft_cd(t_command_and_flag *all,char **env);
-void                ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
+int                ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
 int                 ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/);
 void                ft_echo(t_command_and_flag *all,int fd);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -108,6 +108,7 @@ int                 ft_isdigit(int c);
 char                *ft_strnstr(const char *haystack, const char *needle, size_t len);
 char                *term_from_double_less();
 char                *my_getenv(char *name_env, t_minishell *all_command);
+int                 create_env_lvl(t_env *env, int lvl);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);
@@ -126,5 +127,5 @@ int                 ft_isalnum(int c);
 int                 main_dup(int argc,char **argv,char **env);
 void                ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *data);
 void                ft_double_less_print(t_command_and_flag *all,int fd);
-
+int ft_export_pipe(t_command_and_flag *all,int fd,t_env *struct_env);
 #endif
