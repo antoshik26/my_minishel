@@ -104,11 +104,6 @@ int ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/)
 	i1=0;
 	i=0;
 	//errors
-	if(!all->array_flags[1])
-	{	
-		ft_putstr_fd("unset: not enough arguments\n",0);//1
-		return (10);
-	}
 	if(!ft_check_name(all->array_flags[1]))
 	{	
 		ft_putstr_fd("bash: export: nor valid",0);

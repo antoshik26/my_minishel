@@ -30,11 +30,17 @@ void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env)
 		exit(ft_unset(all,env));
 	//export
 	if(!ft_strncmp(all->command,"export",7) && fd1)
-		ft_export(all,fd1,env);
-	if(!ft_strncmp(all->command,"export",7) && pipe_1!=0)
-		ft_export(all,pipe_1[1],env);
-	if(!ft_strncmp(all->command,"export",7))
-		ft_export(all,0,env);
+	{	
+		exit(ft_export_pipe(all,fd1,env));
+	}
+	else if(!ft_strncmp(all->command,"export",7) && pipe_1!=0)
+	{
+		exit(ft_export_pipe(all,pipe_1[1],env));
+	}
+	else if(!ft_strncmp(all->command,"export",7))
+	{
+		exit(ft_export_pipe(all,0,env));
+	}
 	//<<
 	if(all->pape==DOUBLE_LESS && fd1)
 		ft_double_less_print(all,fd1);
@@ -117,7 +123,8 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, t_en
 		}
 		if(!ft_strncmp(all->command,"a.out",6))
 			exit(0);		
-		execve(all->command,all->array_flags,env->env);
+		if(execve(all->command,all->array_flags,env->env))
+			exit(0);
 	}
 	if(pipe_1!=0)
 	{
@@ -197,6 +204,20 @@ int **make_pipe(int size)
 	return(pipe);
 	
 }
+void export_errors(t_command_and_flag *all)
+{
+	int i;
+
+	i = 0;
+	if(!all->array_flags[i])
+		return;
+	while(all->array_flags[i])
+	{
+		ft_putstr_fd("minishell: export: '",0);
+		ft_putstr_fd(all->array_flags[i++],0);
+		ft_putstr_fd(": not a valid identifier\n",0);
+	}
+}
 void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *env)
 {
 	int fd1;
@@ -209,7 +230,9 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 		ft_putstr_fd(reverse_head->command,0);
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
 		reverse_head=reverse_head->next;
-		if(fd1!=0)
+		if(!ft_strncmp(reverse_head->command,"export",7))
+			while(reverse_head->array_flags);
+		else if(fd1!=0)
 		{	
 			if(!ft_strncmp(reverse_head->command,"/usr/bin/env",13))
 			{	
@@ -270,7 +293,9 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 		fd2=0;
 		head=head->next;
 	}
-	print_errors(pid,reverse_head,size,env);
+	//wait(0);
+	//wait(0);
+	//print_errors(pid,reverse_head,size,env);
 	i=size;
 	if(i>0)
 	{
@@ -293,15 +318,15 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	current_head=*head;
 	size=0;
 	number_of_pipes(&size,&current_head,&tmp);
-//	printf("%d\n",size);
+	printf("%d\n",size);
 	if(!ft_strncmp(tmp->command,"export",7) && size==0)
 		ft_export(tmp,0,struct_env);
 	else if(!ft_strncmp(tmp->command,"unset",6) && size==0)
 		ft_unset(tmp,struct_env);
 	else if(size==0 &&!ft_strncmp(tmp->command,"/usr/bin/cd",13))
 		ft_cd(tmp,struct_env->env);
-	else if(size==0 &&!ft_strncmp(tmp->command,"bin/echo",13))
-		ft_echo(tmp,0);
+	else if(size==0 && !ft_strncmp(tmp->command,"export",13))
+		ft_export(tmp,0,struct_env);
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
 		if(!tmp->array_flags[1])

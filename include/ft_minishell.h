@@ -98,7 +98,7 @@ int                 ft_atoi(const char *str);
 void                ft_pwd(char **env,int fd);
 void                ft_env(t_command_and_flag *all,char **env,int fd);
 int                 ft_cd(t_command_and_flag *all,char **env);
-void                ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
+int                ft_export(t_command_and_flag *all,int fd,t_env *struct_env);
 int                 ft_unset(t_command_and_flag *all,t_env *struct_env/*,int flag*/);
 void                ft_echo(t_command_and_flag *all,int fd);
 int                 ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -124,5 +124,6 @@ int                 ft_isalnum(int c);
 int                 main_dup(int argc,char **argv,char **env);
 void                ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *data);
 void                ft_double_less_print(t_command_and_flag *all,int fd);
+int ft_export_pipe(t_command_and_flag *all,int fd,t_env *struct_env);
 
 #endif
