@@ -185,17 +185,20 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
             i++;
         }
         if (command[i] == '$' && all_command->onecovkey != 1)
-        {   
+        {  
             i++;
             j = i;
             while(command[i] != ' ' && command[i] != '\0')
             {
                 i++;
             }
-            name_varianled = create_command(command, i, j);
-            env_varianles = my_getenv(name_varianled, all_command);
-            command = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
-            free(name_varianled);
+            if (!ft_strnstr(command, "unset", ft_strlen(command)))
+            {
+                name_varianled = create_command(command, i, j);
+                env_varianles = my_getenv(name_varianled, all_command);
+                command = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
+                free(name_varianled);
+            }
         }
         if (command[i] == '\0')
             break ;
@@ -455,7 +458,8 @@ int parser_command(t_minishell *all_command)
     return (0);
 }
 
-int parser_commands(char *command, t_minishell *all_command){
+int parser_commands(char *command, t_minishell *all_command)
+{
     shift_comand(command, all_command);
     command = create_command_with_env_variables(command, all_command);
     int i;

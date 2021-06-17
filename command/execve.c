@@ -369,15 +369,11 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 	}
 	print_errors(pid,reverse_head,size,env);
 	i=size;
-	if(i>0)
-	{
-		i = 0;
+	i = 0;
+	free(pipe[i++]);
+	while(pipe[i])
 		free(pipe[i++]);
-		while(pipe[i])
-			free(pipe[i++]);
-		free(pipe[i]);
-		free(pipe);
-	}
+	free(pipe[i]);
 	free(pipe);
 	free(pid);
 }
