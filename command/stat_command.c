@@ -42,15 +42,19 @@ int check_stat_file_with_path(t_command_and_flag *command)
                 if ((stat_command.st_mode & S_IRUSR) == S_IRUSR)
                     return (i_stat);
                 else
-                    i_stat = -1;
+                    i_stat = -3;
             }
             else
             {
                 if ((stat_command.st_mode & S_IWUSR) == S_IWUSR)
                     return (i_stat);
                 else
-                    i_stat = -1;
+                    i_stat = -3;
             }
+        }
+        else
+        {
+            i_stat = -2;
         }
     }
     return (i_stat);
@@ -141,21 +145,21 @@ int check_stat_file(t_command_and_flag *command)
                 if (command->pape == LESS)
                 {
                     if ((stat_command.st_mode & S_IRUSR) == S_IRUSR)
-                        return (i_stat);
+                        return (-3);
                     else
                         i_stat = create_file(command->command);
                 }
                 else
                 {
                     if ((stat_command.st_mode & S_IWUSR) == S_IWUSR)
-                        return (i_stat);
+                        return (-3);
                     else
                         i_stat = create_file(command->command);
                 }
             }
             else
             {
-                i_stat = -1;
+                i_stat = -2;
             }
         }
         else
@@ -207,9 +211,7 @@ int *stat_command(t_minishell *all_command)
         else
             i_stat = check_stat_command(all_command, command);
         if (i_stat == 0)
-            command->f_error = 0;
-        else
-            command->f_error = -1;
+            command->f_error = i_stat;
         command = command->next;
     }
     return (0);

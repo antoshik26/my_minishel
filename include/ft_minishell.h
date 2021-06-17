@@ -12,11 +12,7 @@
 # include <sys/stat.h>
 # include <term.h>
 # include <string.h>
-<<<<<<< HEAD
 # include <errno.h>
-=======
-#include <errno.h>
->>>>>>> 01d654131d0ee5b8a10282bfc19545ed5079c797
 # define MAX_LINE       15
 # define NEW_COMMAND    0
 # define DIRECT_LINE    1
@@ -25,6 +21,9 @@
 # define LESS           4
 # define SEMICOLON      5
 # define DOUBLE_LESS    6
+# define WRONG_COMMAND  -1
+# define WRONG_FILE     -2    
+# define PERMISSION_DENIED -3
 extern int errno;  
 pid_t  g_global_pid; //как же криво работают сигналы
 typedef struct s_env

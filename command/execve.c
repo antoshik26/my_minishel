@@ -126,6 +126,7 @@ pid_t test(t_command_and_flag *all,int *pipe_1,int *pipe_2,int fd1,int fd2, t_en
 	}
 	return(pid);
 }
+
 t_command_and_flag *ft_double_less(char *split)
 {
 	char *str;
@@ -141,7 +142,7 @@ t_command_and_flag *ft_double_less(char *split)
 	while(1)
 	{
 		get_next_line(0,&str);	// /d
-		if(!ft_strncmp(str,split,len+1))
+		if(!ft_strncmp(str,split,len+1) || !ft_strncmp(str, "\4", 3))
 			break;
 		all->array_flags=new_array_add(all->array_flags,str);
 		write(1,">",1);
@@ -204,6 +205,8 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 	while(size>=0)
 	{	
 		waitpid(pid[size],&fd1,0);
+		ft_putnbr_fd(fd1, 0);
+		ft_putstr_fd("\n", 0);
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
 			reverse_head=reverse_head->next;
 		if(fd1!=0 && fd1!=256)

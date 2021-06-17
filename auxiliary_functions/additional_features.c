@@ -156,7 +156,6 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
 		{
 			a = all_command->env->exit_num;
-//			all_command->exit = a;
 			while (a > 0)
 			{
 				a = a / 10;

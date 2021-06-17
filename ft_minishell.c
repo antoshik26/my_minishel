@@ -290,13 +290,12 @@ int main_dup(int argc,char **argv,char **env)
         {
             parser_commands(command, &all_command);
             print_command(&all_command); //комманда для проверки парсера
-              free(command);
             ret=functions_launch(&all_command.head, struct_env,&lvl);
             if(ret!=-1)
                 break;
             rebut(&all_command);
-            //printf("%d\n", errno);
-            //printf("%s\n", strerror(errno));
+            printf("%d\n", errno);
+            printf("%s\n", strerror(errno));
         }
         find_path_from_new_env(&all_command);
     }
