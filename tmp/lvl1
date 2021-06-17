@@ -34,3 +34,5 @@ exit 2
 echo $?
 exit 1234567
 exit 12345
+exit 3
+exit 4

@@ -12,11 +12,7 @@
 # include <sys/stat.h>
 # include <term.h>
 # include <string.h>
-<<<<<<< HEAD
-# include <errno.h>
-=======
 #include <errno.h>
->>>>>>> 01d654131d0ee5b8a10282bfc19545ed5079c797
 # define MAX_LINE       15
 # define NEW_COMMAND    0
 # define DIRECT_LINE    1
@@ -96,7 +92,7 @@ int                 find_slash_dot(char *line);
 char                *ft_strdup(const char *s1);
 char                *ft_itoa(int n);
 int                 ft_atoi(const char *str);
-void                ft_pwd(t_command_and_flag *all,char **env,int fd);
+void                ft_pwd(char **env,int fd);
 void                ft_env(t_command_and_flag *all,char **env,int fd);
 int                 ft_cd(t_command_and_flag *all,char **env);
 void                ft_export(t_command_and_flag *all,int fd,t_env *struct_env);

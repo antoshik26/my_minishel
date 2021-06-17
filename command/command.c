@@ -1,13 +1,11 @@
 #include "ft_minishell.h"
 
-void ft_pwd(t_command_and_flag *all,char **env,int fd)
+void ft_pwd(char **env,int fd)
 {
 	int i;
 	int i1;
 
 	i = -1;
-	if(all->array_flags[1])
-		exit(10);
 	while(env[++i])
 	{
 		if(!ft_strncmp(env[i],"PWD=",4))
@@ -31,7 +29,7 @@ void ft_env(t_command_and_flag *all,char **env,int fd)
 
 	i = -1;
 	if(all->array_flags[1])
-		exit(127);
+		exit(1);
 	while (env[++i])
 	{	
 		ft_putstr_fd(env[i],fd);
