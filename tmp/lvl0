@@ -77,3 +77,8 @@ ls -la
 unset P$OPARTTH
 ls
 export a=5
+
+ls
+ls -la
+ls
+ls -la

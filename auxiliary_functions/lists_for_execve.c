@@ -3,7 +3,6 @@ t_command_and_flag	*ft_create_elem(t_command_and_flag *data)
 {
 	t_command_and_flag	 *elem;
 	int i;
-	char *tmp;
 
 	i = 0;
 
