@@ -360,8 +360,8 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 			redirect(head,&fd1,&fd2);
 		while(head && ( head->pape==MORE || head->pape==DOUBLE_MORE || head->pape==LESS))
 			head = redirect2(head);
-		ft_putnbr_fd(fd1,0);
-		ft_putstr_fd("\n\n\n",0);
+		//ft_putnbr_fd(fd1,0);
+		//ft_putstr_fd("\n\n\n",0);
 		pid[i]=test(head,pipe[i],pipe[i+1],fd1,fd2,env);
 		fd1 = 0;
 		fd2=0;

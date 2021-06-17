@@ -3,9 +3,9 @@ void free_array_of_strings(char **array)
 {
 	int i;
 
-	i = -1;
-	while(array[++i])
-		free(array[i]);
+	i = 0;
+	while(array[i])
+		free(array[i++]);
     free(array[i]);
 	free(array);
 }
@@ -33,8 +33,7 @@ char **new_array_add(char **array,char *str)
 	new_array[i--]=NULL;
 	new_array[i]=ft_strdup(str);
 	while(--i>=0)
-		new_array[i]=ft_strdup(array[i]);
-	free_array_of_strings(array);	
+		new_array[i]=array[i];
 	return(new_array);
 }
 char **new_array_rm(char **array,int index)
@@ -58,10 +57,9 @@ char **new_array_rm(char **array,int index)
     {
         if(i_old==index)
             i_old--;
-		new_array[i]=ft_strdup(array[i_old--]);
+		new_array[i]=array[i_old--];
 
     }
-    free_array_of_strings(array);
     return(new_array);
 }
 char **ft_strdup_array_of_strings(char **env)
