@@ -185,3 +185,6 @@ ls
 ls -la
 export
 export b=3
+ls
+ls
+export a=b

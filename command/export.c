@@ -26,7 +26,7 @@ void ft_export_no_arguments(char **env,char **env_lvl,int fd)
 		ft_putchar_fd('\n',fd);	
 	}
 }
-void	ft_export_find_name_value(t_command_and_flag *all,char **name,char **value,int i)
+/*void	ft_export_find_name_value(t_command_and_flag *all,char **name,char **value,int i)
 {
 	int i1;
 	i1=0;
@@ -112,7 +112,7 @@ void ft_export_loop(t_command_and_flag *all,t_env *struct_env,int i1)
 
 	//}
 }
-int ft_export(t_command_and_flag *all,int fd,t_env *struct_env)
+void ft_export(t_command_and_flag *all,int fd,t_env *struct_env)
 {
 	int i;
 
@@ -126,10 +126,7 @@ int ft_export(t_command_and_flag *all,int fd,t_env *struct_env)
 			ft_putstr_fd(all->array_flags[i-1],0);
 		}
 	}
-	return (0);
-}
-
-/*
+}*/
 void	ft_export_find_name_value(t_command_and_flag *all,char **name,char **value)
 {
 	int i1;
@@ -142,7 +139,6 @@ void	ft_export_find_name_value(t_command_and_flag *all,char **name,char **value)
 		*value=&all->array_flags[1][i1+1];
 	all->array_flags[1][i1]='\0';
 	*name=ft_strdup(all->array_flags[1]);
-
 }
 int ft_check_name(char *name)
 {
@@ -229,4 +225,3 @@ int ft_export(t_command_and_flag *all,int fd,t_env *struct_env)
 	}
 	return 0;
 }
-*/
