@@ -193,7 +193,7 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
             tmp = command;
             command = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
             free(name_varianled);
-            free(tmp);
+            //free(tmp);
         }
         if (command[i] == '\0')
             break ;
@@ -361,6 +361,8 @@ int parser_flags(t_minishell *all_command)
                 one_command->array_flags[k][z] = '\0';
                 k++;
                 j = i;
+                if (one_command->flags[i] == '\0')
+                    break ;
             }
             i++;
         }
@@ -424,6 +426,8 @@ int parser_command(t_minishell *all_command)
             i++;
         }
         one_command->command = (char *)malloc(sizeof(char) * (i - j) + 1);
+        if (one_command->command == NULL)
+            return (-1);
         k = 0;
         while (j < i)
         {
@@ -435,6 +439,8 @@ int parser_command(t_minishell *all_command)
         ft_clear_command_from_kov(all_command, one_command);
         j = 0;
         one_command->flags = (char *)malloc(sizeof(char) * (len - i + 1));
+            if (one_command->flags == NULL)
+                return (-1);
         while(i < len)
         {
             one_command->flags[j] = one_command->command_and_flags[i];
@@ -524,7 +530,6 @@ int parser_commands(char *command, t_minishell *all_command)
             }
             if (command[i] == '<')
             {
-
                 if (command[i + 1] == '<')
                 {
                     new_command = create_command(command, i, j);

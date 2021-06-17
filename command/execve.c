@@ -138,14 +138,16 @@ t_command_and_flag *ft_double_less(char *split)
 	all->array_flags=0;
 	all->array_flags=new_array_add(all->array_flags,split);
 	len=ft_strlen(split);
-	write(1,">",1);
 	while(1)
 	{
-		get_next_line(0,&str);	// /d
-		if(!ft_strncmp(str,split,len+1) || !ft_strncmp(str, "\4", 3))
+		str = term_from_double_less();
+		if (str == NULL)
+		{
+			break ;
+		}
+		if(!ft_strncmp(str,split,len+1))
 			break;
 		all->array_flags=new_array_add(all->array_flags,str);
-		write(1,">",1);
 		free(str);
 	}
 	all->pape=DOUBLE_LESS;
