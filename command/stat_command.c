@@ -210,8 +210,7 @@ int *stat_command(t_minishell *all_command)
             i_stat = check_stat_file(command);
         else
             i_stat = check_stat_command(all_command, command);
-        if (i_stat == 0)
-            command->f_error = i_stat;
+        command->f_error = i_stat;
         command = command->next;
     }
     return (0);

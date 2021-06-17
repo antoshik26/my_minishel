@@ -34,3 +34,14 @@ ls -la
 echo &$?
 
 echo $?
+ls -la
+./a.	
+./a.out
+ls -la
+ls
+ls
+ls -la
+cat -e
+ls
+yes|head|wc
+ls
