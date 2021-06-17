@@ -243,7 +243,6 @@ void export_errors(t_command_and_flag *all)
 void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *env)
 {
 	int fd1;
-	//struct stat buff;
 	while(size>=0)
 	{	
 		waitpid(pid[size],&fd1,0);
@@ -379,6 +378,7 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 		free(pipe[i]);
 		free(pipe);
 	}
+	free(pid);
 }
 int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 {

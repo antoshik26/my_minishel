@@ -62,8 +62,9 @@ void clear_malloc(t_minishell *all_command)
             free(all_command->env->env_lvl[i]);
             i++;
         }
-    free(all_command->env->env_lvl);
+        free(all_command->env->env_lvl);
     }
+    free(all_command->env);
 }
 
 void create_signal_controller()
@@ -144,14 +145,6 @@ int changes_path_history(t_minishell *all_command, int lvl)
             return (-1);
         close(fd);
     }
-    else
-    {
-        free(all_command->file_history);
-        i = len;
-        while(ft_isdigit(all_command->file_history[i]))
-            i--;
-        
-    }
     return (0);
 }
 
@@ -163,15 +156,21 @@ t_env *allocate_env(char **env)
 
     i=-1;
     env1=malloc(sizeof(t_env));
+    if (env1 == NULL)
+        return (NULL);
     env1->env=ft_strdup_array_of_strings(env);
     env1->env_lvl=0;
     while (env[++i]){};
     env1->keys=(char**)malloc(sizeof(char*)*(i+1));
+    if(env1->keys == NULL)
+        return (NULL);
 	env1->values=(char**)malloc(sizeof(char*)*(i+1));
+    if (env1->values == NULL)
+        return (NULL);
     i=-1;
 	while (env[++i])
 	{
-        i1=-1;	
+        i1=-1;
         while(env[i][++i1]!='='){};
         env1->env[i][i1]='\0';
         env1->keys[i]=ft_strdup(env1->env[i]);
@@ -246,13 +245,14 @@ int main_dup(int argc,char **argv,char **env)
     int ret;
 
     ret=-1;
-    struct_env=allocate_env(env);
     int lvl;
     //errno = 0;
     if(!argv[1])
         lvl=0;
     else
         lvl=ft_atoi(argv[1]);
+    struct_env=allocate_env(env);
+    create_env_lvl(struct_env, lvl);
     printf("\nlvl1:%d\n",lvl);
     (void)argc;
     (void)argv;
@@ -288,15 +288,18 @@ int main_dup(int argc,char **argv,char **env)
         }
         if (command != NULL)
         {
-            parser_commands(command, &all_command);
-            print_command(&all_command); //комманда для проверки парсера
-                free(command);
-            ret=functions_launch(&all_command.head, struct_env,&lvl);
-            if(ret!=-1)
-                break;
-            rebut(&all_command);
-            printf("%d\n", errno);
-            printf("%s\n", strerror(errno));
+            if (ft_strlen(command) != 0)
+            {
+                parser_commands(command, &all_command);
+                print_command(&all_command); //комманда для проверки парсера
+                    free(command);
+                ret=functions_launch(&all_command.head, struct_env,&lvl);
+                if(ret!=-1)
+                    break;
+                rebut(&all_command);
+                printf("%d\n", errno);
+                printf("%s\n", strerror(errno));
+            }
         }
         find_path_from_new_env(&all_command);
     }
@@ -308,5 +311,5 @@ int main_dup(int argc,char **argv,char **env)
 
 int main(int argc,char **argv,char **env)
 {
-    exit(main_dup(argc,argv,env));
+    return(main_dup(argc,argv,env));   
 }

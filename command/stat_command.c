@@ -144,17 +144,13 @@ int check_stat_file(t_command_and_flag *command)
             {
                 if (command->pape == LESS)
                 {
-                    if ((stat_command.st_mode & S_IRUSR) == S_IRUSR)
+                    if ((stat_command.st_mode & S_IRUSR) != S_IRUSR)
                         return (-3);
-                    else
-                        i_stat = create_file(command->command);
                 }
                 else
                 {
-                    if ((stat_command.st_mode & S_IWUSR) == S_IWUSR)
+                    if ((stat_command.st_mode & S_IWUSR) != S_IWUSR)
                         return (-3);
-                    else
-                        i_stat = create_file(command->command);
                 }
             }
             else
