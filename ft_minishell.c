@@ -34,7 +34,7 @@ void rebut(t_minishell *all_command)
         free(all_command->path[i]);
         i++;
     }
-    free(all_command->path);
+   // free(all_command->path);
     all_command->head = NULL;
 }
 

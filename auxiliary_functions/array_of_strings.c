@@ -35,6 +35,16 @@ char **new_array_add(char **array,char *str)
 	new_array[i]=ft_strdup(str);
 	while(--i>=0)
 		new_array[i]=array[i];
+		i=0;
+	while(array[i])
+	{
+		array[i++]=0;
+	}
+	while (i>=0)
+	{
+		free(array[i--]);
+	}
+	free(array);	
 	return(new_array);
 }
 char **new_array_rm(char **array,int index)
@@ -53,17 +63,22 @@ char **new_array_rm(char **array,int index)
 	if(!new_array)
 		return(0);
 	i_old=i;
+	free(array[index]);
 	new_array[i]=0;
 	while(--i>=0)
     {
         if(i_old==index)
-        {
-			free(array[index]);
 			i_old--;
-		}
 		new_array[i]=array[i_old--];
-
     }
+	i=0;
+	while(array[i])
+		array[i++]=0;
+	while (i>=0)
+	{
+		free(array[i--]);
+	}
+	free(array);	
     return(new_array);
 }
 char **ft_strdup_array_of_strings(char **env)

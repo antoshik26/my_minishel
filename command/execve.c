@@ -242,7 +242,7 @@ void export_errors(t_command_and_flag *all)
 			all->array_flags[i][i1]='\0';
 			flag=1;
 		}
-		if(!ft_check_name(all->array_flags[i]))
+		if(!ft_check_name(all->array_flags[i]) && !ft_check_name(&all->array_flags[i][1]))
 		{	
 			ft_putstr_fd("minishell: export: '",0);
 			ft_putstr_fd(all->array_flags[i],0);
@@ -263,7 +263,7 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 		ft_putstr_fd("\n",0);
 		ft_putstr_fd(reverse_head->command,0);
 		ft_putnbr_fd(fd1, 0);
-		ft_putstr_fd(reverse_head->command,0);
+		ft_putstr_fd("\n",0);
 		while(reverse_head && ( reverse_head->pape==MORE || reverse_head->pape==DOUBLE_MORE || reverse_head->pape==LESS))
 		{
 			if(reverse_head->pape==LESS && (reverse_head->f_error==-3 || reverse_head->f_error==-1))
@@ -440,5 +440,6 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 			free(argv[i++]);
 		free(argv);
 	}
+	ft_putnbr_fd(struct_env->exit_num, 0);
 	return(ret);
 }

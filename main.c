@@ -9,7 +9,11 @@
 # include <sys/stat.h>
 int main(int argc,char **argv,char **env)
 {
-   
-   return(34);
+   int i;
+
+   i=0;
+   while(env[i])
+      printf("%s\n",env[i++]);
+   printf("%s\n",env[i++]);
 
 }

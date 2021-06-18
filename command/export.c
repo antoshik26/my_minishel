@@ -40,13 +40,33 @@ int ft_check_name(char *name)
 	}
 	return(1);
 }
+
+/*void ft_value_name(char *str,int *end_of_key,int *value)
+{
+	*end_of_key=0;
+	while (str[*end_of_key] && str[*end_of_key]!='=')
+		end_of_key++;
+	if(str[*end_of_key]=='=')
+		*value=ft_strlen(str)-1;
+	else 
+		*value=0;
+	str[*end_of_key]='\0';
+	if(!ft_check_name(str))
+	{
+		if(value)
+			str[end_of_key]='=';	
+		return;
+	}
+	if(value)
+			str[end_of_key]='=';
+}*/
 void ft_export_loop(char *str,t_env *struct_env)
 {
 	int end_of_key;
 	int value;
 	int i;
 	char *tmp;
-	char tmp_c;
+	
 	i = 0;
 	end_of_key=0;
 	while (str[end_of_key] && str[end_of_key]!='=')
@@ -71,7 +91,9 @@ void ft_export_loop(char *str,t_env *struct_env)
 			if(value && ft_strncmp(&str[end_of_key+1],struct_env->values[i],ft_strlen(struct_env->values[i]))&& ft_strncmp(&str[end_of_key+1],struct_env->values[i],ft_strlen(&str[end_of_key+1])))
 			{
 				//free(struct_env->values[i]);
+				tmp=struct_env->values[i];
 				struct_env->values[i]=ft_strdup(&str[end_of_key+1]);
+				free(tmp);
 				free(struct_env->env[i]);
 				tmp=ft_strjoin(struct_env->keys[i],"=");
 				struct_env->env[i]=ft_strjoin(tmp,struct_env->values[i]);
@@ -109,6 +131,7 @@ void ft_export_loop(char *str,t_env *struct_env)
 		struct_env->env = new_array_add(struct_env->env,str);
 	}
 }
+
 int ft_export(t_command_and_flag *all,int fd,t_env *struct_env)
 {
 	int i;

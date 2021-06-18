@@ -343,11 +343,12 @@ int create_env_lvl(t_env *env, int lvl)
 			env->env[i] = ft_strjoin(env->env[i], new_lvl);
 			free(tmp);
 		}
+		break;
 		i++;
 	}
 	free(env->values[i]);
 	env->values[i] = new_lvl;
-	//free(new_lvl);
+	free(new_lvl);
 	return (0);
 }
 

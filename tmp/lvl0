@@ -1,223 +1,61 @@
 
-a.out
-a.out
-a.out
-a.out
-echo $?
-echo $?
-echo $/
-echo $?
-ls
-echo $?
-echo $?
-echo $?
-ls
-ls -la
-echo $?
-echo $PART
-echo $PARTH
-echo $PARATH
-echo $PATH
-echo $?
-echo #>$.?
-echo #>$?
+export a=3
+export a=3
+export a=3
+unset a
+export a=3
+unset a
+export a=3
+export a=345
+unset a
+export a=345
+export fgh
+export fgrtyuik
+export fgrtyuik=45
+
+export a=0
+unset a
+export a=0
+unset a
+export a=0
+unset a
 ls
 ls -la
-ls | cat -e | cat -e
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-echo $>?
-
-export a=5
-export lllllllll=8 ll l
-export
-export lllllllll=8 ll l
-export lllllllll=8 ll l
-export
-export lllllllll=8
-export lllllllll=8 ll l
-l
-export llll
-export llll
-export llll
-export lllllllll=8 
-export lllllllll=8 
-export lllllllll=8 
-export lllllllll=8 
-export lllllllll=9
-export lllllllll=8
-export lllllllll=8
-export lllllllll=8
-export lllllllll=789
-export lllllllll=789
-export lllllllll=78
-export lllllllll=789
-export lllllllll=7
-export lllllllll=0
-export lllllllll=0
-export lllllllll=0
-export lllllllll=0
-export lllllllll=675
-export lllllllll=6755454
-export lllllllll=6755454
-export 
-export lllllllll=6755454]
-export lllllllll=6755454
-export lllllllll
-export lllllllll=6755454
-export lllllllll=675
-export lllllllll
-export lllllllll=6755454
-export lllllllll=1
-export
-export lllllllll=11
-export
-export lllllllll=1
-export
-export lllllllll=11
-export
-unset TERM
-export
-export aaaaaaaa
-unset aaaaaaa
-export
-unset aaaaaaa
-unset 
-unset
-unset
-export aaaa
-export 
-unset aaaa
-export 
-export a=1
-unset
-unset a
-export
-export a b c
-export
-unset a b c
-export
-unset a b c
-export a b c
-export 
-unset a b c
-export 
-export a 123 k
-export 
-export a 123 k
-export a 123 k
-export
-umnset a 123 k
-unset a 123 k
-umnset a 123 k |ls
-unset a 123 k|ls
-unset a 123 k|ls
-export 123 kkkk
-export 
-export lllllll=2
-export lllllll=2
-export lllllll=2
-export lllllll=2 123
-export lllllll=2
-export
-export lllllll=2
-export
-export lllllll=2
-export
-export lll
-export
-export lll=0
-export
-export a=q
-export
-export a=q
-export
-export a=q
-export
-export
-export 1=2 1111 yikuyhg34ox1 lriu3b
-export 1=2
-export
-export 1=2riuewirulbgf;oeurhfwoeirjgfweo0riugwe'0r9ugtw'0eg
-export edrfke=fekontvwo;jegnve;orugnw;orugnwe;org
-export 
-<<<<<<< HEAD
-export|ls
-export|export
-export|wc
-cd|ls
-export|wc
-export
-ls>wc
-wc<lk
-echo $?
-echo $?
-export
-export a=5
-export
-export a=5
-export a=6
-unset a
-unset a
-export a
-export a=445
-export a=6
-unset a
-unset TERM
-unset TERM
-export aa=2
-=======
->>>>>>> 4a2509e3afbaf0ff39bfe273fe9fd4546968bc5d
->>>>>>> 2e1c1531decc18ec7ed4d9086115f3a25d2e1b38
+unset PATH
+ls -la
+unset PATH
+ls -la
+export a=2
+export a=2
+export a=2
+export a=2
+export a=2
+export a=2
+export a=2444
+export asd=2
+export asd=2
+export asd=2
+export asd=2
+export asd=2
+export asd=2
+export asd=2
+export asd=2
+
+export asd=2
+export asd=2
+export asd=2
+export as
+export as
+export as=3
+export as=3
+export as=3
+export as=2
+export as=2
+export as=2
+export as=1
+export as=1
+export as=2
+export as
+ls
+ls
+wc<<l
