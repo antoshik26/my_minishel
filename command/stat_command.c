@@ -74,6 +74,8 @@ int check_stat_command(t_minishell *all_command, t_command_and_flag *command)
        i_stat = check_stat_command_with_path(command);
     else
     {
+        if (all_command->path == NULL)
+            return(i_stat);
         while(all_command->path[i])
         {
             path_and_command = ft_strjoin(all_command->path[i], command->command);

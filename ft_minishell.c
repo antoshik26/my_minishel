@@ -28,13 +28,16 @@ void rebut(t_minishell *all_command)
         free(command);
         command = tmp;
     }
-    i = 0;
-    while (all_command->path[i])
+    if (all_command->path != NULL)
     {
-        free(all_command->path[i]);
-        i++;
+        i = 0;
+        while (all_command->path[i])
+        {
+            free(all_command->path[i]);
+            i++;
+        }
+        free(all_command->path);
     }
-    free(all_command->path);
     all_command->head = NULL;
 }
 
@@ -177,8 +180,8 @@ t_env *allocate_env(char **env)
         env1->env[i][i1]='=';
         env1->values[i]=ft_strdup(&env1->env[i][++i1]);
     }
-    env1->values[i]=0;
-    env1->keys[i]=0;
+    env1->values[i]=NULL;
+    env1->keys[i]=NULL;
     env1->exit_num=0;
     return(env1);
 }
@@ -188,13 +191,24 @@ int find_path_from_new_env(t_minishell *all_command)
     int i;
     char *tmp;
     char *path;
+    int len;
+    int j;
 
     i = 0;
+    j = 0;
+    len = 0;
+    path = NULL;
     while (all_command->env->keys[i])
     {
         if (ft_strnstr(all_command->env->keys[i], "PATH", ft_strlen(all_command->env->keys[i])))
         {
-            path = all_command->env->values[i];
+            len = ft_strlen(all_command->env->values[i]);
+            path = (char *)malloc(sizeof(char) * (len + 1));
+            while (j < len)
+            {
+                path[j] = all_command->env->values[i][j];
+                j++;
+            }
 	        all_command->path = ft_split(path,':');
             i = 0;
 	        while (all_command->path[i])
@@ -207,6 +221,10 @@ int find_path_from_new_env(t_minishell *all_command)
             break ;
         }
         i++;
+    }
+    if (path == NULL)
+    {
+        all_command->path = NULL;
     }
     return (0);
 }

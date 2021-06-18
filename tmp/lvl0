@@ -221,3 +221,207 @@ export aa=2
 =======
 >>>>>>> 4a2509e3afbaf0ff39bfe273fe9fd4546968bc5d
 >>>>>>> 2e1c1531decc18ec7ed4d9086115f3a25d2e1b38
+
+ls
+ls -la
+expotr a=5
+expotr a=6
+expotr a=7
+expotr a=9
+expotr b=10
+expotr b=15
+unset $PATH
+env
+export a=6
+unset a
+unset $a
+env
+expotr b=10
+env[3~
+env
+expotr b=10
+export b=19
+env
+unset b
+unset b
+expotr b=10
+export b=10
+env
+unset b
+env
+expotr b=10
+export a=10
+export a=11
+unset a
+ls
+unset PATH
+env
+env
+unset PATH
+env
+unset PATH
+env
+unset PATH
+ls
+ls
+ls -la
+ls
+ls
+ls -la
+echo
+uset PATH
+env
+uset $PATH
+unset PATH
+env
+ls
+echo $PATH
+ls -la
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+ls
+unset $PATH
+unset $PATH
+unset $PATH
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$?
+echo #$0
+echo #$0
+echo #$b
+echo #$b
+echo #$b
+ls
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+ls
+ls- la
+ls -la
+ls
+ls -la
+ls
+ls -la
+cat -e
+unset PATH
+env
+make test
+make test
+ls
+ls -la
+unset PATH
+ls -la
+unset PATH
+ls
+ls
+unset PATH
+ls

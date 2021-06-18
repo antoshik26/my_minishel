@@ -232,6 +232,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 		}
 		k++;
 	}
+	k = k - 2;
 	new_command[k] = '\0';
 	if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
 		free(env_varianles);
@@ -310,6 +311,8 @@ char *my_getenv(char *name_env, t_minishell *all_command)
 	int i;
 
 	i = 0;
+	if (name_env[0] == '?')
+		return (NULL);
 	while (all_command->env->keys[i])
 	{
 		if (ft_strnstr(all_command->env->keys[i], name_env, ft_strlen(name_env)))
@@ -343,11 +346,12 @@ int create_env_lvl(t_env *env, int lvl)
 			env->env[i] = ft_strjoin(env->env[i], new_lvl);
 			free(tmp);
 		}
+		break ;
 		i++;
 	}
 	free(env->values[i]);
 	env->values[i] = new_lvl;
-	//free(new_lvl);
+	free(new_lvl);
 	return (0);
 }
 
