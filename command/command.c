@@ -71,6 +71,8 @@ int ft_cd(t_command_and_flag *all,char **env)
 {
 	int i;
 	char buf[32000];
+	char *tmp;
+
 	getcwd(buf,32000);
 	i = -1;
 	if(chdir(all->array_flags[1])==-1)
@@ -79,7 +81,9 @@ int ft_cd(t_command_and_flag *all,char **env)
 	{
 		if(!ft_strncmp(env[i],"OLDPWD=",7))
 		{
+			tmp=env[i];
 			env[i]=ft_strjoin("OLDPWD=",buf);
+			free(tmp);
 			break;
 		}
 	}
@@ -89,7 +93,9 @@ int ft_cd(t_command_and_flag *all,char **env)
 	{
 		if(!ft_strncmp(env[i],"PWD=",4))
 		{
+			tmp=env[i];
 			env[i]=ft_strjoin("PWD=",buf);
+			free(tmp);
 			break;
 		}
 	}

@@ -1,8 +1,8 @@
 #include "ft_minishell.h"
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data)
 {
-	t_command_and_flag	 *elem;
-	int i;
+	t_command_and_flag	*elem;
+	int					i;
 
 	i = 0;
 
@@ -23,7 +23,7 @@ t_command_and_flag	*ft_create_elem(t_command_and_flag *data)
 	elem->next = 0;
 	return (elem);
 }
-void	ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data)
+void	ft_list_push_front(t_command_and_flag	**begin_list, t_command_and_flag	*data)
 {
 	t_command_and_flag *elem;
 
@@ -36,39 +36,40 @@ void	ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *dat
 	else
 		*begin_list = ft_create_elem(data);
 }
-void	ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *data)
+
+void	ft_list_push_second(t_command_and_flag	**begin_list, t_command_and_flag	*data)
 {
-	t_command_and_flag *elem1;
-	t_command_and_flag *tmp;
-	
+	t_command_and_flag	*elem1;
+	t_command_and_flag	*tmp;
+
 	elem1 = *begin_list;
 	if (*begin_list == 0)
 		*begin_list = ft_create_elem(data);
 	else
 	{
-		tmp=elem1->next;
+		tmp = elem1->next;
 		elem1->next = ft_create_elem(data);
 		elem1->next->next = tmp;
 	}
 }
 
-void ft_list_clear(t_command_and_flag *command)
+void	ft_list_clear(t_command_and_flag *command)
 {
-    int i;
-    t_command_and_flag *tmp;
+	int					i;
+	t_command_and_flag	*tmp;
 
-    while(command)
-    {
-        free(command->command);
-        i = 0;
-       	while(command->array_flags[i])
-        {
-            free(command->array_flags[i]);
-            i++;
-        }
-        free(command->array_flags);
-        tmp = command->next;
-        free(command);
-        command = tmp;
-    }
+	while(command)
+	{
+		free(command->command);
+		i = 0;
+		while(command->array_flags[i])
+		{
+			free(command->array_flags[i]);
+			i++;
+		}
+		free(command->array_flags);
+		tmp = command->next;
+		free(command);
+		command = tmp;
+	}
 }
