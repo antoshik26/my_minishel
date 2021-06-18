@@ -74,6 +74,8 @@ int check_stat_command(t_minishell *all_command, t_command_and_flag *command)
        i_stat = check_stat_command_with_path(command);
     else
     {
+        if (all_command->path == NULL)
+            return(i_stat);
         while(all_command->path[i])
         {
             path_and_command = ft_strjoin(all_command->path[i], command->command);
@@ -124,6 +126,7 @@ int check_stat_file(t_command_and_flag *command)
     struct stat stat_command;
     int len;
     char buf[32000];
+    char *tmp;
     
     i = 0;
     i_stat = -1;
@@ -136,7 +139,9 @@ int check_stat_file(t_command_and_flag *command)
         buf[len] = '/';
         len++;
         buf[len] = '\0';
+        tmp = command->command;
         command->command = ft_strjoin(buf, command->command);
+        free(tmp);
         i_stat = stat(command->command, &stat_command);
         if (i_stat == 0)
         {
