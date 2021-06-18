@@ -350,8 +350,8 @@ int create_env_lvl(t_env *env, int lvl)
 		break ;
 		i++;
 	}
-	free(env->values[i]);
-	env->values[i] = new_lvl;
+	//free(env->values[i]);
+	//env->values[i] = new_lvl;
 	free(new_lvl);
 	return (0);
 }

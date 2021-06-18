@@ -45,3 +45,9 @@ export
 export j
 export j=6
 export
+a.out
+a.out
+echo $?
+echo $?
+a.out
+echo $?

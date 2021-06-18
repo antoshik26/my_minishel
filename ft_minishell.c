@@ -51,7 +51,7 @@ void clear_malloc(t_minishell *all_command,t_env *env)
     {
         free(env->env[i]);
         free(env->keys[i]);
-        //(env->values[i]);
+        free(env->values[i]);
         i++;
     }
     i=0;
@@ -62,7 +62,7 @@ void clear_malloc(t_minishell *all_command,t_env *env)
     
     free(env->env);
     free(env->keys);
-  //  free(env->values);
+   free(env->values);
     
     i = 0;
     if (env->env_lvl != NULL)

@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"__locale": "c",
+		"algorithm": "c",
+		"chrono": "c",
+		"complex": "c",
+		"functional": "c",
+		"locale": "c",
+		"utility": "c"
+	}
+}
