@@ -400,6 +400,7 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	tmp=0;
 	i=0;
 	char **argv;
+	char *tmp_2;
 	current_head=*head;
 	size=0;
 	number_of_pipes(&size,&current_head,&tmp);
@@ -433,7 +434,9 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 		if(!argv)
 			return(0);
 		argv[0]=ft_strdup("a.out");
-		argv[1]=ft_strdup(ft_itoa(*lvl));
+		tmp_2 = ft_itoa(*(lvl));
+		argv[1]=ft_strdup(tmp_2);
+		free(tmp_2);
 		argv[2]=0;
 		struct_env->exit_num=main_dup(2,argv,struct_env->env);
 		while (argv[i])

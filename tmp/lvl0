@@ -28,3 +28,11 @@ echo $?
 wc<l
 wc<<l
 >>>>>>> 72ce9b6e7ed9ab481fd09797ec27fa66ebf02a98
+
+cd ..
+pwd
+env
+a.out
+env
+a.out
+a.out
