@@ -126,6 +126,7 @@ int check_stat_file(t_command_and_flag *command)
     struct stat stat_command;
     int len;
     char buf[32000];
+    char *tmp;
     
     i = 0;
     i_stat = -1;
@@ -138,7 +139,9 @@ int check_stat_file(t_command_and_flag *command)
         buf[len] = '/';
         len++;
         buf[len] = '\0';
+        tmp = command->command;
         command->command = ft_strjoin(buf, command->command);
+        free(tmp);
         i_stat = stat(command->command, &stat_command);
         if (i_stat == 0)
         {
