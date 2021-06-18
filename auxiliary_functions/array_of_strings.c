@@ -23,14 +23,15 @@ char **new_array_add(char **array,char *str)
 		return(new_array);
 	}
 	else
-	{	while (array[i])
+	{
+		while (array && array[i])//invalid read
 			i++;
 		i+=1;
 	}
-	new_array = (char**)malloc(sizeof(char*)*i+1);
+	new_array = (char**)malloc(sizeof(char*)*i+1);//invalid read
 	if(!new_array)
 		return(0);
-	new_array[i--]=NULL;
+	new_array[i--]=NULL;//invalid read
 	new_array[i]=ft_strdup(str);
 	while(--i>=0)
 		new_array[i]=array[i];
@@ -56,7 +57,10 @@ char **new_array_rm(char **array,int index)
 	while(--i>=0)
     {
         if(i_old==index)
-            i_old--;
+        {
+			free(array[index]);
+			i_old--;
+		}
 		new_array[i]=array[i_old--];
 
     }
