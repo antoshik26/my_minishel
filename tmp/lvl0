@@ -109,3 +109,6 @@ ls
 ls -la
 cat -e
 ls | cat -e | cat -e
+ls
+ls -la
+ls |cat -e| cat -e

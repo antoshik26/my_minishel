@@ -604,3 +604,11 @@ int getchoice (char *greet, char *choices[], FILE *in, FILE *out) {
 }
 */
 //stty -a
+/*
+        if (check_stat_build_in(command) == 1)
+        {
+            command->f_error = 0;
+            command = command->next;
+            continue ; 
+        }
+*/
