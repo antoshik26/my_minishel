@@ -1,130 +1,84 @@
 
-export
-export a
-export
-export aa
-export
-export a=5
-export
-export b=3
+a.out
+a.out
+a.out
+a.out
+echo $?
+echo $?
+echo $/
+echo $?
 ls
+echo $?
+echo $?
+echo $?
 ls
-export a=b
 ls -la
-ls -la
-ls -lq
-<<<<<<< HEAD
-export
-export a
-export
-export k
-export k
-export
-export
-export a=9
-export a=9
-export
-export a
-export a
-export
-export a=3
-export a
-export a=8
-export
-export s
-export TERM=9
-export
-export h
-export TERM=9
-export h
-export h=9
-unset $PATH
-export h=9
-export h=9
-export h=9
-export h=9
-export h=9
-export h=9
-export h=9
-export h=9
-export
-export h
-export h
-export
-export kk lll
-export
-export j=0
-export j=0
-export
-export j=0
-export
-export|wc
-=======
-ls
+echo $?
+echo $PART
+echo $PARTH
+echo $PARATH
+echo $PATH
+echo $?
+echo #>$.?
+echo #>$?
 ls
 ls -la
 ls | cat -e | cat -e
-ls | cat -e | cat -e
-dffhbdfgghdf
-sdgfhm,
-asdfghnm
-asdfgh
-pwd
-pwd
-ls
-ls -la
-cat -e
-yes|head|wc
-ls -la
-ls | cat -e | cat -e
-ls | cat -e | cat -e
-ls -la
-export a=5
-ls | grep main.c
-unset $PATGH
-ununset $PATH
-unset $OAPATH
-uset $PATH
-env
-uset $PWVD
-uset $PWVD
-uset $PWVD
-unset $PATGH
-ls
-unset $PATGH
-unset $PATH
-unset $PATGH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-unset $PATH
-ls
-ls -la
-unset $PATH
-unset $PATH
-unset $PATH
-export a=3
-unset PATH
-unset PATH
-unset $PATH
-env
-unset $PATH
-env
-ls
-ls
-ls -la
-unset P$OPARTTH
-ls
-export a=5
->>>>>>> a92d723807096c95ced8082de6f959fdc210d8fa
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
+echo $>?
 
 export a=5
 export lllllllll=8 ll l
@@ -239,6 +193,7 @@ export
 export 1=2riuewirulbgf;oeurhfwoeirjgfweo0riugwe'0r9ugtw'0eg
 export edrfke=fekontvwo;jegnve;orugnw;orugnwe;org
 export 
+<<<<<<< HEAD
 export|ls
 export|export
 export|wc
@@ -263,3 +218,6 @@ unset a
 unset TERM
 unset TERM
 export aa=2
+=======
+>>>>>>> 4a2509e3afbaf0ff39bfe273fe9fd4546968bc5d
+>>>>>>> 2e1c1531decc18ec7ed4d9086115f3a25d2e1b38

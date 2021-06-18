@@ -3,3 +3,5 @@ ls
 exit123
 exit 123
 env
+env
+exit 123
