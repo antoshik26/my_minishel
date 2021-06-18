@@ -1,99 +1,86 @@
 #include "ft_minishell.h"
-void free_array_of_strings(char **array)
+
+void	free_array_of_strings(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(array[i])
-		free(array[i++]);
-    free(array[i]);
+	while (array[i])
+		array[i++] = 0;
+	while (i >= 0)
+		free(array[i--]);
 	free(array);
 }
-char **new_array_add(char **array,char *str)
+
+char	**new_array_add(char **array, char *str)
 {
-	int i;
-	char **new_array;
-	
+	int		i;
+	char	**new_array;
+
 	i = 0;
-	if(!array)
+	if (!array)
 	{
-		new_array = (char**)malloc(sizeof(char*)*2);
-		new_array[1]=NULL;
-		new_array[0]=ft_strdup(str);
-		return(new_array);
+		new_array = (char **)malloc(sizeof(char *) * 2);
+		new_array[1] = NULL;
+		new_array[0] = ft_strdup(str);
+		return (new_array);
 	}
-	else
-	{
-		while (array && array[i])//invalid read
-			i++;
-		i+=1;
-	}
-	new_array = (char**)malloc(sizeof(char*)*i+1);//invalid read
-	if(!new_array)
-		return(0);
-	new_array[i--]=NULL;//invalid read
-	new_array[i]=ft_strdup(str);
-	while(--i>=0)
-		new_array[i]=array[i];
-		i=0;
-	while(array[i])
-	{
-		array[i++]=0;
-	}
-	while (i>=0)
-	{
-		free(array[i--]);
-	}
-	free(array);	
-	return(new_array);
-}
-char **new_array_rm(char **array,int index)
-{
-    int i;
-    int i_new;
-    int i_old;
-    char **new_array;
-    
-    i_new=0;
-    i_old=0;
-    i = 0;
-    while (array[i])
+	while (array && array[i])
 		i++;
-    new_array = (char**)malloc(sizeof(char*)*(i--));
-	if(!new_array)
-		return(0);
-	i_old=i;
+	i += 1;
+	new_array = (char **)malloc(sizeof(char *) *(i + 1));
+	if (!new_array)
+		return (0);
+	new_array[i--] = NULL;
+	new_array[i] = ft_strdup(str);
+	while (--i >= 0)
+		new_array[i] = array[i];
+	free_array_of_strings(array);
+	return (new_array);
+}
+
+char	**new_array_rm(char	**array, int	index)
+{
+	int		i;
+	int		i_new;
+	int		i_old;
+	char	**new_array;
+
+	i_new = 0;
+	i_old = 0;
+	i = 0;
+	while (array[i])
+		i++;
+	new_array = (char **)malloc(sizeof(char *) * (i--));
+	if (!new_array)
+		return (0);
+	i_old = i;
 	free(array[index]);
-	new_array[i]=0;
-	while(--i>=0)
-    {
-        if(i_old==index)
-			i_old--;
-		new_array[i]=array[i_old--];
-    }
-	i=0;
-	while(array[i])
-		array[i++]=0;
-	while (i>=0)
+	new_array[i] = 0;
+	while (--i >= 0)
 	{
-		free(array[i--]);
+		if (i_old == index)
+			i_old--;
+		new_array[i] = array[i_old--];
 	}
-	free(array);	
-    return(new_array);
+	free_array_of_strings(array);
+	return (new_array);
 }
-char **ft_strdup_array_of_strings(char **env)
+
+char	**ft_strdup_array_of_strings(char **env)
 {
-	int i;
-	char **new_env;
+	int		i;
+	char	**new_env;
+
 	i = 0;
-	while(env[i])
+	while (env[i])
 		i++;
-	new_env=(char**)malloc(sizeof(char*)*(i+1));
-	if(!new_env)
-		return(0);
-	i=-1;
+	new_env = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!new_env)
+		return (0);
+	i = -1;
 	while (env[++i])
-		new_env[i]=ft_strdup(env[i]);
-	new_env[i]=env[i];
-	return(new_env);
+		new_env[i] = ft_strdup(env[i]);
+	new_env[i] = env[i];
+	return (new_env);
 }
