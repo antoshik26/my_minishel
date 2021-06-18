@@ -47,7 +47,14 @@ void clear_malloc(t_minishell *all_command)
     
     i = 0;
     free(all_command->file_history);
-    /*
+   /* while(all_command->env->env[i])
+    {
+       all_command->env->env[i]=0;
+        all_command->env->keys[i]=0;
+        all_command->env->values[i]=0;
+        i++;
+    }
+    i=0;*/
     while(all_command->env->env[i])
     {
         free(all_command->env->env[i]);
@@ -58,7 +65,7 @@ void clear_malloc(t_minishell *all_command)
     free(all_command->env->env);
     free(all_command->env->keys);
     free(all_command->env->values);
-    */
+    
     i = 0;
     if (all_command->env->env_lvl != NULL)
     {
@@ -333,5 +340,6 @@ int main_dup(int argc,char **argv,char **env)
 
 int main(int argc,char **argv,char **env)
 {
-    return(main_dup(argc,argv,env));   
+    retuurn(main_dup(argc,argv,env)); 
+      
 }
