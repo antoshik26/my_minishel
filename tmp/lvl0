@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 wc<l
 wc<<l
 unset PATH
@@ -19,3 +20,11 @@ export a=b
 echo $PATH
 echo $PATH
 echo $PATH
+=======
+dfghju
+echo $?
+ls ohuibgiybgbg
+echo $?
+wc<l
+wc<<l
+>>>>>>> 72ce9b6e7ed9ab481fd09797ec27fa66ebf02a98
