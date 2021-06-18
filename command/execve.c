@@ -225,18 +225,31 @@ int **make_pipe(int size)
 void export_errors(t_command_and_flag *all)
 {
 	int i;
+	int i1;
+	int flag;
 
 	i = 1;
 	if(!all->array_flags[i])
 		return;
 	while(all->array_flags[i])
 	{
+		flag=0;
+		i1=0;
+		while (all->array_flags[i][i1] && all->array_flags[i][i1]!='=')
+			i1++;
+		if(all->array_flags[i][i1]=='=')
+		{	
+			all->array_flags[i][i1]='\0';
+			flag=1;
+		}
 		if(!ft_check_name(all->array_flags[i]))
 		{	
 			ft_putstr_fd("minishell: export: '",0);
 			ft_putstr_fd(all->array_flags[i],0);
 			ft_putstr_fd("': not a valid identifier\n",0);
 		}
+		if(flag)
+			all->array_flags[i][i1]='=';
 		i++;
 	}
 }
@@ -278,6 +291,8 @@ void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *en
 			reverse_head=reverse_head->next;
 		}
 		if(!ft_strncmp(reverse_head->command,"export",7))
+			while(reverse_head->array_flags);
+		else if(!ft_strncmp(reverse_head->command,"unset",6))
 			while(reverse_head->array_flags);
 		else if(fd1!=0)
 		{	
@@ -360,8 +375,6 @@ void find_function(int size,t_env *env,t_command_and_flag *head,t_command_and_fl
 			redirect(head,&fd1,&fd2);
 		while(head && ( head->pape==MORE || head->pape==DOUBLE_MORE || head->pape==LESS))
 			head = redirect2(head);
-		//ft_putnbr_fd(fd1,0);
-		//ft_putstr_fd("\n\n\n",0);
 		pid[i]=test(head,pipe[i],pipe[i+1],fd1,fd2,env);
 		fd1 = 0;
 		fd2=0;
@@ -392,8 +405,10 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	number_of_pipes(&size,&current_head,&tmp);
 	printf("%d\n",size);
 	if(!ft_strncmp(tmp->command,"export",7) && size==0)
+	{
 		ft_export(tmp,0,struct_env);
-	//	export_errors(tmp)
+		export_errors(tmp);
+	}
 	else if(!ft_strncmp(tmp->command,"unset",6) && size==0)
 	{
 		ft_unset(tmp,struct_env);
