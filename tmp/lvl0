@@ -1,14 +1,42 @@
 
+<<<<<<< HEAD
+wc<l
+wc<<l
+unset PATH
+unset $PATH
+env
+unset $PATH
+ls
+export $gh
+export $gh
+export $gh
+./a.
+ls
+ls
+echo $?
+echo $?
+echo $?
+export a=b
+echo $PATH
+echo $PATH
+echo $PATH
+=======
 dfghju
 echo $?
 ls ohuibgiybgbg
 echo $?
 wc<l
 wc<<l
+<<<<<<< HEAD
 wc<<l
 ls
 export $gh
 export $gh
 export
 export
+cd ..
+=======
+>>>>>>> 72ce9b6e7ed9ab481fd09797ec27fa66ebf02a98
+>>>>>>> 8c1a216d71ba254d11c5692dfe083fdeefaad7a5
+
 cd ..
