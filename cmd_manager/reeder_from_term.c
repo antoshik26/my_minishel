@@ -95,7 +95,7 @@ char *reeder_from_term(t_minishell *all_command)
         if(!strcmp(str, "\e[A"))
         {
             tputs(restore_cursor, 1, ft_putchar);
-            tputs(tigetstr("ed"), 1, ft_putchar);
+            tputs(tigetstr("ed", 0), 1, ft_putchar);
             if (history_slider != 0)
             {
                 history_line = reader_history_line(all_command, history_slider);
@@ -173,7 +173,7 @@ char *reeder_from_term(t_minishell *all_command)
         else if(!strcmp(str, "\3"))
         {
             tputs(restore_cursor, 1, ft_putchar);
-            tputs(tigetstr("ed"), 1, ft_putchar);
+            tputs(tgetstr("ed", 0), 1, ft_putchar);
             write(1, "\n", 1);
             free(command);
             command  = malloc(sizeof(char) * 1);

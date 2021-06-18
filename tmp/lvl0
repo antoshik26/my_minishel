@@ -51,3 +51,55 @@ echo $?
 echo $?
 a.out
 echo $?
+
+ls
+echo $?
+ls
+echo $/
+echo $?
+ls
+echo $?
+echo $?
+ks
+ls
+echo $?
+echo $?
+echo $?
+ls
+ls
+ls
+ls -la
+echo $?
+ls
+ls -la
+echo $?
+ls
+ks
+ls
+echo #$?
+ls
+echo $/
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+Ð
+echo $?
+echo $?
+ls -la
+ls
+ls
+ls -la
+echo $?
+adfsddf
+ls
+ls -la
+cat -e
+sfdgsdfgsdfg
+sgsdfg
+asfgasdf
+asdf
+ls
+ls -la

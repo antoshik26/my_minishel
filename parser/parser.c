@@ -159,6 +159,7 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
 
     i = 0;
     j = 0;
+    tmp = NULL;
     while (command[i])
     {
         if (command[i] == '\\')
@@ -197,7 +198,8 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
             {
                 name_varianled = create_command(command, i, j);
                 env_varianles = my_getenv(name_varianled, all_command);
-                command = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
+                tmp = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
+                command = tmp;
                 free(name_varianled);
             }
         }
@@ -205,6 +207,8 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
             break ;
         i++;
     }
+    if (tmp != NULL)
+        free(tmp);
     return (command);
 }
 
@@ -572,7 +576,6 @@ int parser_commands(char *command, t_minishell *all_command)
        new_command = create_cloth_cov(all_command, new_command);
        free(tmp);
     }
-
     create_list_command(new_command, all_command, pipe);
     parser_command(all_command);
     return (0);
