@@ -4,3 +4,7 @@ a.out
 a.out
 echo $?
 exit 123
+exit -1
+echo $?
+exit -250
+exit -250

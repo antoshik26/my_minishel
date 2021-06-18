@@ -41,33 +41,38 @@ void rebut(t_minishell *all_command)
     all_command->head = NULL;
 }
 
-void clear_malloc(t_minishell *all_command)
+void clear_malloc(t_minishell *all_command,t_env *env)
 {
     int i;
     
     i = 0;
     free(all_command->file_history);
-    while(all_command->env->env[i])
+    while(env->env[i])
     {
-        free(all_command->env->env[i]);
-        free(all_command->env->keys[i]);
-        free(all_command->env->values[i]);
+        free(env->env[i]);
+        free(env->keys[i]);
+        free(env->values[i]);
         i++;
     }
-    free(all_command->env->env);
-    free(all_command->env->keys);
-    free(all_command->env->values);
+    i=0;
+    //while (env->values[i])
+    //{
+      //  free(env->values[i++]);
+   // }
+    free(env->env);
+    free(env->keys);
+    free(env->values);
     i = 0;
-    if (all_command->env->env_lvl != NULL)
+    if (env->env_lvl != NULL)
     {
-        while (all_command->env->env_lvl[i])
+        while (env->env_lvl[i])
         {
-            free(all_command->env->env_lvl[i]);
+            free(env->env_lvl[i]);
             i++;
         }
-        free(all_command->env->env_lvl);
+        free(env->env_lvl);
     }
-    free(all_command->env);
+    free(env);
 }
 
 void create_signal_controller()
@@ -324,12 +329,13 @@ int main_dup(int argc,char **argv,char **env)
         find_path_from_new_env(&all_command);
     }
     rebut(&all_command);
-    clear_malloc(&all_command);
+    clear_malloc(&all_command,struct_env);
     ft_putstr_fd("exit\n",0);
     return (ret);
 }
 
 int main(int argc,char **argv,char **env)
 {
-    return(main_dup(argc,argv,env));   
+    return(main_dup(argc,argv,env)); 
+    
 }

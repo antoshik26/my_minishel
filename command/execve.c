@@ -421,7 +421,20 @@ int functions_launch(t_command_and_flag **head,t_env *struct_env,int *lvl)
 	else if(!ft_strncmp(tmp->command,"exit",5))
 	{
 		if(tmp->array_flags[1])
-			ret=ft_atoi(tmp->array_flags[1])%256;
+		{
+			if(ft_atoi(tmp->array_flags[1])>0)
+				ret=ft_atoi(tmp->array_flags[1])%256;
+			else
+			{
+				ret=ft_atoi(tmp->array_flags[1]);
+				while (ret<0)
+				{
+					ret=256+ret;
+				}
+				
+			}
+
+		}
 		else
 			ret=0;		
 	}
