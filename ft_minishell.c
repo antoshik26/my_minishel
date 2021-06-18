@@ -47,7 +47,6 @@ void clear_malloc(t_minishell *all_command)
     
     i = 0;
     free(all_command->file_history);
-    /*
     while(all_command->env->env[i])
     {
         free(all_command->env->env[i]);
@@ -58,7 +57,6 @@ void clear_malloc(t_minishell *all_command)
     free(all_command->env->env);
     free(all_command->env->keys);
     free(all_command->env->values);
-    */
     i = 0;
     if (all_command->env->env_lvl != NULL)
     {
