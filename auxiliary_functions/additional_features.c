@@ -236,6 +236,7 @@ char *replacement(char *command, int *i, int j, char* env_varianles, char *name_
 	new_command[k] = '\0';
 	if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
 		free(env_varianles);
+	free(new_command);
 	return (new_command);
 }
 

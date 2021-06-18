@@ -155,6 +155,7 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
     int j;
     char *env_varianles;
     char *name_varianled;
+    char *tmp;
 
     i = 0;
     j = 0;
