@@ -170,6 +170,7 @@ void free_tmp(t_command_and_flag *tmp)
  	while (tmp->array_flags[++i])
 	 free(tmp->array_flags[i]);
 	free(tmp->array_flags[i]);
+	free(tmp->array_flags);
 	free(tmp);
 }
 void number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **new_head)

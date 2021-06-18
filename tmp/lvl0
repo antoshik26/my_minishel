@@ -5,3 +5,10 @@ ls ohuibgiybgbg
 echo $?
 wc<l
 wc<<l
+wc<<l
+ls
+export $gh
+export $gh
+export
+export
+cd ..
