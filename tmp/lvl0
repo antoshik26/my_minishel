@@ -103,3 +103,9 @@ asfgasdf
 asdf
 ls
 ls -la
+ls
+ls -la
+ls
+ls -la
+cat -e
+ls | cat -e | cat -e

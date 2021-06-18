@@ -41,6 +41,7 @@ void rebut(t_minishell *all_command)
     all_command->head = NULL;
 }
 
+
 void clear_malloc(t_minishell *all_command,t_env *env)
 {
     int i;
