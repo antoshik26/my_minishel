@@ -210,3 +210,16 @@ echo $? $PATH
 echo $?
 asdgfhjnm
 echo $?
+ls
+ls -la
+ks
+ls
+ls -la
+cat -e
+ls
+ls -la
+ls | cat -e | cat -e
+ls
+ls>a
+ls
+ls -la

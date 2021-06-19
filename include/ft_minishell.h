@@ -112,6 +112,11 @@ char                *term_from_double_less();
 char                *my_getenv(char *name_env, t_minishell *all_command);
 char				*replacement_2(char *command, int *i, int j, t_minishell *all_command);
 int                 create_env_lvl(t_env *env, int lvl);
+int					check_stat_file(t_command_and_flag *command);
+int					check_stat_command(t_minishell *all_command, t_command_and_flag *command);
+int					check_stat_file_with_path(t_command_and_flag *command);
+int					check_stat_command_with_path(t_command_and_flag *command);
+int					create_file(char *path_and_command);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);
