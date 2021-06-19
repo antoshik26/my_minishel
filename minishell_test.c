@@ -696,3 +696,6 @@ char	*create_cloth_cov(t_minishell *all_command, char *command_and_flags)
 	return (new_command_and_flags);
 }
 */
+
+//https://docs.google.com/document/d/1OzX0XRMcIUvCoE5ZTidod0K6yN3Kfs0wH0k-jTz45Lk/edit#
+//tputs(tgoto(tgetstr("cm", &buffer), 2, 2), 1, ft_putint);

@@ -24,7 +24,7 @@
 # define WRONG_COMMAND  -1
 # define WRONG_FILE     -2    
 # define PERMISSION_DENIED -3
-extern int errno;  
+extern int errno;
 pid_t  g_global_pid; //как же криво работают сигналы
 typedef struct s_env
 {
@@ -34,9 +34,15 @@ typedef struct s_env
     char **env_lvl;
     int exit_num;
 }              t_env;
+
 typedef struct s_term_sistem
 {
-    struct termios *term;
+	int				stat_1;
+	char			*term_name;
+	int				history_slider;
+	char			*history_line;
+    struct termios	termios_p_in;
+	struct termios	termios_und;
 }               t_term_sistem;
 
 typedef struct  s_command_and_flag
@@ -59,8 +65,7 @@ typedef struct s_minishell
     int doublecovkey;
     int flag;
     t_command_and_flag *head;
-    t_term_sistem *term[2];
-    t_term_sistem *term_until[2];
+    t_term_sistem *term;
     struct winsize *win;
 	char *env_varianles;
 	char *name_varianled;
