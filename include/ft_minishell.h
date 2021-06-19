@@ -62,6 +62,8 @@ typedef struct s_minishell
     t_term_sistem *term[2];
     t_term_sistem *term_until[2];
     struct winsize *win;
+	char *env_varianles;
+	char *name_varianled;
     char **path;
     t_env *env;
 }               t_minishell;
@@ -87,7 +89,7 @@ char                *ft_strjoin(char const *s1, char const *s2);
 char                *create_command(char *command, int i, int j);
 int                 get_next_line(int fd, char **line);
 char                *create_cloth_cov(t_minishell *all_command, char *command_and_flags);
-char                *replacement(char *command, int *i, int j, char* env_varianles, char *name_varianled, t_minishell *all_command);
+char                *replacement(char *command, int *i, int j, t_minishell *all_command);
 void                signal_manager(int sig);
 char                *create_cislo_in_string(int lvl);
 void                ft_lstadd_front(t_command_and_flag **lst, t_command_and_flag *new);
@@ -108,6 +110,7 @@ int                 ft_isdigit(int c);
 char                *ft_strnstr(const char *haystack, const char *needle, size_t len);
 char                *term_from_double_less();
 char                *my_getenv(char *name_env, t_minishell *all_command);
+char				*replacement_2(char *command, int *i, int j, t_minishell *all_command);
 int                 create_env_lvl(t_env *env, int lvl);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);

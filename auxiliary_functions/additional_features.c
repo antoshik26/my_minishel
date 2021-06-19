@@ -1,239 +1,78 @@
 #include "ft_minishell.h"
 
-char *create_cloth_cov(t_minishell *all_command, char *command_and_flags)
+int	replacement_utils(t_minishell *all_command, char **env_varianles)
 {
-	char *new_command_and_flags;
-	int len;
-	int i;
+	int	len_env;
+	int	a;
 
-	i = 0;
-	len = ft_strlen(command_and_flags);
-	new_command_and_flags = NULL;
-	if (all_command->onecovkey == 1 && all_command->doublecovkey == 1)
+	if (all_command->env->exit_num == 0)
 	{
-		while (len)
-		{
-			if (command_and_flags[len] == '\"')
-			{
-				new_command_and_flags = (char *)malloc(sizeof(char) * ft_strlen(command_and_flags) + 2);
-				if (new_command_and_flags == NULL)
-					return (NULL);
-				while (command_and_flags[i])
-				{
-					new_command_and_flags[i] = command_and_flags[i];
-					i++;
-				}
-				new_command_and_flags[i++] = '\"';
-				new_command_and_flags[i++] = '\'';
-				new_command_and_flags[i++] = '\0';
-				break ;
-			}
-			if (command_and_flags[len] == '\'')
-			{
-				new_command_and_flags = (char *)malloc(sizeof(char) * ft_strlen(command_and_flags) + 2);
-				if (new_command_and_flags == NULL)
-					return (NULL);
-				while (command_and_flags[i])
-				{
-					new_command_and_flags[i] = command_and_flags[i];
-					i++;	
-				}
-				new_command_and_flags[i++] = '\'';
-				new_command_and_flags[i++] = '\"';
-				new_command_and_flags[i++] = '\0';
-				break ;
-			}
-			len--;
-		}
-		all_command->onecovkey = 0;
-		all_command->doublecovkey = 0;
+		len_env = 1;
+		*env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+		if (*env_varianles == NULL)
+			return (0);
+		(*env_varianles)[0] = '0';
+		(*env_varianles)[1] = '\0';
 	}
-	if (all_command->onecovkey == 1)
-	{
-		new_command_and_flags = (char *)malloc(sizeof(char) * ft_strlen(command_and_flags) + 1);
-		if (new_command_and_flags == NULL)
-			return (NULL);
-		while(command_and_flags[i])
-		{
-			new_command_and_flags[i] = command_and_flags[i];
-			i++;
-		}
-		new_command_and_flags[i++] = '\'';
-		new_command_and_flags[i] = '\0';
-		all_command->onecovkey = 0;
-	}
-	if (all_command->doublecovkey == 1)
-	{
-		new_command_and_flags = (char *)malloc(sizeof(char) * ft_strlen(command_and_flags) + 1);
-		if (new_command_and_flags == NULL)
-			return (NULL);
-		while(command_and_flags[i])
-		{
-			new_command_and_flags[i] = command_and_flags[i];
-			i++;
-		}
-		new_command_and_flags[i++] = '\'';
-		new_command_and_flags[i] = '\0';
-		all_command->doublecovkey = 0;
-	}
-	return (new_command_and_flags);
+	return (0);
 }
 
-char *replacement(char *command, int *i, int j, char* env_varianles, char *name_varianled, t_minishell *all_command)
+int	replacement_utils_2(t_minishell *all_command, char **env_varianles)
 {
-	int k;
-	int len_env;
-	int len_command;
-	int a;
-	int c;
-	char *new_command;
+	int	len_env;
+	int	a;
 
-	len_command = 0;
 	len_env = 0;
-	a = 0;
-	k = 0;
-	if (env_varianles == NULL)
+	a = all_command->env->exit_num;
+	while (a > 0)
 	{
-		if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
+		a = a / 10;
+		len_env++;
+	}
+	*env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
+	if (env_varianles == NULL)
+		return (0);
+	(*env_varianles)[len_env] = '\0';
+	len_env--;
+	while (len_env > -1)
+	{
+		(*env_varianles)[len_env] = \
+				(all_command->env->exit_num % 10) + '0';
+		all_command->env->exit_num = \
+				all_command->env->exit_num / 10;
+		len_env--;
+	}
+	return (0);
+}
+
+int	replacement_utils_3(t_minishell *all_command, char **env_varianles)
+{
+	*env_varianles = (char *)malloc(sizeof(char) * 1);
+	if (*env_varianles == NULL)
+		return (0);
+	(*env_varianles)[0] = '\0';
+	return (0);
+}
+
+char	*replacement(char *command, int *i, int j, t_minishell *all_command)
+{
+	char	*new_command;
+
+	if (all_command->env_varianles == NULL)
+	{
+		if (all_command->name_varianled[0] == '?' && \
+				ft_strlen(all_command->name_varianled) == 1)
 		{
-			a = all_command->env->exit_num;
-			while (a > 0)
-			{
-				a = a / 10;
-				len_env++;
-			}
 			if (all_command->env->exit_num == 0)
-			{
-				len_env = 1;
-				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
-				if (env_varianles == NULL)
-					return (NULL);
-				env_varianles[0] = '0';
-				env_varianles[1] = '\0';
-			}
+				replacement_utils(all_command, &all_command->env_varianles);
 			else
-			{
-				env_varianles = (char *)malloc(sizeof(char) * len_env + 1);
-				if (env_varianles == NULL)
-					return (NULL);
-				env_varianles[len_env] = '\0';
-				len_env--;
-				while (len_env > -1)
-				{
-					env_varianles[len_env] = (all_command->env->exit_num % 10) + '0';
-					all_command->env->exit_num = all_command->env->exit_num / 10;
-					len_env--;
-				}
-			}
+				replacement_utils_2(all_command, &all_command->env_varianles);
 		}
 		else
-		{
-			env_varianles = (char *)malloc(sizeof(char) * 1);
-			if (env_varianles == NULL)
-				return (NULL);
-			env_varianles[0] = '\0';
-		}
+			replacement_utils_3(all_command, &all_command->env_varianles);
 	}
-	c = *i;
-	k = j;
-	a = c - j;
-	len_command = ft_strlen(command);
-	len_env = ft_strlen(env_varianles);
-	while (k + a < len_command)
-	{
-		command[k] = command[k + a];
-		k++;
-	}
-	command[k] = '\0';
-	len_command = ft_strlen(command);
-	new_command = (char *)malloc(sizeof(char) * (len_command + len_env + 1));
-	if (new_command == NULL)
-		return (NULL);
-	k = 0;
-	a = 0;
-	c = j;
-	while (k < len_command + len_env + 1)
-	{
-		if (k < (j - 1))
-			new_command[k] = command[k];
-		if (k > (j - 1) &&  k < j + len_env)
-		{
-			new_command[k - 1] = env_varianles[a];
-			a++;
-			(*i) = k;
-		}
-		if (k > j + len_env && command[c] != '\0')
-		{
-			new_command[k - 2] = command[c];
-			c++;
-		}
-		k++;
-	}
-	k = k - 2;
-	new_command[k] = '\0';
-	if (name_varianled[0] == '?' && ft_strlen(name_varianled) == 1)
-		free(env_varianles);
+	new_command = replacement_2(command, i, j, all_command);
 	return (new_command);
-}
-
-char *create_cislo_in_string(int lvl)
-{
-	char *chislo;
-	int lvl_2;
-	int i;
-
-	i = 0;
-	lvl_2 = lvl;
-	while(lvl_2 > 0)
-	{
-		i++;
-		lvl_2 = lvl_2 / 10;
-	}
-	lvl_2 = lvl;
-	chislo = (char *)malloc(sizeof(char) * i + 1);
-	if (chislo == NULL)
-		return (NULL);
-	chislo[i] = '\0';
-	while(lvl_2)
-	{
-		chislo[i] = (lvl_2 % 10) + '0';
-		lvl_2 = lvl_2 / 10;
-		i--; 
-	}
-	return (chislo);
-}
-
-int create_env_lvl(t_env *env, int lvl)
-{
-	int i;
-	int i1;
-	char *new_lvl;
-	char *tmp;
-
-	i = 0;
-	i1 = 0;
-	new_lvl = ft_itoa(lvl);
-	while(env->env[i])
-	{
-		if (ft_strnstr(env->env[i], "SHLVL", ft_strlen("SHLVL")))
-		{
-			while (env->env[i][i1] != '=')
-			{
-				i1++;
-			}
-			i1++;
-			env->env[i][i1] = '\0';
-			tmp = env->env[i];
-			env->env[i] = ft_strjoin(env->env[i], new_lvl);
-			free(tmp);
-		}
-		break ;
-		i++;
-	}
-	//free(env->values[i]);
-	//env->values[i] = new_lvl;
-	free(new_lvl);
-	return (0);
 }
 
 //написать strcmp

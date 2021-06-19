@@ -198,7 +198,9 @@ char *create_command_with_env_variables(char *command, t_minishell *all_command)
             {
                 name_varianled = create_command(command, i, j);
                 env_varianles = my_getenv(name_varianled, all_command);
-                tmp = replacement(command, &i, j--, env_varianles, name_varianled, all_command);
+				all_command->env_varianles = env_varianles;
+				all_command->name_varianled = name_varianled;
+                tmp = replacement(command, &i, j--, all_command);
                 command = tmp;
                 free(name_varianled);
             }
@@ -570,12 +572,13 @@ int parser_commands(char *command, t_minishell *all_command)
         i++;
     }
     new_command = create_command(command, i, j);
-    if (all_command->onecovkey == 1 || all_command->doublecovkey == 1)
-    {
-       tmp = new_command;
-       new_command = create_cloth_cov(all_command, new_command);
-       free(tmp);
-    }
+	
+    // if (all_command->onecovkey == 1 || all_command->doublecovkey == 1)
+    // {
+    //    tmp = new_command;
+    //    new_command = create_cloth_cov(all_command, new_command);
+    //    free(tmp);
+    // }
     create_list_command(new_command, all_command, pipe);
     parser_command(all_command);
     return (0);

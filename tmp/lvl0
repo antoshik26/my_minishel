@@ -112,3 +112,101 @@ ls | cat -e | cat -e
 ls
 ls -la
 ls |cat -e| cat -e
+ls
+ls -la
+cat -e
+ls
+ls -la
+echo $?
+echo $?
+echo $/
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+asdfghnm
+asdfgn
+echo $?
+asdfghnm
+echo $?
+ks
+ls
+ls -la
+cat -e
+echo $/
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+echo $?
+ls
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+echo $?
+echo $PATH
+echo $? + 5
+echo $?+5
+echo $?
+echo $?+$?
+export a=5
+export b=6
+echo $5+$6
+echo $5 + $6
+%$a+$6
+%$a+$b
+$? + $?
+$? + $?
+$a + $b
+echo $PATH
+echo $?
+echo $? asfdgfdasdfasd
+echo $? $PATH
+echo $? $PATH
+echo $? $PATH
+echo $?
+echo $? $PATH
+echo $? $PATH
+echo $? $PATH
+echo $PATH $?
+echo $PATH $?
+echo $? $PATH
+echo $?
+asdgfhjnm
+echo $?

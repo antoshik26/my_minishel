@@ -612,3 +612,87 @@ int getchoice (char *greet, char *choices[], FILE *in, FILE *out) {
             continue ; 
         }
 */
+/*
+char	*create_cloth_cov(t_minishell *all_command, char *command_and_flags)
+{
+	char	*new_command_and_flags;
+	int		len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(command_and_flags);
+	new_command_and_flags = NULL;
+	if (all_command->onecovkey == 1 && all_command->doublecovkey == 1)
+	{
+		while (len)
+		{
+			if (command_and_flags[len] == '\"')
+			{
+				new_command_and_flags = (char *)malloc(sizeof(char) * \
+						ft_strlen(command_and_flags) + 2);
+				if (new_command_and_flags == NULL)
+					return (NULL);
+				while (command_and_flags[i])
+				{
+					new_command_and_flags[i] = command_and_flags[i];
+					i++;
+				}
+				new_command_and_flags[i++] = '\"';
+				new_command_and_flags[i++] = '\'';
+				new_command_and_flags[i++] = '\0';
+				break ;
+			}
+			if (command_and_flags[len] == '\'')
+			{
+				new_command_and_flags = (char *)malloc(sizeof(char) * \
+						ft_strlen(command_and_flags) + 2);
+				if (new_command_and_flags == NULL)
+					return (NULL);
+				while (command_and_flags[i])
+				{
+					new_command_and_flags[i] = command_and_flags[i];
+					i++;
+				}
+				new_command_and_flags[i++] = '\'';
+				new_command_and_flags[i++] = '\"';
+				new_command_and_flags[i++] = '\0';
+				break ;
+			}
+			len--;
+		}
+		all_command->onecovkey = 0;
+		all_command->doublecovkey = 0;
+	}
+	if (all_command->onecovkey == 1)
+	{
+		new_command_and_flags = (char *)malloc(sizeof(char) * \
+				ft_strlen(command_and_flags) + 1);
+		if (new_command_and_flags == NULL)
+			return (NULL);
+		while (command_and_flags[i])
+		{
+			new_command_and_flags[i] = command_and_flags[i];
+			i++;
+		}
+		new_command_and_flags[i++] = '\'';
+		new_command_and_flags[i] = '\0';
+		all_command->onecovkey = 0;
+	}
+	if (all_command->doublecovkey == 1)
+	{
+		new_command_and_flags = (char *)malloc(sizeof(char) * \
+				ft_strlen(command_and_flags) + 1);
+		if (new_command_and_flags == NULL)
+			return (NULL);
+		while (command_and_flags[i])
+		{
+			new_command_and_flags[i] = command_and_flags[i];
+			i++;
+		}
+		new_command_and_flags[i++] = '\'';
+		new_command_and_flags[i] = '\0';
+		all_command->doublecovkey = 0;
+	}
+	return (new_command_and_flags);
+}
+*/
