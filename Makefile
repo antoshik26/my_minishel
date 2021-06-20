@@ -45,7 +45,7 @@ test:
 	${CMD}/cmd_manager.c ./gnl/gnl.a ./libft/ft_split.c ./libft/ft_strncmp.c ${AUXILIARY_FUNCTIONS}/lists_for_execve.c ${CMD}/reeder_from_term.c -ltermcap ./libft/ft_putchar_fd.c ./libft/ft_isdigit.c \
 	./libft/ft_putstr_fd.c  ${AUXILIARY_FUNCTIONS}/array_of_strings.c ./libft/ft_putnbr_fd.c ${COMMAND}/export.c ./libft/ft_isalpha.c ./libft/ft_strnstr.c ./libft/ft_isalnum.c ./libft/ft_atoi.c ./libft/ft_itoa.c \
 	${AUXILIARY_FUNCTIONS}/additional_features2.c ${AUXILIARY_FUNCTIONS}/additional_features3.c ${AUXILIARY_FUNCTIONS}/additional_features4.c ${COMMAND}/stat_command_utils.c ${COMMAND}/stat_command_utils2.c \
-	${CMD}/reed_from_term_for_double_less.c
+	${CMD}/reed_from_term_for_double_less.c ${CMD}/reeder_from_term_utils.c ${CMD}/reeder_from_term_utils2.c
 
 test_file:
 	gcc -g minishell_test.c

@@ -265,10 +265,7 @@ int main_dup(int argc,char **argv,char **env)
     t_minishell all_command;
     t_command_and_flag command_and_flag;
     char *command;
-    t_term_sistem term_in_util;
-    t_term_sistem term_out_util;
-    t_term_sistem term_in;
-    t_term_sistem term_out;
+    t_term_sistem term;
     t_env *struct_env;
     int ret;
 
@@ -284,11 +281,8 @@ int main_dup(int argc,char **argv,char **env)
     printf("\nlvl1:%d\n",lvl);
     (void)argc;
     (void)argv;
-    all_command.term_until[0] = &term_in_util;
-    all_command.term_until[1] = &term_out_util;
-    all_command.term[0] = &term_in;
-    all_command.term[1] = &term_out;
     all_command.flag = 1;
+	all_command.term = &term;
     all_command.env = struct_env;
     command = NULL;
     all_command.head = &command_and_flag;

@@ -50,7 +50,7 @@ char	*term_from_double_less(void)
 		else if (!strcmp(str, "\e[D"))
 		{
 		}
-		else if (!strcmp(str, '\t'))
+		else if (!strcmp(str, "\t"))
 		{
 		}
 		else if (!strcmp(str, "\177"))

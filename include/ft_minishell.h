@@ -38,6 +38,9 @@ typedef struct s_env
 typedef struct s_term_sistem
 {
 	int				stat_1;
+	int				key;
+	int				len;
+	char			*str;
 	char			*term_name;
 	int				history_slider;
 	char			*history_line;
@@ -122,6 +125,17 @@ int					check_stat_command(t_minishell *all_command, t_command_and_flag *command
 int					check_stat_file_with_path(t_command_and_flag *command);
 int					check_stat_command_with_path(t_command_and_flag *command);
 int					create_file(char *path_and_command);
+int					press_up(t_minishell *all_command, char **command, int *i, char **tmp);
+int					press_down(t_minishell *all_command, char **command, int *i, char **tmp);
+char				*reader_history_line(t_minishell *all_command, int history_slider);
+int					press_backspase(int *i, char **command);
+int					press_control_c(char **command);
+int					create_term_win(t_minishell *all_command);
+int					ft_strlen_history(t_minishell *all_command);
+char				*reader_history_line(t_minishell *all_command, int history_slider);
+int					save_old_term(t_minishell *all_command);
+int					create_new_term(t_minishell *all_command);
+int					definition_history_line(t_minishell *all_command, int *i);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);

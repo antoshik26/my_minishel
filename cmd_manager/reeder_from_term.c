@@ -1,191 +1,105 @@
 #include "ft_minishell.h"
 
-int	create_term_win(t_minishell *all_command)
+int	handler_the_shooter(t_minishell *all_command,
+			char **command, int *i, char **tmp)
 {
-	struct winsize	win;
-
-	ioctl(1, TIOCGWINSZ, &win);
-	all_command->win = &win;
+	if (!strcmp(all_command->term->str, "\e[A"))
+	{
+		press_up(all_command, command, i, tmp);
+		all_command->term->key = 1;
+	}
+	else if (!strcmp(all_command->term->str, "\e[B"))
+	{
+		press_down(all_command, command, i, tmp);
+		all_command->term->key = 1;
+	}
+	else if (!strcmp(all_command->term->str, "\e[C"))
+	{
+		all_command->term->key = 1;
+	}
+	else if (!strcmp(all_command->term->str, "\e[D"))
+	{
+		all_command->term->key = 1;
+	}
 	return (0);
 }
 
-int	ft_strlen_history(t_minishell *all_command)
+int	handler_the_signals(t_minishell *all_command,
+		char **command, int *i, char **tmp)
 {
-	int		history_slider;
-	int		fd;
-	char	*line;
-
-	history_slider = 0;
-	fd = open(all_command->file_history, O_RDONLY);
-	while (get_next_line(fd, &line) != 0)
+	if (!strcmp(all_command->term->str, "\177"))
 	{
-		free(line);
-		history_slider++;
+		press_backspase(i, command);
+		all_command->term->key = 1;
 	}
-	free(line);
-	close(fd);
-	return (history_slider);
+	else if (!strcmp(all_command->term->str, "\n"))
+	{
+		write(1, "\n", 1);
+		all_command->term->key = 2;
+	}
+	else if (!strcmp(all_command->term->str, "\4"))
+	{
+		if (ft_strlen(*command) == 0)
+		{
+			free(*command);
+			*command = NULL;
+			all_command->term->key = 2;
+		}
+	}
+	else if (!strcmp(all_command->term->str, "\3"))
+	{
+		press_control_c(command);
+		all_command->term->key = 2;
+	}
+	return (0);
 }
 
-char	*reader_history_line(t_minishell *all_command, int history_slider)
+int	handler_press(t_minishell *all_command, char **command, int *i, char **tmp)
 {
-	char	*history_line;
-	int		fd;
-	int		i;
-
-	i = 0;
-	fd = open(all_command->file_history, O_RDONLY);
-	while (i != history_slider)
+	if (all_command->term->key == 0)
 	{
-		get_next_line(fd, &history_line);
-		free(history_line);
-		i++;
+		*tmp = *command;
+		*command = ft_strjoin(*command, all_command->term->str);
+		free(*tmp);
+		write(1, all_command->term->str, all_command->term->len);
+		*i = *i + all_command->term->len;
 	}
-	get_next_line(fd, &history_line);
-	close(fd);
-	return (history_line);
+	else
+		all_command->term->key = 0;
+	return (0);
+}
+
+int	create_char_command(char **command)
+{
+	*command = (char *)malloc(sizeof(char) * 1);
+	if (*command == NULL)
+		return (0);
+	*command[0] = '\0';
+	return (0);
 }
 
 char	*reeder_from_term(t_minishell *all_command)
 {
-	int				len;
 	int				i;
-	char			*str;
 	char			*command;
-	char			*term_name;
 	char			*tmp;
-	int				history_slider;
-	char			*history_line;
-	void			*a;
-	int				stat_1;
-	struct termios	termios_p_in;
-	struct termios	termios_und;
 
-	tcgetattr(fileno(stdin), &termios_und);
-	a = all_command;
-	command = (char *)malloc(sizeof(char) * 1);
-	if (command == NULL)
-		return (NULL);
-	command[0] = '\0';
-	if (!isatty(fileno(stdin)))
-		return (NULL);
-	term_name = getenv("TERM");
-	if (term_name == NULL)
-		term_name = "xterm-256color";
-	stat_1 = tcgetattr(0, &termios_p_in);
-	termios_p_in.c_lflag &= ~(ICANON);
-	termios_p_in.c_lflag &= ~(ECHO);
-	termios_p_in.c_lflag &= ~(ISIG);
-	tcsetattr(0, TCSANOW, &termios_p_in);
-	tgetent(0, term_name);
-	history_slider = ft_strlen_history(all_command);
-	str = (char *)malloc(sizeof(char) * 101);
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	write(1, "minishell$ ", 11);
-	tputs(save_cursor, 1, ft_putchar);
+	all_command->term->key = 0;
+	save_old_term(all_command);
+	create_char_command(&command);
+	create_new_term(all_command);
+	definition_history_line(all_command, &i);
 	while (1 != 0)
 	{
-		len = read(0, str, 100);
-		str[len] = '\0';
-		if (!strcmp(str, "\e[A"))
-		{
-			tputs(restore_cursor, 1, ft_putchar);
-			tputs(tigetstr("ed"), 1, ft_putchar);
-			if (history_slider != 0)
-			{
-				history_line = reader_history_line(all_command, history_slider);
-				write(1, history_line, ft_strlen(history_line));
-				history_slider--;
-				free(command);
-				command = (char *)malloc(sizeof(char) * 1);
-				if (command == NULL)
-					return (NULL);
-				command[0] = '\0';
-				tmp = command;
-				command = ft_strjoin(command, history_line);
-				free(tmp);
-				free(history_line);
-				i = ft_strlen(command);
-			}
-		}
-		else if (!strcmp(str, "\e[B"))
-		{
-			tputs(restore_cursor, 1, ft_putchar);
-			tputs(tigetstr("ed"), 1, ft_putchar);
-			if (history_slider != MAX_LINE)
-			{
-				history_line = reader_history_line(all_command, history_slider);
-				write(1, history_line, ft_strlen(history_line));
-				history_slider++;
-				free(command);
-				command = (char *)malloc(sizeof(char) * 1);
-				if (command == NULL)
-					return (NULL);
-				command[0] = '\0';
-				tmp = command;
-				command = ft_strjoin(command, history_line);
-				free(tmp);
-				free(history_line);
-				i = ft_strlen(command);
-			}
-		}
-		else if (!strcmp(str, "\e[C"))
-		{
-		}
-		else if (!strcmp(str, "\e[D"))
-		{
-		}
-		else if (!strcmp(str, "\t"))
-		{
-		}
-		else if (!strcmp(str, "\177"))
-		{
-			if (i != 0)
-			{
-				tputs(cursor_left, 1, ft_putchar);
-				tputs(tgetstr("dc", 0), 1, ft_putchar);
-				command[ft_strlen(command) - 1] = '\0';
-				i--;
-			}
-		}
-		else if (!strcmp(str, "\n"))
-		{
-			write(1, "\n", 1);
+		all_command->term->len = read(0, all_command->term->str, 100);
+		all_command->term->str[all_command->term->len] = '\0';
+		handler_the_shooter(all_command, &command, &i, &tmp);
+		handler_the_signals(all_command, &command, &i, &tmp);
+		if (all_command->term->key == 2)
 			break ;
-		}
-		else if (!strcmp(str, "\4"))
-		{
-			if (ft_strlen(command) == 0)
-			{
-				free(command);
-				command = NULL;
-				break ;
-			}
-		}
-		else if (!strcmp(str, "\3"))
-		{
-			tputs(restore_cursor, 1, ft_putchar);
-			tputs(tgetstr("ed", 0), 1, ft_putchar);
-			write(1, "\n", 1);
-			free(command);
-			command = malloc(sizeof(char) * 1);
-			if (command == NULL)
-				return (NULL);
-			command[0] = '\0';
-			break ;
-		}
-		else
-		{
-			tmp = command;
-			command = ft_strjoin(command, str);
-			free(tmp);
-			write(1, str, len);
-			i++;
-		}
+		handler_press(all_command, &command, &i, &tmp);
 	}
-	tcsetattr(fileno(stdin), TCSANOW, &termios_und);
-	free(str);
+	tcsetattr(fileno(stdin), TCSANOW, &(all_command->term->termios_und));
+	free(all_command->term->str);
 	return (command);
 }
