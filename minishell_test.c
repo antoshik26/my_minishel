@@ -699,3 +699,65 @@ char	*create_cloth_cov(t_minishell *all_command, char *command_and_flags)
 
 //https://docs.google.com/document/d/1OzX0XRMcIUvCoE5ZTidod0K6yN3Kfs0wH0k-jTz45Lk/edit#
 //tputs(tgoto(tgetstr("cm", &buffer), 2, 2), 1, ft_putint);
+
+// int ft_clear_flags_from_kov(t_minishell *all_command)
+// {
+//     int i;
+//     int j;
+//     int len;
+//     int k;
+//     int l;
+//     t_command_and_flag *command;
+
+//     command = all_command->head;
+//     while (command)
+//     {
+//         i = 1;
+//         if (command->array_flags != NULL)
+//         {
+//             while (command->array_flags[i])
+//             {
+//                 j = 0;
+//                 while (command->array_flags[i][j])
+//                 {
+//                     if (command->array_flags[i][j] == '\'' && all_command->doublecovkey != 1)
+//                     {
+//                         if (all_command->onecovkey == 0)
+//                             all_command->onecovkey = 1;
+//                         else
+//                             all_command->onecovkey = 0;
+//                         l = j;
+//                         k = 0;
+//                         len = ft_strlen(&command->array_flags[i][j]);
+//                         while(k < len + 1)
+//                         {
+//                             command->array_flags[i][l] = command->array_flags[i][l + 1];
+//                             l++;
+//                             k++;
+//                         }
+//                     }
+//                     if (command->array_flags[i][j] == '\"' && all_command->onecovkey != 1)
+//                     {
+//                         if (all_command->doublecovkey == 0)
+//                             all_command->doublecovkey = 1;
+//                         else
+//                             all_command->doublecovkey = 0;
+//                         l = j;
+//                         k = 0;
+//                         len = ft_strlen(&command->array_flags[i][j]);
+//                         while(k < len + 1)
+//                         {
+//                             command->array_flags[i][l] = command->array_flags[i][l + 1];
+//                             l++;
+//                             k++;
+//                         }
+//                     }
+//                     j++;
+//                 }
+//                 i++;
+//             }  
+//         }
+//         command = command->next;
+//     }
+//     return (0);
+// }

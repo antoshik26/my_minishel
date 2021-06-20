@@ -323,3 +323,39 @@ ls
 ls -al
 lslagfasd
 ls -la
+"asdfasd" asdfasdf
+"'asdfasdfas'"
+'asdfasdfa'
+'"asdfasdfasdf"'
+'"asdfasdfasdf"'
+'"asdfasdfasdf"'
+'ls "-la"
+echo "asdgfasdf"
+echo "'adsfasdf'"
+echo "'adsfasdf'"
+echo "'adsfasdf'"
+"asdfasd"
+"'a'"
+"'a'"
+a"'a'"
+ls
+ls -la
+"'a'"
+"'a'"
+"'a'"
+asdgas
+"'a'"
+"'a'"
+"'a'"
+"'a'"
+"'a'"
+"'a'"
+"a"
+'"a"'
+'"a"'
+'"a"'
+'"a"'
+"'a'"
+"'a'"
+ls "-la"
+ls "'-la'" "'-la'"

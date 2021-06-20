@@ -1,152 +1,30 @@
 #include "ft_minishell.h"
 
-int ft_clear_command_from_kov(t_minishell *all_command, t_command_and_flag *command)
+int	shift_comand(char *command, t_minishell *all_command)
 {
-    int i;
-    int j;
-    int len;
-    int k;
+	int		i;
+	int		fd;
+	char	a[5];
 
-    j = 0;
-    i = 0;
-    while (command->command[i])
-    {
-        if (command->command[i] == '\'' && all_command->doublecovkey != 1)
-        {
-            if (all_command->onecovkey == 0)
-                all_command->onecovkey = 1;
-            else
-                all_command->onecovkey = 0;
-            j = i;
-            k = 0;
-            len = ft_strlen(&command->command[i]);
-            while(k < len)
-            {
-                command->command[j] = command->command[j + 1];
-                j++;
-                k++;
-            }
-        }
-        if (command->command[i] == '\"' && all_command->onecovkey != 1)
-        {
-            if (all_command->doublecovkey == 0)
-                all_command->doublecovkey = 1;
-            else
-                all_command->doublecovkey = 0;
-            j = i;
-            k = 0;
-            len = ft_strlen(&command->command[i]);
-            while(k < len)
-            {
-                command->command[j] = command->command[j + 1];
-                j++;
-                k++;
-            }
-        }
-        if (command->command[i] == '\0')
-            break;
-        i++;
-    }
-    return (0);
-}
-
-int ft_clear_flags_from_kov(t_minishell *all_command)
-{
-    int i;
-    int j;
-    int len;
-    int k;
-    int l;
-    t_command_and_flag *command;
-
-    command = all_command->head;
-    while (command)
-    {
-        i = 0;
-        if (command->array_flags != NULL)
-        {
-            while (command->array_flags[i])
-            {
-                j = 0;
-                while (command->array_flags[i][j])
-                {
-                    if (command->array_flags[i][j] == '\'' && all_command->doublecovkey != 1)
-                    {
-                        if (all_command->onecovkey == 0)
-                            all_command->onecovkey = 1;
-                        else
-                            all_command->onecovkey = 0;
-                        l = j;
-                        k = 0;
-                        len = ft_strlen(&command->array_flags[i][j]);
-                        while(k < len)
-                        {
-                            command->array_flags[i][l] = command->array_flags[i][l + 1];
-                            l++;
-                            k++;
-                        }
-                    }
-                    if (command->array_flags[i][j] == '\"' && all_command->onecovkey != 1)
-                    {
-                        if (all_command->doublecovkey == 0)
-                            all_command->doublecovkey = 1;
-                        else
-                            all_command->doublecovkey = 0;
-                        l = j;
-                        k = 0;
-                        len = ft_strlen(&command->array_flags[i][j]);
-                        while(k < len)
-                        {
-                            command->array_flags[i][l] = command->array_flags[i][l + 1];
-                            l++;
-                            k++;
-                        }
-                    }
-                    j++;
-                }
-                i++;
-            }  
-        }
-        command = command->next;
-    }
-    return (0);
-}
-
-
-int shift_comand(char *command, t_minishell *all_command)
-{
-    int i;
-    int fd;
-    char a[5];
-    
-    fd = open(all_command->file_history, O_RDWR);
-    if (fd == -1)
-        return (-1);
-    i = 1;
-    while (i != 0)
-        i = read(fd, a, 1);
-    if (all_command->flag == 1)
-    {
-        write(fd, "\n", 1);
-        write(fd, command, ft_strlen(command));
-        all_command->flag = 0;
-    }
-    else
-    {
-        write(fd, "\n", 1);    
-        write(fd, command, ft_strlen(command));
-    }
-    close(fd);
-    /*
-    i = 1;
-    while(i < 15)
-    {
-        all_command->count_command[i - 1] = all_command->count_command[i];
-        i++;
-    }
-    all_command->count_command[0] = command;
-    */
-    return (0);
+	fd = open(all_command->file_history, O_RDWR);
+	if (fd == -1)
+		return (-1);
+	i = 1;
+	while (i != 0)
+		i = read(fd, a, 1);
+	if (all_command->flag == 1)
+	{
+		write(fd, "\n", 1);
+		write(fd, command, ft_strlen(command));
+		all_command->flag = 0;
+	}
+	else
+	{
+		write(fd, "\n", 1);
+		write(fd, command, ft_strlen(command));
+	}
+	close(fd);
+	return (0);
 }
 
 char *create_command_with_env_variables(char *command, t_minishell *all_command)

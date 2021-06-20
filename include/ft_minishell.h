@@ -136,6 +136,8 @@ char				*reader_history_line(t_minishell *all_command, int history_slider);
 int					save_old_term(t_minishell *all_command);
 int					create_new_term(t_minishell *all_command);
 int					definition_history_line(t_minishell *all_command, int *i);
+int					ft_clear_command_from_kov(t_minishell *all_command, t_command_and_flag *command);
+int					ft_clear_flags_from_kov(t_minishell *all_command);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);
