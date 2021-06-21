@@ -78,7 +78,8 @@ t_command_and_flag	*tmp)
 		if (ft_cd(tmp, struct_env->env) == 10)
 		{	
 			ft_putstr_fd("cd: no such file or directory: ", 0);
-			ft_putstr_fd(tmp->command, 0);
+			if (tmp->array_flags[1])
+				ft_putstr_fd(tmp->array_flags[1], 0);
 			ft_putstr_fd("\n", 0);
 		}
 		return (0);

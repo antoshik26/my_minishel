@@ -60,7 +60,7 @@ int	builin_errors(t_command_and_flag	*reverse_head, int	fd1, t_env	*env)
 		export_errors(reverse_head);
 		return (0);
 	}
-	if (!ft_strncmp(reverse_head->command, "/usr/bin/env", 13) && fd1 != 0)
+	if (!ft_strncmp(reverse_head->command, "env", 4) && fd1 != 0)
 	{	
 		ft_putstr_fd("env: ", 0);
 		ft_putstr_fd(reverse_head->array_flags[1], 0);
@@ -68,7 +68,7 @@ int	builin_errors(t_command_and_flag	*reverse_head, int	fd1, t_env	*env)
 		env->exit_num = 127;
 		return (0);
 	}
-	else if (!ft_strncmp(reverse_head->command, "/usr/bin/cd", 13) && fd1 != 0)
+	else if (!ft_strncmp(reverse_head->command, "cd", 3) && fd1 != 0)
 	{
 		ft_putstr_fd("cd: no such file or directory: ", 0);
 		ft_putstr_fd(reverse_head->array_flags[1], 0);

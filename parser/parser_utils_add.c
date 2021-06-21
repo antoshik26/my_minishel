@@ -15,7 +15,7 @@ int	parser_flags_utils5(t_command_and_flag *one_command, \
 	int	key;
 
 	key = 0;
-	z = -1;
+	z = 0;
 	if (one_command->flags[*i + 1] == '\0' && one_command->flags[*i] != ' ')
 	{
 		(*i)++;
@@ -27,7 +27,7 @@ int	parser_flags_utils5(t_command_and_flag *one_command, \
 		return (-1);
 	while (*j < *i)
 	{
-		one_command->array_flags[*k][++z] = one_command->flags[*j];
+		one_command->array_flags[*k][z++] = one_command->flags[*j];
 		(*j)++;
 	}
 	one_command->array_flags[*k][z] = '\0';

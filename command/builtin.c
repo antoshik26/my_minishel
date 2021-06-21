@@ -13,20 +13,20 @@ int	*pipe_1, int	fd1, t_env	*env)
 		ft_env(all, env->env, fd1);
 	if (!ft_strncmp(all->command, "env", 4) && pipe_1 != 0)
 		ft_env(all, env->env, pipe_1[1]);
-	if (!ft_strncmp(all->command, "/usr/bin/env", 13))
+	if (!ft_strncmp(all->command, "env", 4))
 		ft_env(all, env->env, 0);
-	if (!ft_strncmp(all->command, "/bin/echo", 10) && fd1)
+	if (!ft_strncmp(all->command, "echo", 5) && fd1)
 		ft_echo(all, fd1);
-	if (!ft_strncmp(all->command, "/bin/echo", 10) && pipe_1 != 0)
+	if (!ft_strncmp(all->command, "echo", 5) && pipe_1 != 0)
 		ft_echo(all, pipe_1[1]);
-	if (!ft_strncmp(all->command, "/bin/echo", 10))
+	if (!ft_strncmp(all->command, "echo", 5))
 		ft_echo(all, 0);
 }
 
 void	check_build_in2(t_command_and_flag	*all, int	*pipe_1, \
 int	fd1, t_env	*env)
 {
-	if (!ft_strncmp(all->command, "/usr/bin/cd", 13))
+	if (!ft_strncmp(all->command, "cd", 3))
 		exit(ft_cd(all, env->env));
 	if (!ft_strncmp(all->command, "unset", 6))
 		exit(ft_unset(all, env));

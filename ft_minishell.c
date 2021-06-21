@@ -53,24 +53,53 @@ int changes_path_history(t_minishell *all_command, int lvl)
     }
     return (0);
 }
+t_env *env_keys_values(t_env *env1,int lvl)
+{
+    int i;
+    int i1;
+    char *tmp;
 
+    i = -1;
+	while (env1->env[++i])
+	{
+        i1=-1;
+        while(env1->env[i][++i1]!='='){};
+        env1->env[i][i1]='\0';
+        env1->keys[i]=ft_strdup(env1->env[i]);
+        env1->env[i][i1]='=';
+        if(!ft_strncmp(env1->keys[i],"SHLVL",6))
+        {   
+            env1->env[i][i1+1]='\0';
+            env1->values[i]=ft_itoa(lvl+1);
+            tmp=env1->env[i];
+            env1->env[i]=ft_strjoin(tmp,env1->values[i]);
+            free(tmp);
+        }
+        else
+            env1->values[i]=ft_strdup(&env1->env[i][++i1]);
+    }
+    env1->values[i]=NULL;
+    env1->keys[i]=NULL;
+    return(env1);
+}
 t_env *allocate_env(char **env,int lvl)
 {
     t_env *env1;
     int i;
     int i1;
     char *tmp;
-    i=-1;
-    env1=malloc(sizeof(t_env));
+
+    i = -1;
+    env1 = malloc(sizeof(t_env));
     if (env1 == NULL)
         return (NULL);
-    env1->env=ft_strdup_array_of_strings(env);
+    env1->env = ft_strdup_array_of_strings(env);
     env1->env_lvl=0;
     while (env[++i]){};
-    env1->keys=(char**)malloc(sizeof(char*)*(i+1));
+    env1->keys = (char **)malloc(sizeof(char *) * (i + 1));
     if(env1->keys == NULL)
         return (NULL);
-	env1->values=(char**)malloc(sizeof(char*)*(i+1));
+	env1->values=(char **)malloc(sizeof(char *) * (i + 1));
     if (env1->values == NULL)
         return (NULL);
     i=-1;
@@ -91,9 +120,11 @@ t_env *allocate_env(char **env,int lvl)
         }
         else
             env1->values[i]=ft_strdup(&env1->env[i][++i1]);
+        printf("k:%s v:%s\n",env1->keys[i],env1->values[i]);
     }
     env1->values[i]=NULL;
     env1->keys[i]=NULL;
+   // env1=env_keys_values(env1,lvl);
     env1->exit_num=0;
     return(env1);
 }
@@ -145,25 +176,6 @@ int find_path_from_new_env(t_minishell *all_command)
     return (0);
 }
 
-int changes_lvl_in_env(t_minishell *all_command, int lvl)
-{
-    int i;
-    char *chislo;
-
-    i = 0;
-    while (all_command->env->keys[i])
-    {
-        if (ft_strnstr(all_command->env->keys[i], "SHLVL", ft_strlen(all_command->env->keys[i])))
-        {
-            free(all_command->env->values[i]);
-            chislo = create_cislo_in_string(lvl);
-            all_command->env->values[i] = chislo;
-        }
-        break ;
-        i++;
-    }
-    return (0);
-}
 void allocate(t_minishell *all_command)
 {
     /*t_term_sistem term;
@@ -222,7 +234,6 @@ int main_dup(int argc,char **argv,char **env)
             {
                 lvl--;
                 changes_path_history(&all_command, lvl);
-                changes_lvl_in_env(&all_command, lvl);
                 write(1, "\n", 1);
                 ret=0;
                 break;
@@ -251,5 +262,8 @@ int main_dup(int argc,char **argv,char **env)
 
 int main(int argc,char **argv,char **env)
 {
-    return(main_dup(argc,argv,env));
+    if(!argv[1])
+        return(main_dup(argc,argv,env));
+    else
+        ft_putstr_fd("Error:too many arguments\n",0);
 }
