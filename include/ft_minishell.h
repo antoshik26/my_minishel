@@ -142,6 +142,10 @@ int					ft_clear_flags_from_kov(t_minishell *all_command);
 char				*create_command_with_env_variables(char *command, t_minishell *all_command);
 int					split_flags(t_command_and_flag *one_command, t_minishell *all_command);
 int					split_flags_utils5(t_command_and_flag *one_command, int j);
+int					parser_flags(t_minishell *all_command, t_command_and_flag *one_command);
+int					parser_flags_utils5(t_command_and_flag *one_command, int *i, int *j, int *k);
+int					parser_flags_utils6(t_command_and_flag *one_command, t_minishell *all_command, int k);
+int					create_null_array_flags(t_command_and_flag *command);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);

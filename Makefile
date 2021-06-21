@@ -46,7 +46,7 @@ test:
 	./libft/ft_putstr_fd.c  ${AUXILIARY_FUNCTIONS}/array_of_strings.c ./libft/ft_putnbr_fd.c ${COMMAND}/export.c ./libft/ft_isalpha.c ./libft/ft_strnstr.c ./libft/ft_isalnum.c ./libft/ft_atoi.c ./libft/ft_itoa.c \
 	${AUXILIARY_FUNCTIONS}/additional_features2.c ${AUXILIARY_FUNCTIONS}/additional_features3.c ${AUXILIARY_FUNCTIONS}/additional_features4.c ${COMMAND}/stat_command_utils.c ${COMMAND}/stat_command_utils2.c \
 	${CMD}/reed_from_term_for_double_less.c ${CMD}/reeder_from_term_utils.c ${CMD}/reeder_from_term_utils2.c ${PARSER}/parser_utils.c ${PARSER}/parser_utils2.c ${PARSER}/parser_utils3.c ${PARSER}/parser_utils4.c \
-	${PARSER}/parser_utils_add.c
+	${PARSER}/parser_utils_add.c ${PARSER}/parser_utils5.c
 
 test_file:
 	gcc -g minishell_test.c
