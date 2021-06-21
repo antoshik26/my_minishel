@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 export a=4
 exit
@@ -851,3 +852,5 @@ echo $TERM
 echo $TERM
 echo $_
 echo $l
+=======
+>>>>>>> 088ea235087d7568ac94a5f700a3812d49a89231

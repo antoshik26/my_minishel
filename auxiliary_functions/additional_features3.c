@@ -29,8 +29,13 @@ char	*my_getenv(char *name_env, t_minishell *all_command)
 		return (NULL);
 	while (all_command->env->keys[i])
 	{
+<<<<<<< HEAD
 		if(!ft_strncmp(all_command->env->keys[i], name_env,ft_strlen(name_env)) && \
 		ft_strlen(all_command->env->keys[i])==ft_strlen(name_env))
+=======
+		if (ft_strncmp(all_command->env->keys[i],
+				name_env, ft_strlen(name_env)))
+>>>>>>> 088ea235087d7568ac94a5f700a3812d49a89231
 			break ;
 		i++;
 	}

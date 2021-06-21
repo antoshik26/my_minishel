@@ -181,17 +181,15 @@ int main_dup(int argc,char **argv,char **env)
     char *command;
     t_term_sistem term;
     t_env *struct_env;
-    int ret;
 
-    ret=-1;
-    int lvl;
+    all_command.ret=-1;
     if(!argv[1])
-        lvl=0;
+        all_command.lvl=0;
     else
-        lvl=ft_atoi(argv[1]);
-   struct_env=allocate_env(env,lvl);
-    create_env_lvl(struct_env, lvl);
-    printf("\nlvl1:%d\n",lvl);
+        all_command.lvl=ft_atoi(argv[1]);
+    struct_env=allocate_env(env);
+    create_env_lvl(struct_env, all_command.lvl);
+    printf("\nlvl1:%d\n", all_command.lvl);
     (void)argc;
     (void)argv;
     all_command.flag = 1;
@@ -201,7 +199,7 @@ int main_dup(int argc,char **argv,char **env)
     all_command.head = &command_and_flag;
     all_command.path = find_path();
     allocate(&all_command);
-    crete_or_cheak_file_history(&all_command, lvl);
+    crete_or_cheak_file_history(&all_command, all_command.lvl);
     create_signal_controller();
     while(1 != 0)
     {
@@ -209,14 +207,14 @@ int main_dup(int argc,char **argv,char **env)
         command = cmd_manager(&all_command);
         if (command == NULL)
         {
-            if (lvl == 0)
+            if (all_command.lvl == 0)
                 break;
             else
             {
-                lvl--;
-                changes_path_history(&all_command, lvl);
+                all_command.lvl--;
+                changes_path_history(&all_command, all_command.lvl);
                 write(1, "\n", 1);
-                ret=0;
+                all_command.ret=0;
                 break;
             }
         }
@@ -227,8 +225,8 @@ int main_dup(int argc,char **argv,char **env)
                 parser_commands(command, &all_command);
                 print_command(&all_command); //комманда для проверки парсера
                     free(command);
-                ret=functions_launch(&all_command.head, all_command.env,&lvl);
-                if(ret!=-1)
+                all_command.ret=functions_launch(&all_command.head, struct_env, &all_command.lvl);
+                if(all_command.ret!=-1)
                     break;
                 rebut(&all_command);
             }
@@ -238,7 +236,7 @@ int main_dup(int argc,char **argv,char **env)
     rebut(&all_command);
     clear_malloc(&all_command,all_command.env);
     ft_putstr_fd("exit\n",0);
-    return (ret);
+    return (all_command.ret);
 }
 
 int main(int argc,char **argv,char **env)

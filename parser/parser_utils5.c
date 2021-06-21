@@ -69,7 +69,7 @@ int	parser_flags(t_minishell *all_command, t_command_and_flag *one_command)
 			if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 \
 				&& all_command->doublecovkey != 1 && j != i) || \
 				(one_command->flags[i + 1] == '\0'))
-				parser_flags_utils5(one_command, &i, &j, &k);
+			parser_flags_utils5(one_command, &i, &j, &k);
 		}
 		parser_flags_utils6(one_command, all_command, k);
 		one_command = one_command->next;
