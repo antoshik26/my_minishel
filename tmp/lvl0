@@ -556,3 +556,19 @@ e'cho' sadfgasdg | cat -e
 "echo asgasdfasdf asdfasdfasdf"
 ls |cat -e | cat -e
 echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+�çççççç∂
+ls -la
+cat -e<<l
+cat -e<<l
+cat -e<<l
+cat -e<<l
+cat -e<<l
+ls
+ls
+ls -la
+"echo asgasdfasdf asdfasdfasdf"
+echo "adfasdfgasdf" asdfasd fasd "asdfasdfa" '"asdfasdf"'

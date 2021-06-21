@@ -151,6 +151,11 @@ int					parser_command(t_minishell *all_command);
 int					parser_commands_less(char *command, int *i, int *j, t_minishell *all_command);
 int					parser_commands_direct_line(char *command, int *i, int *j, t_minishell *all_command);
 int					parser_commands_more(char *command, int *i, int *j, t_minishell *all_command);
+int					create_list_command(char *command, t_minishell *all_command, int pipe);
+int					ft_strcmp(const char* s1, const char* s2);
+int					create_char_command(char **command);
+int					handler_the_signals(t_minishell *all_command, char **command, int *i, char **tmp);
+int					handler_press(t_minishell *all_command, char **command, int *i, char **tmp);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);

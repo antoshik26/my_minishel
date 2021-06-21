@@ -8,25 +8,26 @@ int	split_flags_utils5(t_command_and_flag *one_command, int j)
 	return (0);
 }
 
-int	parser_flags_utils5(t_command_and_flag *one_command, int *i, int *j, int *k)
+int	parser_flags_utils5(t_command_and_flag *one_command, \
+		int *i, int *j, int *k)
 {
 	int	z;
-	int key;
+	int	key;
 
 	key = 0;
-	z = 0;
+	z = -1;
 	if (one_command->flags[*i + 1] == '\0' && one_command->flags[*i] != ' ')
 	{
 		(*i)++;
 		key = 1;
 	}
-	one_command->array_flags[*k] = (char *)malloc(sizeof(char) * ((*i) - (*j) + 1));
+	one_command->array_flags[*k] = (char *)malloc(sizeof(char) * \
+			((*i) - (*j) + 1));
 	if (one_command->array_flags[*k] == NULL)
 		return (-1);
 	while (*j < *i)
 	{
-		one_command->array_flags[*k][z] = one_command->flags[*j];
-		z++;
+		one_command->array_flags[*k][++z] = one_command->flags[*j];
 		(*j)++;
 	}
 	one_command->array_flags[*k][z] = '\0';
@@ -37,9 +38,10 @@ int	parser_flags_utils5(t_command_and_flag *one_command, int *i, int *j, int *k)
 	return (0);
 }
 
-int parser_flags_utils6(t_command_and_flag *one_command, t_minishell *all_command, int k)
+int	parser_flags_utils6(t_command_and_flag *one_command, \
+		t_minishell *all_command, int k)
 {
 	one_command->array_flags[k] = NULL;
-    ft_clear_flags_from_kov(all_command);
+	ft_clear_flags_from_kov(all_command);
 	return (0);
 }
