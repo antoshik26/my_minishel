@@ -1,81 +1,5 @@
 #include "ft_minishell.h"
 
-void rebut(t_minishell *all_command)
-{
-    int i;
-    t_command_and_flag *command;
-    t_command_and_flag *tmp;
-
-    all_command->onecovkey = 0;
-    all_command->doublecovkey = 0;
-    command = all_command->head;
-    while(command)
-    {
-        free(command->command_and_flags);
-        free(command->command);
-        free(command->flags);
-        i = 1;
-        if (command->array_flags != NULL)
-        {
-            while(command->array_flags[i])
-            {
-                free(command->array_flags[i]);
-                i++;
-            }
-            free(command->array_flags);
-        }
-        tmp = command->next;
-        free(command);
-        command = tmp;
-    }
-    if (all_command->path != NULL)
-    {
-        i = 0;
-        while (all_command->path[i])
-        {
-            free(all_command->path[i]);
-            i++;
-        }
-        free(all_command->path);
-    }
-    all_command->head = NULL;
-}
-
-
-void clear_malloc(t_minishell *all_command,t_env *env)
-{
-    int i;
-    
-    i = 0;
-    free(all_command->file_history);
-    while(env->env[i])
-    {
-        free(env->env[i]);
-        free(env->keys[i]);
-        free(env->values[i]);
-        i++;
-    }
-    i=0;
-    //while (env->values[i])
-    //{
-      //  free(env->values[i++]);
-   // }
-    free(env->env);
-    free(env->keys);
-    free(env->values);
-    i = 0;
-    if (env->env_lvl != NULL)
-    {
-        while (env->env_lvl[i])
-        {
-            free(env->env_lvl[i]);
-            i++;
-        }
-        free(env->env_lvl);
-    }
-    free(env);
-}
-
 void create_signal_controller()
 {
     signal(SIGINT, &signal_manager);
@@ -83,36 +7,9 @@ void create_signal_controller()
 	signal(SIGQUIT, &signal_manager);
 }
 
-void allocate(t_minishell *all_command)
-{
-    all_command->onecovkey = 0;
-    all_command->doublecovkey = 0;
-    all_command->head = NULL;
-}
 
 //команда для проверки парсера перед сдачей удалить
-void print_command(t_minishell *command_list)
-{
-    t_command_and_flag *command;
-    int i;
 
-    command = command_list->head;
-    while (command)
-    {
-        printf("\n");
-        printf("command name:|%s|\n", command->command);
-        printf("pape:%d\n", command->pape);
-        printf("error:%d\n",command->f_error);
-        i = 0;
-        while (command->array_flags[i])
-        {
-            printf("ar[%d]:|%s|\n",i, command->array_flags[i]);   
-            i++;
-        }
-        printf("ar[%d]:%s\n",i,command->array_flags[i]);
-        command = command->next;
-    }
-}
 
 int crete_or_cheak_file_history(t_minishell *all_command,  int lvl)
 {
@@ -157,12 +54,12 @@ int changes_path_history(t_minishell *all_command, int lvl)
     return (0);
 }
 
-t_env *allocate_env(char **env)
+t_env *allocate_env(char **env,int lvl)
 {
     t_env *env1;
     int i;
     int i1;
-
+    char *tmp;
     i=-1;
     env1=malloc(sizeof(t_env));
     if (env1 == NULL)
@@ -184,7 +81,16 @@ t_env *allocate_env(char **env)
         env1->env[i][i1]='\0';
         env1->keys[i]=ft_strdup(env1->env[i]);
         env1->env[i][i1]='=';
-        env1->values[i]=ft_strdup(&env1->env[i][++i1]);
+        if(!ft_strncmp(env1->keys[i],"SHLVL",6))
+        {   
+            env1->env[i][i1+1]='\0';
+            env1->values[i]=ft_itoa(lvl+1);
+            tmp=env1->env[i];
+            env1->env[i]=ft_strjoin(tmp,env1->values[i]);
+            free(tmp);
+        }
+        else
+            env1->values[i]=ft_strdup(&env1->env[i][++i1]);
     }
     env1->values[i]=NULL;
     env1->keys[i]=NULL;
@@ -258,36 +164,50 @@ int changes_lvl_in_env(t_minishell *all_command, int lvl)
     }
     return (0);
 }
+t_minishell *allocate(char **env,int lvl)
+{
+    t_term_sistem term;
+    t_command_and_flag command_and_flag;
+    t_minishell all_command;
 
-
+    all_command.flag = 1;
+	all_command.term = &term;
+    all_command.env = allocate_env(env,lvl);
+    create_env_lvl(all_command.env, lvl);
+    all_command.head = &command_and_flag;
+    all_command.path = find_path();
+    all_command.onecovkey = 0;
+    all_command.doublecovkey = 0;
+    all_command.head = NULL;
+    return(&all_command);
+}
 int main_dup(int argc,char **argv,char **env)
 {
     t_minishell all_command;
-    t_command_and_flag command_and_flag;
+    //t_command_and_flag command_and_flag;
     char *command;
-    t_term_sistem term;
-    t_env *struct_env;
+    //t_term_sistem term;
+    //t_env *struct_env;
     int ret;
 
     ret=-1;
     int lvl;
-    //errno = 0;
     if(!argv[1])
         lvl=0;
     else
         lvl=ft_atoi(argv[1]);
-    struct_env=allocate_env(env);
-    create_env_lvl(struct_env, lvl);
+   //struct_env=allocate_env(env,lvl);
+    //create_env_lvl(struct_env, lvl);
     printf("\nlvl1:%d\n",lvl);
     (void)argc;
     (void)argv;
-    all_command.flag = 1;
-	all_command.term = &term;
-    all_command.env = struct_env;
+   // all_command.flag = 1;
+	//all_command.term = &term;
+    //all_command.env = struct_env;
     command = NULL;
-    all_command.head = &command_and_flag;
-    all_command.path = find_path();
-    allocate(&all_command);
+    //all_command.head = &command_and_flag;
+    //all_command.path = find_path();
+    all_command = *allocate(env,lvl);
     crete_or_cheak_file_history(&all_command, lvl);
     create_signal_controller();
     while(1 != 0)
@@ -313,9 +233,9 @@ int main_dup(int argc,char **argv,char **env)
             if (ft_strlen(command) != 0)
             {
                 parser_commands(command, &all_command);
-                print_command(&all_command); //комманда для проверки парсера
+                //print_command(&all_command); //комманда для проверки парсера
                     free(command);
-                ret=functions_launch(&all_command.head, struct_env,&lvl);
+                ret=functions_launch(&all_command.head, all_command.env,&lvl);
                 if(ret!=-1)
                     break;
                 rebut(&all_command);
@@ -324,7 +244,7 @@ int main_dup(int argc,char **argv,char **env)
         find_path_from_new_env(&all_command);
     }
     rebut(&all_command);
-    clear_malloc(&all_command,struct_env);
+    clear_malloc(&all_command,all_command.env);
     ft_putstr_fd("exit\n",0);
     return (ret);
 }

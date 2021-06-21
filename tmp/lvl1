@@ -8,3 +8,17 @@ exit -1
 echo $?
 exit -250
 exit -250
+exit -250
+env
+aout
+env
+a.out
+env
+a.out
+d
+exit
+env
+a.out
+env
+d
+exit
