@@ -27,41 +27,6 @@ void	ft_export_no_arguments(char **env, char **env_lvl, int fd)
 	}
 }
 
-int	ft_check_name(char *name)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(name[0]) && name[0] != '_')
-		return (0);
-	while (name[++i])
-	{
-		if (!ft_isalnum(name[i]) && name[i] != '_')
-			return (0);
-	}
-	return (1);
-}
-
-void	ft_value_name(char *str, int *end_of_key, int *value)
-{
-	*end_of_key = 0;
-	while (str[*end_of_key] && str[*end_of_key] != '=')
-		(*end_of_key)++;
-	if (str[*end_of_key] == '=')
-		*value = ft_strlen(str) - 1;
-	else
-		*value = 0;
-	str[*end_of_key] = '\0';
-	if (!ft_check_name(str))
-	{
-		if (*value)
-			str[*end_of_key] = '=';
-		return ;
-	}
-	if (*value)
-		str[*end_of_key] = '=';
-}
-
 int	ft_check_env(t_env *struct_env, char *str, int end_of_key, int value)
 {
 	int		i;
@@ -148,11 +113,17 @@ int	ft_export(t_command_and_flag	*all, int	fd, t_env	*struct_env)
 
 	i = 1;
 	if (!all->array_flags[1])
-	{	
 		ft_export_no_arguments(struct_env->env, struct_env->env_lvl, fd);
-		return (0);
+	else
+	{
+		while (all->array_flags[i])
+		{	
+			if (ft_check_name(all->array_flags[i]))
+				ft_export_loop(all->array_flags[i], struct_env);
+			i++;
+		}
 	}
-	while (all->array_flags[i])
-		ft_export_loop(all->array_flags[i++], struct_env);
+	if (fd)
+		close(fd);
 	return (0);
 }

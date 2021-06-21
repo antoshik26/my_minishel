@@ -5,3 +5,11 @@ exit 123
 env
 env
 exit 123
+exit123
+env
+a.out
+env
+env
+env
+exit
+exit

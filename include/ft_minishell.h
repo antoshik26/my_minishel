@@ -24,6 +24,8 @@
 # define WRONG_COMMAND  -1
 # define WRONG_FILE     -2    
 # define PERMISSION_DENIED -3
+# define SYN_ERROR_TOK_NEW "minishell: syntax error near unexpected token `newline'\n"
+
 extern int errno;
 pid_t  g_global_pid; //как же криво работают сигналы
 typedef struct s_env
@@ -33,6 +35,7 @@ typedef struct s_env
     char **values;
     char **env_lvl;
     int exit_num;
+    int fd[2];
 }              t_env;
 
 typedef struct s_term_sistem
@@ -177,4 +180,27 @@ int                 main_dup(int argc,char **argv,char **env);
 void                ft_list_push_second(t_command_and_flag **begin_list, t_command_and_flag *data);
 void                ft_double_less_print(t_command_and_flag *all,int fd);
 int ft_export_pipe(t_command_and_flag *all,int fd,t_env *struct_env);
+void	ft_value_name(char *str, int *end_of_key, int *value);
+void redirect(t_command_and_flag *all,int *fd1,int *fd2);
+t_command_and_flag *redirect2(t_command_and_flag *all);
+t_command_and_flag *ft_double_less(char *split);
+void free_tmp(t_command_and_flag *tmp);
+int ft_exit(t_command_and_flag *tmp);
+void ft_minishell_name(int *lvl,t_env *struct_env);
+void export_errors(t_command_and_flag *all);
+void print_errors(pid_t *pid,t_command_and_flag *reverse_head,int size,t_env *env);
+int **make_pipe(int size);
+void number_of_pipes(int *size,t_command_and_flag **head1,t_command_and_flag **new_head);
+void check_build_in(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env);
+void check_build_in2(t_command_and_flag *all,int *pipe_1,int fd1, t_env *env);
+void redirect_pipe(int *pipe,int where);
+void redirect_fd(int fd, int where);
+void close_pipe(int *pipe);
+void free_find_fubction(int **pipe,int *pid);
+void print_command(t_minishell *command_list);//tmp
+t_env *allocate_env(char **env,int lvl);
+void rebut(t_minishell *all_command);
+void clear_malloc(t_minishell *all_command,t_env *env);
+
+
 #endif
