@@ -574,3 +574,11 @@ ls -la
 echo "adfasdfgasdf" asdfasd fasd "asdfasdfa" '"asdfasdf"'
 |
 |
+<
+>
+\
+>
+ls -la
+ls
+ls -la
+cat -e
