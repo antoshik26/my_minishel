@@ -27,135 +27,55 @@ int	shift_comand(char *command, t_minishell *all_command)
 	return (0);
 }
 
-int create_null_array_flags(t_command_and_flag *command)
+int	create_null_array_flags(t_command_and_flag *command)
 {
-    command->array_flags[0] = command->command;
-    return (0);
+	command->array_flags[0] = command->command;
+	return (0);
 }
 
-int create_list_command(char *command, t_minishell *all_command, int pipe)
+int	create_list_command(char *command, t_minishell *all_command, int pipe)
 {
-    t_command_and_flag *new_command;
-    new_command = ft_lstnew(command, pipe);
-    // ft_lstadd_front(&all_command->head, new_command);
-    ft_lstadd_back(&all_command->head, new_command);
-    return (0);
+	t_command_and_flag	*new_command;
+
+	new_command = ft_lstnew(command, pipe);
+	ft_lstadd_back(&all_command->head, new_command);
+	return (0);
 }
 
-int parser_commands(char *command, t_minishell *all_command)
+int	parser_commands_utils(char *command, int *i)
 {
-    shift_comand(command, all_command);
-    command = create_command_with_env_variables(command, all_command);
-    int i;
-    char *new_command;
-    int j;
-    char *tmp;
-    int pipe;
-    
-    i = 0;
-    j = 0;
-    pipe = NEW_COMMAND;
-    while (command[i])
-    {
-        if (command[i] == '\\')
-        {
-            i++;
-            if (command[i] == '\'' || command[i] == '\"' || command[i] == '\\' || command[i] == '$')
-            {
-                i++;
-            }
-        }
-        if (command[i] == '\'' && all_command->doublecovkey == 0)
-        {
-            if (all_command->onecovkey == 0)
-                all_command->onecovkey = 1;
-            else
-                all_command->onecovkey = 0;
-            if (command[i + 1] == '\0')
-                break;
-            i++;
-            
-        }
-        if (command[i] == '\"' && all_command->onecovkey == 0)
-        {
-            if (all_command->doublecovkey == 0)
-                all_command->doublecovkey = 1;
-            else
-                all_command->doublecovkey = 0;
-            if (command[i + 1] == '\0')
-                break;
-            i++;
-        }
-        if (all_command->onecovkey != 1 && all_command->doublecovkey != 1)
-        {
-            if (command[i] == '|')
-            {
-                new_command = create_command(command, i, j);
-                create_list_command(new_command, all_command, pipe);
-                pipe = DIRECT_LINE;
-                i++;
-                j = i;
-            }
-            if (command[i] == '>')
-            {
-                if (command[i + 1] == '>' )
-                {
-                    new_command = create_command(command, i, j);
-                    create_list_command(new_command, all_command, pipe);
-                    pipe = DOUBLE_MORE;
-                    i = i + 2;
-                    j = i;
-                }
-                else
-                {
-                    new_command = create_command(command, i, j);
-                    create_list_command(new_command, all_command, pipe);
-                    pipe = MORE;
-                    i++;
-                    j = i;
-                }
-            }
-            if (command[i] == '<')
-            {
-                if (command[i + 1] == '<')
-                {
-                    new_command = create_command(command, i, j);
-                    create_list_command(new_command, all_command, pipe);
-                    pipe = DOUBLE_LESS;
-                    i = i + 2;
-                    j = i;
-                }
-                else
-                {
-                    new_command = create_command(command, i, j);
-                    create_list_command(new_command, all_command, pipe);
-                    pipe = LESS;
-                    i++;
-                    j = i;
-                }
-                
-            }
-            /*
-            if (command[i] == ';')
-            {
-                new_command = create_command(command, i, j);
-                create_list_command(new_command, all_command, pipe);
-                pipe = SEMICOLON;
-                i++;
-                j = i;
-            }
-            */
-        }
-        i++;
-    }
-    new_command = create_command(command, i, j);
-    // if (all_command->onecovkey == 1 || all_command->doublecovkey == 1)
-    // {
-    //    tmp = new_command;
-    //    new_command = create_cloth_cov(all_command, new_command);
-    //    free(tmp);
-    // }
-    create_list_command(new_command, all_command, pipe);
-    parser_command(all_command);
-    return (0);
+	if (command[*i] == '\\')
+	{
+		(*i)++;
+		if (command[*i] == '\'' || command[*i] == '\"' || \
+			command[*i] == '\\' || command[*i] == '$')
+			(*i)++;
+	}
+	return (0);
+}
+
+int	parser_commands(char *command, t_minishell *all_command)
+{
+	int		i;
+	char	*new_command;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	all_command->pipe = NEW_COMMAND;
+	shift_comand(command, all_command);
+	command = create_command_with_env_variables(command, all_command);
+	while (command[i])
+	{
+		parser_commands_utils(command, &i);
+		parser_commands_direct_line(command, &i, &j, all_command);
+		parser_commands_more(command, &i, &j, all_command);
+		parser_commands_less(command, &i, &j, all_command);
+		i++;
+	}
+	new_command = create_command(command, i, j);
+	create_list_command(new_command, all_command, all_command->pipe);
+	parser_command(all_command);
+	return (0);
 }

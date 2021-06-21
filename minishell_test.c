@@ -935,3 +935,14 @@ char	*create_cloth_cov(t_minishell *all_command, char *command_and_flags)
 //     }
 //     return (0);
 // }
+
+            /*
+            if (command[i] == ';')
+            {
+                new_command = create_command(command, i, j);
+                create_list_command(new_command, all_command, pipe);
+                pipe = SEMICOLON;
+                i++;
+                j = i;
+            }
+            */

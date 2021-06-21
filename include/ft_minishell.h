@@ -75,6 +75,7 @@ typedef struct s_minishell
 	char *tmp;
     char **path;
     t_env *env;
+	int pipe;
 }               t_minishell;
 
 
@@ -147,6 +148,9 @@ int					parser_flags_utils5(t_command_and_flag *one_command, int *i, int *j, int
 int					parser_flags_utils6(t_command_and_flag *one_command, t_minishell *all_command, int k);
 int					create_null_array_flags(t_command_and_flag *command);
 int					parser_command(t_minishell *all_command);
+int					parser_commands_less(char *command, int *i, int *j, t_minishell *all_command);
+int					parser_commands_direct_line(char *command, int *i, int *j, t_minishell *all_command);
+int					parser_commands_more(char *command, int *i, int *j, t_minishell *all_command);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);
