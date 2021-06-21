@@ -331,6 +331,5 @@ int main_dup(int argc,char **argv,char **env)
 
 int main(int argc,char **argv,char **env)
 {
-    return(main_dup(argc,argv,env)); 
-    
+    return(main_dup(argc,argv,env));
 }

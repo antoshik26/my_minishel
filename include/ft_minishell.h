@@ -72,6 +72,7 @@ typedef struct s_minishell
     struct winsize *win;
 	char *env_varianles;
 	char *name_varianled;
+	char *tmp;
     char **path;
     t_env *env;
 }               t_minishell;
@@ -138,6 +139,7 @@ int					create_new_term(t_minishell *all_command);
 int					definition_history_line(t_minishell *all_command, int *i);
 int					ft_clear_command_from_kov(t_minishell *all_command, t_command_and_flag *command);
 int					ft_clear_flags_from_kov(t_minishell *all_command);
+char				*create_command_with_env_variables(char *command, t_minishell *all_command);
 //lists for ececbw
 t_command_and_flag	*ft_create_elem(t_command_and_flag *data);
 void                ft_list_push_front(t_command_and_flag **begin_list, t_command_and_flag *data);
