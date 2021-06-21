@@ -839,3 +839,15 @@ echo $TERM
 echo $COLORTERM
 echo $C_
 echo $_
+echo $COLORTERM
+echo $TERM
+echo $TERM
+echo $TERM
+echo $TERM
+echo $TERM
+echo $TERM
+echo $TERM
+echo $TERM
+echo $TERM
+echo $_
+echo $l

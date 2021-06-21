@@ -29,8 +29,8 @@ char	*my_getenv(char *name_env, t_minishell *all_command)
 		return (NULL);
 	while (all_command->env->keys[i])
 	{
-		if (ft_strnstr(all_command->env->keys[i],
-				name_env, ft_strlen(name_env)))
+		if(!ft_strncmp(all_command->env->keys[i], name_env,ft_strlen(name_env)) && \
+		ft_strlen(all_command->env->keys[i])==ft_strlen(name_env))
 			break ;
 		i++;
 	}
