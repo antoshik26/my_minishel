@@ -582,3 +582,52 @@ ls -la
 ls
 ls -la
 cat -e
+cd ..
+ââˆ‚Ã
+Ãâˆ‚
+â
+ls
+ls -la
+cd ..
+Ã
+cd ..
+cd
+cd ..
+cd .
+cd ..
+cd ...
+pwd
+ls -la
+cd ..
+cd ...
+cd .
+cd .
+cd ...
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+echo $?
+echo $?
+echo $?
+echo $PATH
+echo $?
+cd ..
+cd ..
+echo $?
+echo $?
+echo $PATH
+cd ..
+ls
+ls -la
+echo $TERM
+echo $TERM
+echo $TERM
+echo $TERM
+env

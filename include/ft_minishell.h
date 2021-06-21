@@ -75,6 +75,8 @@ typedef struct s_minishell
 	char *tmp;
     char **path;
     t_env *env;
+	int lvl;
+	int ret;
 	int pipe;
 }               t_minishell;
 
