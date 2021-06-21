@@ -360,6 +360,7 @@ asdgas
 ls "-la"
 ls "'-la'" "'-la'"
 ls
+<<<<<<< HEAD
 echo $?
 echo $PATH
 unset PATH
@@ -563,3 +564,235 @@ ls
 lfghjk
 ghjuk
 fghjk
+=======
+dsfgsd
+asfgasdg
+kasjnogdsaipgadfsinpsgdfnipgfpgspbgfsipgaerpihageriphagerwpihgawiphagewhipaegwhipadgwhpiagwehipagwphiagphiagphirpihgjdhhklfhslrdjopgm
+"'a'"
+cat -e
+$?
+echo $?
+asdgdhfyjghfdsdf
+echo $?
+ls
+echo $?
+ls
+ls -la
+echo '$?'
+echo '"$?"'
+echo "$?"
+ls
+echo $?
+echo $?
+echo $?
+echo $PATH
+echo $?
+echo $PATH
+echo $?
+echo $PATH
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+echo $?
+echo $PATH
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+asdfghsdfg
+adgsdfg
+echo $?
+adsgfasdg
+echo $?
+adsgfasdg
+adsgfasdg
+adsgfasdg
+asdgas
+adsgas
+dgf
+asdg
+asd
+g
+aS
+echo $?
+echo $?
+ls
+echo $?
+echo $PATH
+echo $PATH
+echo $?
+echo $?
+echo $PATH
+afgfas
+dgasdg
+asdg
+asdg
+asdg
+asd
+ga
+sdg
+as
+sdfgs
+sfhsdfh
+ssdg
+dsfhsdfhjewjt
+wrtgierg
+echo $/
+echo $>
+echo $?
+echo $PATH
+env
+ls
+ls -la
+ech oaasdfghsd sadfhgsdf sdfhds fghsdfg sdfhgs df
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+ls
+ls -la
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+ls
+ls -la
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+asfgasfddsa[1;2D[1;2D[1;2D[1;2D[1;2D
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+sagsdfg
+
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+echo asgsdfgsd sdfgds fgsdgasd fas dgfasd fads asf as
+asfgsdfgasdgasdg asdfgasdfg asdgasdg asdgas gasdg tasdg asdg asdfg
+echo "adfasdf" asdfdas as "asdfasdf" 'asdfasdfasdf'
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf'"
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf'"
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf"
+echo "adfasdf" asdfdas as "asdfasdf" "
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf"
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf"
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf"
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf"
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf"
+echo "adfasdf" asdfdas as "asdfasdf" "'asdfasdfasdfasdf"
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+ls
+ls -la
+ls |cat -e | cat -e
+ls -la
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+ls |cat -e | cat -e
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+ls |cat -e | cat -e
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+ls |cat -e | cat -e
+ls |cat -e | cat
+ls |cat -e | cat
+ls |cat -e | cat -e
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+ls |cat -e | cat -e
+ls |cat -e | cat -e
+echo "adfasdf" asdfdas as "asdfasdf" '"asdgasddf"'
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+ser
+cd parser
+pwd
+norminet parser_utils6.c
+norminette parser_utils6.c
+norminette parser_utils6.c
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+ls |cat -e | cat -e
+e'cho' sadfgasdg
+e'cho' sadfgasdg | cat -e
+make test
+make test
+./a.	
+./a.	
+make test
+ls |cat -e | cat -e
+e'cho' sadfgasdg
+e'cho' sadfgasdg | cat -e
+e'cho' sadfgasdg | cat -e
+ls
+ls -la
+ls |cat -e | cat -e
+ls |cat -e | cat -e
+e'cho' sadfgasdg | cat -e
+"echo asgasdfasdf asdfasdfasdf"
+"echo asgasdfasdf asdfasdfasdf"
+e'cho' sadfgasdg | cat -e
+"echo asgasdfasdf asdfasdfasdf"
+ls |cat -e | cat -e
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+echo adfhdsfg sdfhgdsa asg ads fasdg asdg asd gasd gasdgasd dgasdg
+�çççççç∂
+ls -la
+cat -e<<l
+cat -e<<l
+cat -e<<l
+cat -e<<l
+cat -e<<l
+ls
+ls
+ls -la
+"echo asgasdfasdf asdfasdfasdf"
+echo "adfasdfgasdf" asdfasd fasd "asdfasdfa" '"asdfasdf"'
+|
+|
+<
+>
+\
+>
+ls -la
+ls
+ls -la
+cat -e
+>>>>>>> 86f61b6b076b0b317ed2137cdfc647ef864a0a1a
+
+encv
+env
+env
+echo
+pwd
+pwd
+cd

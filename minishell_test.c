@@ -761,3 +761,188 @@ char	*create_cloth_cov(t_minishell *all_command, char *command_and_flags)
 //     }
 //     return (0);
 // }
+
+// char *create_command_with_env_variables(char *command, t_minishell *all_command)
+// {
+//     int i;
+//     int j;
+//     char *env_varianles;
+//     char *name_varianled;
+//     char *tmp;
+
+//     i = 0;
+//     j = 0;
+//     tmp = NULL;
+//     while (command[i])
+//     {
+//         if (command[i] == '\\')
+//         {
+//             i++;
+//             if (command[i] == '\'' || command[i] == '\"' || command[i] == '\\' || command[i] == '$')
+//             {
+//                 i++;
+//             }
+//         }
+//         if (command[i] == '\'' && all_command->doublecovkey == 0)
+//         {
+//             if (all_command->onecovkey == 0)
+//                 all_command->onecovkey = 1;
+//             else
+//                 all_command->onecovkey = 0;
+//             i++;
+//         }
+//         if (command[i] == '\"' && all_command->onecovkey == 0)
+//         {
+//             if (all_command->doublecovkey == 0)
+//                 all_command->doublecovkey = 1;
+//             else
+//                 all_command->doublecovkey = 0;
+//             i++;
+//         }
+//         if (command[i] == '$' && all_command->onecovkey != 1)
+//         {  
+//             i++;
+//             j = i;
+//             while(command[i] != ' ' && command[i] != '\0')
+//             {
+//                 i++;
+//             }
+//             if (!ft_strnstr(command, "unset", ft_strlen(command)))
+//             {
+//                 name_varianled = create_command(command, i, j);
+//                 env_varianles = my_getenv(name_varianled, all_command);
+// 				all_command->env_varianles = env_varianles;
+// 				all_command->name_varianled = name_varianled;
+//                 tmp = replacement(command, &i, j--, all_command);
+//                 command = tmp;
+//                 free(name_varianled);
+//             }
+//         }
+//         if (command[i] == '\0')
+//             break ;
+//         i++;
+//     }
+//     if (tmp != NULL)
+//         free(tmp);
+//     return (command);
+// }
+
+// int parser_flags(t_minishell *all_command)
+// {
+//     int i;
+//     int j;
+//     int k;
+//     int z;
+//     t_command_and_flag *one_command;
+
+//     one_command = all_command->head;
+//     while (one_command)
+//     {
+//         split_flags(one_command, all_command);
+//         create_null_array_flags(one_command);
+//         i = 0;
+//         k = 1;
+//         j = 0;
+//         z = 0;
+//         all_command->onecovkey = 0;
+//         all_command->doublecovkey = 0;
+//         while (one_command->flags[i])
+//         {
+//             while (one_command->flags[j] == ' ')
+//             {
+//                 j++;
+//                 i = j;
+//             }
+//             if (one_command->flags[j] == '\0')
+//                 break;
+//             if (one_command->flags[i] == '\'' && all_command->doublecovkey == 0)
+//             {
+//                 if (all_command->onecovkey == 0)
+//                     all_command->onecovkey = 1;
+//                 else
+//                     all_command->onecovkey = 0;
+//                 if (one_command->flags[i + 1] == '\0')
+//                 {
+//                     i++;
+//                     one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+//                     if (one_command->array_flags[k] == NULL)
+//                         return (-1);
+//                     z = 0;
+//                     while (j < i)
+//                     {
+//                         one_command->array_flags[k][z] = one_command->flags[j];
+//                         z++;
+//                         j++;
+//                     }
+//                     one_command->array_flags[k][z] = '\0';
+//                     k++;
+//                     j = i;
+//                     i++;
+//                     break ;
+//                 }
+//             }
+//             if (one_command->flags[i] == '\"' && all_command->onecovkey == 0)
+//             {
+//                 if (all_command->doublecovkey == 0)
+//                     all_command->doublecovkey = 1;
+//                 else
+//                     all_command->doublecovkey = 0;
+//                 if (one_command->flags[i + 1] == '\0')
+//                 {
+//                     i++;
+//                     one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+//                     if (one_command->array_flags[k] == NULL)
+//                         return (-1);
+//                     z = 0;
+//                     while (j < i)
+//                     {
+//                         one_command->array_flags[k][z] = one_command->flags[j];
+//                         z++;
+//                         j++;
+//                     }
+//                     one_command->array_flags[k][z] = '\0';
+//                     k++;
+//                     j = i;
+//                     i++;
+//                     break ;
+//                 }
+//             }
+//             if ((one_command->flags[i] == ' ' && all_command->onecovkey != 1 && all_command->doublecovkey != 1 && j != i) || (one_command->flags[i + 1] == '\0'))
+//             {
+//                 if (one_command->flags[i + 1] == '\0' && one_command->flags[i] != ' ')
+//                     i++;
+//                 one_command->array_flags[k] = (char *)malloc(sizeof(char) * (i - j + 1));
+//                 if (one_command->array_flags[k] == NULL)
+//                     return (-1);
+//                 z = 0;
+//                 while (j < i)
+//                 {
+//                     one_command->array_flags[k][z] = one_command->flags[j];
+//                     z++;
+//                     j++;
+//                 }
+//                 one_command->array_flags[k][z] = '\0';
+//                 k++;
+//                 j = i;
+//                 if (one_command->flags[i] == '\0')
+//                     break ;
+//             }
+//             i++;
+//         }
+//         one_command->array_flags[k] = NULL;
+//         one_command = one_command->next;
+//         ft_clear_flags_from_kov(all_command);
+//     }
+//     return (0);
+// }
+
+            /*
+            if (command[i] == ';')
+            {
+                new_command = create_command(command, i, j);
+                create_list_command(new_command, all_command, pipe);
+                pipe = SEMICOLON;
+                i++;
+                j = i;
+            }
+            */

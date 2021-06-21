@@ -57,6 +57,18 @@ int	check_stat_build_in(t_command_and_flag *command)
 	return (stat);
 }
 
+int	stat_command_utils(t_command_and_flag *command, int *i_stat, \
+		t_minishell *all_command)
+{
+	if (command->pape == DOUBLE_MORE || \
+		command->pape == MORE || command->pape == LESS)
+		*i_stat = check_stat_file(command);
+	else
+		*i_stat = check_stat_command(all_command, command);
+	command->f_error = *i_stat;
+	return (0);
+}
+
 int	*stat_command(t_minishell *all_command)
 {
 	int					i_stat;
@@ -66,18 +78,19 @@ int	*stat_command(t_minishell *all_command)
 	while (command)
 	{
 		i_stat = -1;
+		if (check_stat_build_in(command) == 1)
+		{
+			command->f_error = 0;
+			command = command->next;
+			continue ;
+		}
 		if (command->pape == DOUBLE_LESS)
 		{
 			i_stat = 0;
 			command = command->next;
 			continue ;
 		}
-		if (command->pape == DOUBLE_MORE || \
-		command->pape == MORE || command->pape == LESS)
-			i_stat = check_stat_file(command);
-		else
-			i_stat = check_stat_command(all_command, command);
-		command->f_error = i_stat;
+		stat_command_utils(command, &i_stat, all_command);
 		command = command->next;
 	}
 	return (0);

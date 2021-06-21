@@ -3,16 +3,15 @@
 void	check_build_in(t_command_and_flag	*all, \
 int	*pipe_1, int	fd1, t_env	*env)
 {
-	if ((!ft_strncmp(all->command, "/bin/pwd", 9) || \
-	!ft_strncmp(all->command, "pwd", 4)) && fd1)
+	if (!ft_strncmp(all->command, "pwd", 4) && fd1)
 		ft_pwd(env->env, fd1);
-	if (!ft_strncmp(all->command, "/bin/pwd", 9) && pipe_1 != 0)
+	if (!ft_strncmp(all->command, "pwd", 4) && pipe_1 != 0)
 		ft_pwd(env->env, pipe_1[1]);
-	if (!ft_strncmp(all->command, "/bin/pwd", 9))
+	if (!ft_strncmp(all->command, "pwd", 4))
 		ft_pwd(env->env, 0);
-	if (!ft_strncmp(all->command, "/usr/bin/env", 13) && fd1)
+	if (!ft_strncmp(all->command, "env", 4) && fd1)
 		ft_env(all, env->env, fd1);
-	if (!ft_strncmp(all->command, "/usr/bin/env", 13) && pipe_1 != 0)
+	if (!ft_strncmp(all->command, "env", 4) && pipe_1 != 0)
 		ft_env(all, env->env, pipe_1[1]);
 	if (!ft_strncmp(all->command, "/usr/bin/env", 13))
 		ft_env(all, env->env, 0);

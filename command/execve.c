@@ -73,7 +73,7 @@ t_command_and_flag	*tmp)
 		export_errors(tmp);
 		return (0);
 	}
-	else if (size == 0 && !ft_strncmp(tmp->command, "/usr/bin/cd", 13))
+	else if (size == 0 && !ft_strncmp(tmp->command, "cd", 3))
 	{	
 		if (ft_cd(tmp, struct_env->env) == 10)
 		{	

@@ -75,23 +75,15 @@ char	*replacement(char *command, int *i, int j, t_minishell *all_command)
 	return (new_command);
 }
 
-//написать strcmp
-/*
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	len_s1;
-	size_t	len_s2;
-	size_t	i;
+	int	a;
 
-	i = 0;
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	while (i != (len_s1 + 1) || i != (len_s2 + 1))
+	while (*s1 && (*s1 == *s2))
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		s1++;
+		s2++;
 	}
-	return (0);
+	a = *(const unsigned char *)s1 - *(const unsigned char *)s2;
+	return (a);
 }
-*/

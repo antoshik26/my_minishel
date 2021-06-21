@@ -3,21 +3,21 @@
 int	handler_the_shooter(t_minishell *all_command,
 			char **command, int *i, char **tmp)
 {
-	if (!strcmp(all_command->term->str, "\e[A"))
+	if (!ft_strcmp(all_command->term->str, "\e[A"))
 	{
 		press_up(all_command, command, i, tmp);
 		all_command->term->key = 1;
 	}
-	else if (!strcmp(all_command->term->str, "\e[B"))
+	else if (!ft_strcmp(all_command->term->str, "\e[B"))
 	{
 		press_down(all_command, command, i, tmp);
 		all_command->term->key = 1;
 	}
-	else if (!strcmp(all_command->term->str, "\e[C"))
+	else if (!ft_strcmp(all_command->term->str, "\e[C"))
 	{
 		all_command->term->key = 1;
 	}
-	else if (!strcmp(all_command->term->str, "\e[D"))
+	else if (!ft_strcmp(all_command->term->str, "\e[D"))
 	{
 		all_command->term->key = 1;
 	}
@@ -27,17 +27,17 @@ int	handler_the_shooter(t_minishell *all_command,
 int	handler_the_signals(t_minishell *all_command,
 		char **command, int *i, char **tmp)
 {
-	if (!strcmp(all_command->term->str, "\177"))
+	if (!ft_strcmp(all_command->term->str, "\177"))
 	{
 		press_backspase(i, command);
 		all_command->term->key = 1;
 	}
-	else if (!strcmp(all_command->term->str, "\n"))
+	else if (!ft_strcmp(all_command->term->str, "\n"))
 	{
 		write(1, "\n", 1);
 		all_command->term->key = 2;
 	}
-	else if (!strcmp(all_command->term->str, "\4"))
+	else if (!ft_strcmp(all_command->term->str, "\4"))
 	{
 		if (ft_strlen(*command) == 0)
 		{
@@ -46,7 +46,7 @@ int	handler_the_signals(t_minishell *all_command,
 			all_command->term->key = 2;
 		}
 	}
-	else if (!strcmp(all_command->term->str, "\3"))
+	else if (!ft_strcmp(all_command->term->str, "\3"))
 	{
 		press_control_c(command);
 		all_command->term->key = 2;

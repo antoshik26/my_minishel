@@ -164,9 +164,9 @@ int changes_lvl_in_env(t_minishell *all_command, int lvl)
     }
     return (0);
 }
-t_minishell *allocate(char **env,int lvl)
+void allocate(t_minishell *all_command)
 {
-    t_term_sistem term;
+    /*t_term_sistem term;
     t_command_and_flag command_and_flag;
     t_minishell all_command;
 
@@ -175,19 +175,19 @@ t_minishell *allocate(char **env,int lvl)
     all_command.env = allocate_env(env,lvl);
     create_env_lvl(all_command.env, lvl);
     all_command.head = &command_and_flag;
-    all_command.path = find_path();
-    all_command.onecovkey = 0;
-    all_command.doublecovkey = 0;
-    all_command.head = NULL;
-    return(&all_command);
+    all_command.path = find_path();*/
+    all_command->onecovkey = 0;
+    all_command->doublecovkey = 0;
+    all_command->head = NULL;
+    //return(&all_command);
 }
 int main_dup(int argc,char **argv,char **env)
 {
     t_minishell all_command;
-    //t_command_and_flag command_and_flag;
+    t_command_and_flag command_and_flag;
     char *command;
-    //t_term_sistem term;
-    //t_env *struct_env;
+    t_term_sistem term;
+    t_env *struct_env;
     int ret;
 
     ret=-1;
@@ -196,18 +196,18 @@ int main_dup(int argc,char **argv,char **env)
         lvl=0;
     else
         lvl=ft_atoi(argv[1]);
-   //struct_env=allocate_env(env,lvl);
-    //create_env_lvl(struct_env, lvl);
+   struct_env=allocate_env(env,lvl);
+    create_env_lvl(struct_env, lvl);
     printf("\nlvl1:%d\n",lvl);
     (void)argc;
     (void)argv;
-   // all_command.flag = 1;
-	//all_command.term = &term;
-    //all_command.env = struct_env;
+    all_command.flag = 1;
+	all_command.term = &term;
+    all_command.env = struct_env;
     command = NULL;
-    //all_command.head = &command_and_flag;
-    //all_command.path = find_path();
-    all_command = *allocate(env,lvl);
+    all_command.head = &command_and_flag;
+    all_command.path = find_path();
+    allocate(&all_command);
     crete_or_cheak_file_history(&all_command, lvl);
     create_signal_controller();
     while(1 != 0)
@@ -233,7 +233,7 @@ int main_dup(int argc,char **argv,char **env)
             if (ft_strlen(command) != 0)
             {
                 parser_commands(command, &all_command);
-                //print_command(&all_command); //комманда для проверки парсера
+                print_command(&all_command); //комманда для проверки парсера
                     free(command);
                 ret=functions_launch(&all_command.head, all_command.env,&lvl);
                 if(ret!=-1)
@@ -251,6 +251,5 @@ int main_dup(int argc,char **argv,char **env)
 
 int main(int argc,char **argv,char **env)
 {
-    return(main_dup(argc,argv,env)); 
-    
+    return(main_dup(argc,argv,env));
 }
