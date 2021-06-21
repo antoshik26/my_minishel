@@ -59,16 +59,13 @@ int	parser_commands_direct_line(char *command, int *i, int *j, \
 {
 	char	*new_command;
 
-	if (command[*i] == '|' && *i != *j)
+	if (command[*i] == '|')
 	{
 		new_command = create_command(command, *i, *j);
 		create_list_command(new_command, all_command, all_command->pipe);
 		all_command->pipe = DIRECT_LINE;
 		(*i)++;
 		*j = *i;
-	}
-	else
-	{
 	}
 	return (0);
 }
