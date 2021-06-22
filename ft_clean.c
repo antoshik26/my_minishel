@@ -1,4 +1,25 @@
 #include "ft_minishell.h"
+void    free_command(t_command_and_flag	*command)
+{
+    t_command_and_flag	*tmp;
+    int					i;
+
+    while(command)
+    {
+        free(command->command_and_flags);
+        free(command->command);
+        free(command->flags);
+        i = 1;
+        if (command->array_flags != NULL)
+        {
+            while(command->array_flags[i])
+                free(command->array_flags[i++]);
+            free(command->array_flags);
+        }
+        tmp = command->next;
+        free(command);
+        command = tmp;
+    }
 
 int rebut_utils(t_command_and_flag *command)
 {
@@ -14,10 +35,7 @@ int rebut_utils(t_command_and_flag *command)
         if (command->array_flags != NULL)
         {
             while(command->array_flags[i])
-            {
-                free(command->array_flags[i]);
-                i++;
-            }
+                free(command->array_flags[i++]);
             free(command->array_flags);
         }
         tmp = command->next;
@@ -41,10 +59,7 @@ void rebut(t_minishell *all_command)
     {
         i = 0;
         while (all_command->path[i])
-        {
-            free(all_command->path[i]);
-            i++;
-        }
+            free(all_command->path[i++]);
         free(all_command->path);
     }
     all_command->head = NULL;
