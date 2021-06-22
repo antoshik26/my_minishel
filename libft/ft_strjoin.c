@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/29 17:24:01 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/11/05 23:28:30 by dmadelei         ###   ########.fr       */
+/*   Created: 2020/11/22 15:21:57 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 18:02:24 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,27 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len_s1;
-	size_t	len_s2;
+	char	*s;
+	size_t	len1;
+	size_t	len2;
 	size_t	i;
-	char	*buf;
 
-	if (!s1)
+	i = -1;
+	if (!s1 || !s2)
 		return (NULL);
-	len_s1 = 0;
-	len_s2 = 0;
+	len1 = ft_strlen((char *)s1);
+	len2 = ft_strlen((char *)s2);
+	s = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!s)
+		return (NULL);
+	while (++i < len1)
+		s[i] = s1[i];
 	i = 0;
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	buf = (char *)malloc(sizeof(char) * (len_s1 + len_s2) + 1);
-	if (buf == NULL)
-		return (NULL);
-	while (i < (len_s1 + len_s2))
+	while (i < len2)
 	{
-		if (i < len_s1)
-			buf[i] = s1[i];
-		else
-			buf[i] = s2[i - len_s1];
+		s[len1 + i] = s2[i];
 		i++;
 	}
-	buf[i] = '\0';
-	return (buf);
+	s[len1 + i] = '\0';
+	return (s);
 }

@@ -3,94 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/30 11:47:43 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/11/07 12:37:25 by dmadelei         ###   ########.fr       */
+/*   Created: 2020/11/23 18:32:36 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 18:18:12 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		create_buf(char **buf, int n, size_t i)
+char	*ft_strfill(int len, int m, unsigned int i, int n)
 {
-	if (n <= 0)
+	char	*num;
+
+	num = (char *)malloc(len + m + 1);
+	if (!num)
+		return (NULL);
+	if (m == 1)
 	{
-		*buf = (char *)malloc(sizeof(char) * i + 2);
-		if (*buf == NULL)
-			return (0);
+		num[0] = '-';
+		i = n * (-1);
 	}
 	else
+		i = n;
+	num[len + m] = '\0';
+	n = len + m - 1;
+	while (len)
 	{
-		*buf = (char *)malloc(sizeof(char) * i + 1);
-		if (*buf == NULL)
-			return (0);
+		num[n] = i % 10 + 48;
+		i = i / 10;
+		n--;
+		len--;
 	}
-	return (1);
-}
-
-void	chek_znak_2(unsigned int *copy,
-					unsigned int *copy_2, size_t *znak, int n)
-{
-	if (n < 0)
-	{
-		*znak = 1;
-		*copy = n * -1;
-		*copy_2 = n * -1;
-	}
-	else
-	{
-		*znak = 0;
-		*copy = n;
-		*copy_2 = n;
-	}
-}
-
-void	len_int(unsigned int *copy, size_t *i)
-{
-	*i = 0;
-	while (*copy > 0)
-	{
-		*copy = *copy / 10;
-		*i = *i + 1;
-	}
-}
-
-void	completion_buf(unsigned int copy_2, size_t i, char *buf)
-{
-	while (copy_2 > 0)
-	{
-		buf[i] = (copy_2 % 10) + '0';
-		copy_2 = copy_2 / 10;
-		i--;
-	}
+	return (num);
 }
 
 char	*ft_itoa(int n)
 {
-	unsigned int	copy;
-	unsigned int	copy_2;
-	size_t			i;
-	char			*buf;
-	size_t			znak;
+	int				len;
+	int				m;
+	unsigned int	i;
 
-	chek_znak_2(&copy, &copy_2, &znak, n);
-	len_int(&copy, &i);
-	if (create_buf(&buf, n, i) == 0)
-		return (NULL);
-	if (n == 0)
+	len = 1;
+	m = 0;
+	if (n < 0)
 	{
-		buf[i + 1] = '\0';
-		buf[i] = '0';
-		return (buf);
+		m = 1;
+		i = n * (-1);
 	}
-	if (znak == 1)
+	else
+		i = n;
+	while (i > 9)
 	{
-		buf[0] = '-';
-		i++;
+		i = i / 10;
+		len++;
 	}
-	buf[i] = '\0';
-	i--;
-	completion_buf(copy_2, i, buf);
-	return (buf);
+	return (ft_strfill(len, m, i, n));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 17:15:37 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/11/05 20:01:29 by dmadelei         ###   ########.fr       */
+/*   Created: 2020/11/09 18:27:10 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 18:00:55 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t i;
+	size_t	i;
+	size_t	i1;
 
+	i1 = 0;
 	i = 0;
-	if (!dst || !src)
+	if (!src)
 		return (0);
-	if (dstsize == 0)
-		return (ft_strlen(src));
-	while (src[i] != '\0' && i < dstsize - 1)
-	{
-		dst[i] = src[i];
+	while (src[i])
 		i++;
+	if (dstsize >= 1)
+	{
+		while ((dstsize - 1) > i1 && *(src + i1))
+		{
+			*(dst + i1) = *(src + i1);
+			i1++;
+		}
+		dst[i1] = '\0';
 	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
+	return (i);
 }

@@ -3,56 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 18:45:47 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/11/05 23:12:39 by dmadelei         ###   ########.fr       */
+/*   Created: 2020/11/18 20:16:34 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 17:57:12 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_sravnenie(size_t i, const char *haystack,
-						const char *needle, size_t len)
-{
-	size_t	j;
-
-	j = 0;
-	while ((needle[j] == haystack[i]) & (i != len))
-	{
-		i = i + 1;
-		j++;
-		if (needle[j] == '\0')
-			return ((char *)&haystack[i - j]);
-	}
-	return (NULL);
-}
-
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	len_haystack;
 	size_t	i;
-	char	*b;
+	size_t	i1;
 
+	i1 = 0;
 	i = 0;
-	len_haystack = ft_strlen(haystack);
-	if (ft_strlen(needle) == 0)
+	while (needle[i1])
+		i1++;
+	if (i1 == 0)
 		return ((char *)haystack);
-	if (len_haystack < len)
-		while (haystack[i] != '\0' & i < len_haystack)
-		{
-			if (needle[0] == haystack[i])
-				if ((b = ft_sravnenie(i, haystack, needle, len)) != NULL)
-					return (b);
+	while (len && *haystack)
+	{
+		while (*(haystack + i) == *(needle + i) && *(needle + i)
+			&& (haystack + i) && (len - i))
 			i++;
-		}
-	else
-		while (i < len)
-		{
-			if (needle[0] == haystack[i])
-				if ((b = ft_sravnenie(i, haystack, needle, len)) != NULL)
-					return (b);
-			i++;
-		}
-	return (NULL);
+		if (i1 == i)
+			return ((char *)(haystack));
+		haystack++;
+		len--;
+		i = 0;
+	}
+	return (0);
 }

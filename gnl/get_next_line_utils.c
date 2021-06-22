@@ -3,126 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 15:40:33 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/12/01 18:18:37 by dmadelei         ###   ########.fr       */
+/*   Created: 2020/11/27 16:24:54 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 23:12:53 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
+size_t	ft_strlen(char *a)
 {
-	int		read_count;
-	char	*p_n;
-	char	*result;
-	char	*tmp;
-	char	buf[len_buf + 1];
-
-	read_count = 0;
-	p_n = chek_remain(*ostatok, &result);
-	while (!p_n && (read_count = (read(fd, buf, len_buf))) != 0)
-	{
-		buf[read_count] = '\0';
-		if ((p_n = ft_strchr(buf, '\n')))
-		{
-			*p_n = '\0';
-			p_n++;
-			free(*ostatok);
-			*ostatok = ft_strdup(p_n);
-		}
-		tmp = result;
-		if ((result = ft_strjoin(result, buf)) == NULL)
-			return (NULL);
-		free(tmp);
-	}
-	*key = (read_count == 0 && ft_strlen(*ostatok) == 0 && p_n == NULL) ? 1 : 0;
-	return (result);
-}
-
-char	*ft_strcpy(char *dst, char *src)
-{
-	int i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-char	*chek_remain(char *ostatoc, char **result)
-{
-	char *p_n;
-
-	p_n = NULL;
-	if (ostatoc)
-	{
-		if ((p_n = ft_strchr(ostatoc, '\n')))
-		{
-			*p_n = '\0';
-			*result = ft_strdup(ostatoc);
-			p_n++;
-			ft_strcpy(ostatoc, p_n);
-		}
-		else
-		{
-			*result = ft_strdup(ostatoc);
-			while (*ostatoc)
-			{
-				*ostatoc = '\0';
-				ostatoc++;
-			}
-		}
-	}
-	return (p_n);
-}
-/*
-char	*ft_strdup(const char *s1)
-{
-	char	*copy_s1;
-	size_t	len;
 	size_t	i;
 
-	len = 0;
 	i = 0;
-	while (s1[len] != '\0')
-	{
-		len++;
-	}
-	copy_s1 = (char *)malloc(sizeof(char) * (len + 1));
-	if (copy_s1 == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		copy_s1[i] = s1[i];
+	while (a[i])
 		i++;
-	}
-	copy_s1[i] = '\0';
-	return (copy_s1);
+	return (i);
 }
 
 char	*ft_strchr(const char *s, int c)
 {
-	int		i;
-	char	*a;
-
-	i = 0;
-	a = (char *)s;
-	while (a[i] != '\0')
+	while (*s)
 	{
-		if (a[i] == c)
+		if (*s == c)
 		{
-			return (&a[i]);
+			return ((char *)s);
 		}
-		i++;
+		s++;
 	}
 	if (c == '\0')
-		return (&a[i]);
-	return (NULL);
+		return ((char *)s);
+	return (0);
 }
-*/
+
+char	*ft_strdup(const char *s1)
+{
+	size_t	i;
+	char	*s2;
+	size_t	i1;
+
+	i1 = 0;
+	i = ft_strlen((char *)s1);
+	s2 = (char *)malloc(i + 1);
+	if (!s2)
+		return (NULL);
+	while (i >= i1)
+	{
+		s2[i1] = s1[i1];
+		i1++;
+	}
+	return (s2);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*s;
+	size_t	len1;
+	size_t	i;
+	char	*tmp;
+
+	tmp = (char *)s1;
+	i = -1;
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen((char *)s1);
+	s = malloc(sizeof(char) * (len1 + (ft_strlen((char *)s2)) + 1));
+	if (!(s))
+		return (NULL);
+	while (++i < len1)
+		s[i] = s1[i];
+	i = -1;
+	while (++i < ft_strlen((char *)s2))
+		s[len1 + i] = s2[i];
+	s[len1 + i] = '\0';
+	free(tmp);
+	return (s);
+}

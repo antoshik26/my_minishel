@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strchr.c                                           :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 18:31:47 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/11/02 22:31:29 by dmadelei         ###   ########.fr       */
+/*   Created: 2020/10/30 15:59:32 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 18:03:27 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,15 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int		i;
-	char	*a;
-
-	i = 0;
-	a = (char *)s;
-	while (a[i] != '\0')
+	while (*s)
 	{
-		if (a[i] == c)
+		if (*s == c)
 		{
-			return (&a[i]);
+			return ((char *)s);
 		}
-		i++;
+		s++;
 	}
 	if (c == '\0')
-		return (&a[i]);
-	return (NULL);
+		return ((char *)s);
+	return (0);
 }

@@ -20,6 +20,7 @@ void    free_command(t_command_and_flag	*command)
         free(command);
         command = tmp;
     }
+}
 
 int rebut_utils(t_command_and_flag *command)
 {

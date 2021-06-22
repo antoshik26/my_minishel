@@ -3,105 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 15:40:24 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/12/01 17:28:07 by dmadelei         ###   ########.fr       */
+/*   Created: 2021/01/14 22:21:39 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 23:09:58 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		get_next_line(int fd, char **line)
+int	ft_check(char **rem1, char **line)
 {
-	static char *ostatok;
-	char		*result;
-	int			key;
+	char	*c;
+	char	*tmp;
 
-	key = 0;
-	if (cheak_file_descriptor_and_buf(BUFFER_SIZE, fd) == 0)
-		return (-1);
-	if (ostatok == NULL)
-		if ((ostatok = create_buf(BUFFER_SIZE)) == NULL)
-			return (-1);
-	if ((result = read_in_buffer(fd, BUFFER_SIZE, &ostatok, &key)) != NULL)
+	c = ft_strchr(*rem1, '\n');
+	if (c)
 	{
-		if (key != 0)
-		{
-			*line = result;
-			free(ostatok);
-			ostatok = NULL;
-			return (0);
-		}
-		*line = result;
+		tmp = *rem1;
+		*c = '\0';
+		*line = ft_strjoin(*line, *rem1);
+		*rem1 = ft_strdup(++c);
+		free(tmp);
 		return (1);
 	}
-	return (-1);
-}
-
-int		cheak_file_descriptor_and_buf(long len_buf, int fd)
-{
-	if (len_buf == 0 || len_buf < 0)
-		return (0);
-	if (fd > 100 || fd < 0)
-		return (0);
-	return (1);
-}
-
-// size_t	ft_strlen(const char *s)
-// {
-// 	size_t len;
-
-// 	len = 0;
-// 	while (s[len] != '\0')
-// 	{
-// 		len++;
-// 	}
-// 	return (len);
-// }
-
-char	*create_buf(long len_buf)
-{
-	char	*buf;
-	int		i;
-
-	i = 0;
-	buf = (char *)malloc(sizeof(char) * (len_buf + 1));
-	if (buf == NULL)
-		return (NULL);
-	while (i < len_buf)
+	else
 	{
-		buf[i] = '\0';
-		i++;
+		*line = ft_strjoin(*line, *rem1);
+		return (0);
 	}
-	return (buf);
 }
 
-// char	*ft_strjoin(char *s1, char *s2)
-// {
-// 	size_t	len_s1;
-// 	size_t	len_s2;
-// 	size_t	i;
-// 	char	*buf;
+int	ft_return(int len, char **line, char *buf)
+{
+	free(buf);
+	buf = NULL;
+	if (len < 0)
+	{
+		*line = NULL;
+		return (-1);
+	}
+	if (!(*line))
+		*line = ft_strdup("");
+	return (0);
+}
 
-// 	if (!s1)
-// 		return (NULL);
-// 	len_s1 = 0;
-// 	len_s2 = 0;
-// 	i = 0;
-// 	len_s1 = ft_strlen(s1);
-// 	len_s2 = ft_strlen(s2);
-// 	buf = (char *)malloc(sizeof(char) * (len_s1 + len_s2) + 1);
-// 	if (buf == NULL)
-// 		return (NULL);
-// 	while (i < (len_s1 + len_s2))
-// 	{
-// 		if (i < len_s1)
-// 			buf[i] = s1[i];
-// 		else
-// 			buf[i] = s2[i - len_s1];
-// 		i++;
-// 	}
-// 	buf[i] = '\0';
-// 	return (buf);
-// }
+int	ft_reminder(char **buf, char **line)
+{
+	if (*buf)
+	{
+		if (ft_check(buf, line))
+			return (1);
+		free(*buf);
+		*buf = NULL;
+	}
+	return (0);
+}
+
+int	get_next_line(int fd, char **line)
+{
+	static char	*buf;
+	int			len;
+
+	if (fd < 0 || BUFFER_SIZE < 1 || !line)
+		return (-1);
+	*line = NULL;
+	if (ft_reminder(&buf, line))
+		return (1);
+	if (!buf)
+	{
+		free(buf);
+		buf = malloc(BUFFER_SIZE + 1);
+		if (!(buf))
+			return (-1);
+	}
+	len = read(fd, buf, BUFFER_SIZE);
+	while (len > 0)
+	{
+		buf[len] = '\0';
+		if (ft_check(&buf, line))
+			return (1);
+		len = read(fd, buf, BUFFER_SIZE);
+	}
+	return (ft_return(len, line, buf));
+}

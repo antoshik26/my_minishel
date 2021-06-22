@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmadelei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lbones <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 15:17:06 by dmadelei          #+#    #+#             */
-/*   Updated: 2020/11/05 23:20:23 by dmadelei         ###   ########.fr       */
+/*   Created: 2020/11/18 21:50:32 by lbones            #+#    #+#             */
+/*   Updated: 2021/04/30 18:10:52 by lbones           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,24 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char		*dest;
-	const char	*source;
-	size_t		i;
+	unsigned char	*dst1;
+	unsigned char	*src1;
 
-	i = 0;
-	dest = dst;
-	source = src;
-	if ((!dst) || (!src))
-		return (NULL);
-	if (dest <= source)
-		while (i < len)
-		{
-			dest[i] = source[i];
-			i++;
-		}
+	dst1 = (unsigned char *)dst;
+	src1 = (unsigned char *)src;
+	if (!dst1 && !src1)
+		return (0);
+	if (dst >= src)
+	{
+		dst1 = dst1 + len;
+		src1 = src1 + len;
+		while (len--)
+			*--dst1 = *--src1;
+	}
 	else
 	{
-		i = len;
-		while (i > 0)
-		{
-			dest[i - 1] = source[i - 1];
-			i--;
-		}
+		while (len--)
+			*dst1++ = *src1++;
 	}
-	return (dest);
+	return (dst);
 }
