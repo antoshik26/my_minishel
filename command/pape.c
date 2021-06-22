@@ -1,7 +1,7 @@
 #include "ft_minishell.h"
 
 void	number_of_pipes(int	*size, t_command_and_flag	**head1, \
-t_command_and_flag	**new_head)
+t_command_and_flag	**new_head, t_minishell *all)
 {
 	t_command_and_flag	*head;
 	t_command_and_flag	*tmp;
@@ -20,7 +20,7 @@ t_command_and_flag	**new_head)
 			*size += 1;
 		if (head->pape == DOUBLE_LESS)
 		{
-			tmp = ft_double_less(head->command);
+			tmp = ft_double_less(head->command, all);
 			ft_list_push_second(new_head, tmp);
 			free_tmp(tmp);
 		}

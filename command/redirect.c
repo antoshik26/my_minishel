@@ -38,7 +38,7 @@ t_command_and_flag	*redirect2(t_command_and_flag	*all)
 	return (all);
 }
 
-t_command_and_flag	*ft_double_less(char	*split)
+t_command_and_flag	*ft_double_less(char	*split, t_minishell *all_com)
 {
 	char				*str;
 	int					len;
@@ -53,7 +53,7 @@ t_command_and_flag	*ft_double_less(char	*split)
 	len = ft_strlen(split);
 	while (1)
 	{
-		str = term_from_double_less();
+		str = term_from_double_less(all_com);
 		if (str == NULL)
 			break ;
 		if (!ft_strncmp(str, split, len + 1))
