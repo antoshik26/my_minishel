@@ -36,3 +36,7 @@ asdg
 ls
 a.out
 ls
+ls
+ls -la
+cat -e
+cat -e

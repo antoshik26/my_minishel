@@ -1,15 +1,11 @@
 #include "ft_minishell.h"
 
-void rebut(t_minishell *all_command)
+int rebut_utils(t_command_and_flag *command)
 {
-    int i;
-    t_command_and_flag *command;
-    t_command_and_flag *tmp;
+	t_command_and_flag *tmp;
+	int i;
 
-    all_command->onecovkey = 0;
-    all_command->doublecovkey = 0;
-    command = all_command->head;
-    while(command)
+	while(command)
     {
         free(command->command_and_flags);
         free(command->command);
@@ -28,6 +24,19 @@ void rebut(t_minishell *all_command)
         free(command);
         command = tmp;
     }
+	return (0);
+}
+
+void rebut(t_minishell *all_command)
+{
+    int i;
+    t_command_and_flag *command;
+    t_command_and_flag *tmp;
+
+    all_command->onecovkey = 0;
+    all_command->doublecovkey = 0;
+    command = all_command->head;
+    rebut_utils(command);
     if (all_command->path != NULL)
     {
         i = 0;
@@ -41,8 +50,24 @@ void rebut(t_minishell *all_command)
     all_command->head = NULL;
 }
 
+int clear_malloc_utils(t_env *env)
+{
+	int i;
 
-void clear_malloc(t_minishell *all_command,t_env *env)
+	i = 0;
+    if (env->env_lvl != NULL)
+    {
+        while (env->env_lvl[i])
+        {
+            free(env->env_lvl[i]);
+            i++;
+        }
+        free(env->env_lvl);
+    }
+	return (0);
+}
+
+void clear_malloc(t_minishell *all_command, t_env *env)
 {
     int i;
     
@@ -59,15 +84,6 @@ void clear_malloc(t_minishell *all_command,t_env *env)
     free(env->env);
     free(env->keys);
     free(env->values);
-    i = 0;
-    if (env->env_lvl != NULL)
-    {
-        while (env->env_lvl[i])
-        {
-            free(env->env_lvl[i]);
-            i++;
-        }
-        free(env->env_lvl);
-    }
+    clear_malloc_utils(env);
     free(env);
 }
