@@ -31,21 +31,20 @@ int	*pipe_2, t_env	*env)
 
 void	fd_init(t_env	*env, int flag)
 {
-	if(flag)
+	if (flag)
 	{
 		env->fd[0] = 0;
 		env->fd[1] = 0;
 	}
 	else
 	{
-		if(env->fd[1] != 0)
+		if (env->fd[1] != 0)
 			close(env->fd[1]);
-		if(env->fd[0] != 0)
+		if (env->fd[0] != 0)
 			close(env->fd[0]);
 		env->fd[0] = 0;
 		env->fd[1] = 0;
 	}
-
 }
 
 void	find_function(int size, t_env *env, t_command_and_flag *head, \

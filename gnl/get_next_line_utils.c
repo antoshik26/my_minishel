@@ -13,14 +13,14 @@
 #include "get_next_line.h"
 int	lounch_read(int	*read_count, int	fd, char	*buf)
 {
-	*read_count = read(fd,buf,32);
+	*read_count = read(fd, buf, 32);
 	return (*read_count);
 }
 
-char *lounch_stjoin(char **result,char	*buf)
+char	*lounch_stjoin(char	**result, char	*buf)
 {
 	*result = ft_strjoin(*result, buf);
-	return(*result);
+	return (*result);
 }
 
 char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
@@ -29,14 +29,14 @@ char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
 	char	*p_n;
 	char	*result;
 	char	*tmp;
-	char	buf[len_buf + 1];
+	char	buf[33];
 
 	read_count = 0;
 	p_n = chek_remain(*ostatok, &result);
-	while ((!p_n && lounch_read(&read_count,fd,buf)) != 0)
+	while ((!p_n && lounch_read(&read_count, fd, buf)) != 0)
 	{
 		buf[read_count] = '\0';
-		if ((p_n = ft_strchr(buf, '\n')))
+		if (lounch_strchar(&p_n, buf))
 		{
 			*p_n = '\0';
 			p_n++;
@@ -44,7 +44,7 @@ char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
 			*ostatok = ft_strdup(p_n);
 		}
 		tmp = result;
-		if ((lounch_stjoin(&result,buf)) == NULL)
+		if ((lounch_stjoin(&result, buf)) == NULL)
 			return (NULL);
 		free(tmp);
 	}
@@ -54,12 +54,12 @@ char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
 
 char	*chek_remain(char *ostatoc, char **result)
 {
-	char *p_n;
+	char	*p_n;
 
 	p_n = NULL;
 	if (ostatoc)
 	{
-		if ((p_n = ft_strchr(ostatoc, '\n')))
+		if (lounch_strchar(&p_n, ostatoc))
 		{
 			*p_n = '\0';
 			*result = ft_strdup(ostatoc);
@@ -79,9 +79,9 @@ char	*chek_remain(char *ostatoc, char **result)
 	return (p_n);
 }
 
-char	*ft_strcpy(char *dst, char *src)
+char	*ft_strcpy(char	*dst, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i])

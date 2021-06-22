@@ -28,4 +28,5 @@ char	*ft_strdup(const char *s1);
 char	*chek_remain(char *ostatoc, char **result);
 char	*ft_strcpy(char *dst, char *src);
 int		tern_oper(int read_count, char *ostatok, char *p_n);
+char	*lounch_strchar(char **p_n, char *buf);
 #endif

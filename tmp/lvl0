@@ -40,3 +40,18 @@ export
 export lll=0
 export lll=cccccc
 export
+export a=3
+export
+export a=8 hhhh=0 kkkkll=0
+export a=8 hhhh=0 kkkkll=0
+export a=8 hhhh=0 kkkkll=0
+export a=8 hhhh=0 kkkkll=0
+export a=8 hhhh=0 kkkkll=0
+export a=8 hhhh=0 kkkkll=0
+env
+exit 21897376273687216381763178632187|ls
+echo $?
+export a=8 hhhh=0 kkkkll=0
+âˆdo
+export a=8 hhhh=0 kkkkll=0
+exit 21897376273687216381763178632187|ls

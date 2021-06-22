@@ -77,7 +77,7 @@ int	builin_errors(t_command_and_flag	*reverse_head, int	fd1, t_env	*env)
 		env->exit_num = 1;
 		return (0);
 	}
-	return (1);
+	return (exit_error(reverse_head, env));
 }
 
 void	bin_errors(t_command_and_flag *reverse_head, int fd1, t_env *env)
