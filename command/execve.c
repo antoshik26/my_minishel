@@ -88,7 +88,7 @@ t_command_and_flag	*tmp)
 }
 
 int	functions_launch(t_command_and_flag	**head,	\
-t_env	*struct_env, int	*lvl)
+t_env	*struct_env, int	*lvl, t_minishell *all)
 {
 	t_command_and_flag	*current_head;
 	t_command_and_flag	*tmp;
@@ -99,7 +99,7 @@ t_env	*struct_env, int	*lvl)
 	tmp = 0;
 	current_head = *head;
 	size = 0;
-	number_of_pipes(&size, &current_head, &tmp);
+	number_of_pipes(&size, &current_head, &tmp, all);
 	//printf("%d\n",size);
 	if (builtin_launch(struct_env, size, tmp))
 	{
