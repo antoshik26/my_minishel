@@ -13,3 +13,6 @@ env
 env
 exit
 exit
+ls -la
+cat -e 
+wc<<l

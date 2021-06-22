@@ -59,3 +59,41 @@ ls
 car 0e
 car -e
 cat -e
+
+cat -e
+cat -e
+cat -e
+ls
+ls -la
+sdfas
+aasdf
+asdf
+asdf
+asd
+a.out
+ls
+ls -la
+a.out
+ls
+ls -la
+a.out
+ls
+ls -la
+cat -e
+a.out
+ls
+ls
+ls -la
+cat -e
+ls
+ls -la
+ls | cat -e | cat -e
+ls | cat -e |cat -e
+ls|wc
+env|wc
+env
+a.out
+ls<<wc
+ls
+ls -al
+ls<<l

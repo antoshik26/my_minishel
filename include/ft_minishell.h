@@ -201,6 +201,12 @@ void print_command(t_minishell *command_list);//tmp
 t_env *allocate_env(char **env,int lvl);
 void rebut(t_minishell *all_command);
 void clear_malloc(t_minishell *all_command,t_env *env);
-
-
+t_env   *env_keys_values(t_env  *env1, int  lvl, int i);
+t_env   *allocate_env(char  **env, int   lvl);
+int					find_path_from_new_env(t_minishell *all_command);
+int					main_dup(int argc, char **argv, char **env);
+void				allocate(t_minishell *all_command);
+int					changes_path_history(t_minishell *all_command, int lvl);
+int					crete_or_cheak_file_history(t_minishell *all_command, int lvl);
+void				create_signal_controller(void);
 #endif

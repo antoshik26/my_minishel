@@ -48,7 +48,7 @@ test:
 	${COMMAND}/utils_builin.c ${COMMAND}/unset.c \
 	${COMMAND}/utils_execve.c ${COMMAND}/redirect.c ${COMMAND}/errors.c ${COMMAND}/pape.c ${COMMAND}/builtin.c ft_clean.c \
 	${CMD}/reed_from_term_for_double_less.c ${CMD}/reeder_from_term_utils.c ${CMD}/reeder_from_term_utils2.c ${PARSER}/parser_utils.c ${PARSER}/parser_utils2.c ${PARSER}/parser_utils3.c ${PARSER}/parser_utils4.c \
-	${PARSER}/parser_utils_add.c ${PARSER}/parser_utils5.c ${PARSER}/parser_utils6.c ${PARSER}/parser_utils7.c tmp.c
+	${PARSER}/parser_utils_add.c ${PARSER}/parser_utils5.c ${PARSER}/parser_utils6.c ${PARSER}/parser_utils7.c tmp.c env.c path_env.c ft_maindup.c
 
 test_file:
 	gcc -g minishell_test.c
