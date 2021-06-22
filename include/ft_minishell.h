@@ -201,6 +201,8 @@ void print_command(t_minishell *command_list);//tmp
 t_env *allocate_env(char **env,int lvl);
 void rebut(t_minishell *all_command);
 void clear_malloc(t_minishell *all_command,t_env *env);
+t_env   *env_keys_values(t_env  *env1, int  lvl, int i);
+t_env   *allocate_env(char  **env, int   lvl);
 
 
 #endif
