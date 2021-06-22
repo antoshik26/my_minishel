@@ -3,8 +3,8 @@
 void	create_signal_controller(void)
 {
 	signal(SIGINT, &signal_manager);
-	g_global_pid = 0;
 	signal(SIGQUIT, &signal_manager);
+	g_global_pid = 0;
 }
 
 int	crete_or_cheak_file_history(t_minishell *all_command, int lvl)

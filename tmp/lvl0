@@ -1,0 +1,42 @@
+
+cat -e
+cat -e
+cat l|cat>k
+cat l|cat>k
+cat k|cat>j
+cat j
+cat j
+cat k|cat>j
+cat j
+echo $'USER'
+export jj=0
+echo $'jj'
+echo '$jj'
+echo $jj
+echo $jj
+export
+export jj=0
+echo $jj
+export kkkk=0
+env
+export
+export ooooo kkk
+export
+export j=0
+export
+export j=0 l=0
+export
+env
+export TERM=0
+export
+export jj
+export 
+export jj=0
+export 
+export 123 eoprkfpo
+export 
+export jjjjj=0
+export 
+export lll=0
+export lll=cccccc
+export

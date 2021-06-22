@@ -119,7 +119,7 @@ t_env	*struct_env, int	*lvl, t_minishell *all)
 	current_head = *head;
 	size = 0;
 	number_of_pipes(&size, &current_head, &tmp, all);
-	//printf("%d\n",size);
+	printf("%d\n",size);
 	if (builtin_launch(struct_env, size, tmp))
 	{
 		if ((!ft_strncmp(tmp->command, "exit", 5) || \
