@@ -66,8 +66,8 @@ $(NAME):	$(OBJS)
 			gcc -o $(NAME) $(OBJS) ${LIBA}/libft.a ${GNL}/gnl.a ${INCLUDE} -ltermcap
 test:	
 	gcc -g ${INCLUDE} ${AUXILIARY_FUNCTIONS}/additional_features.c ${PARSER}/parser.c ${COMMAND}/command.c ${COMMAND}/stat_command.c ${SIGNALS}/signal_manager.c ft_minishell.c ${COMMAND}/execve.c \
-	${CMD}/cmd_manager.c ./gnl/gnl.a ./libft/ft_split.c ./libft/ft_strncmp.c ${AUXILIARY_FUNCTIONS}/lists_for_execve.c ${CMD}/reeder_from_term.c -ltermcap ./libft/ft_putchar_fd.c ./libft/ft_isdigit.c \
-	./libft/ft_putstr_fd.c  ${AUXILIARY_FUNCTIONS}/array_of_strings.c ./libft/ft_putnbr_fd.c ${COMMAND}/export.c ./libft/ft_isalpha.c ./libft/ft_strnstr.c ./libft/ft_isalnum.c ./libft/ft_atoi.c ./libft/ft_itoa.c \
+	${CMD}/cmd_manager.c ./gnl/gnl.a ./libft/libft.a ${AUXILIARY_FUNCTIONS}/lists_for_execve.c ${CMD}/reeder_from_term.c -ltermcap ./libft/ft_putchar_fd.c ./libft/ft_isdigit.c \
+	${AUXILIARY_FUNCTIONS}/array_of_strings.c  ${COMMAND}/export.c  \
 	${AUXILIARY_FUNCTIONS}/additional_features2.c ${AUXILIARY_FUNCTIONS}/additional_features3.c ${AUXILIARY_FUNCTIONS}/additional_features4.c ${COMMAND}/stat_command_utils.c ${COMMAND}/stat_command_utils2.c \
 	${COMMAND}/utils_builin.c ${COMMAND}/unset.c ./libft/ft_substr.c \
 	${COMMAND}/utils_execve.c ${COMMAND}/redirect.c ${COMMAND}/errors.c ${COMMAND}/pape.c ${COMMAND}/builtin.c ft_clean.c \
