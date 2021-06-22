@@ -254,5 +254,10 @@ t_env							*env_keys_values(t_env	*env1, \
 t_env							*allocate_env(char	**env, int	lvl);
 void							ft_value_name(char *str, \
 		int *end_of_key, int *value);
-
+int					find_path_from_new_env(t_minishell *all_command);
+int					main_dup(int argc, char **argv, char **env);
+void				allocate(t_minishell *all_command);
+int					changes_path_history(t_minishell *all_command, int lvl);
+int					crete_or_cheak_file_history(t_minishell *all_command, int lvl);
+void				create_signal_controller(void);
 #endif
