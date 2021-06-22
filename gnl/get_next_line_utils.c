@@ -11,6 +11,17 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+int	lounch_read(int	*read_count, int	fd, char	*buf)
+{
+	*read_count = read(fd,buf,32);
+	return (*read_count);
+}
+
+char *lounch_stjoin(char **result,char	*buf)
+{
+	*result = ft_strjoin(*result, buf);
+	return(*result);
+}
 
 char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
 {
@@ -22,7 +33,7 @@ char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
 
 	read_count = 0;
 	p_n = chek_remain(*ostatok, &result);
-	while (!p_n && (read_count = (read(fd, buf, len_buf))) != 0)
+	while ((!p_n && lounch_read(&read_count,fd,buf)) != 0)
 	{
 		buf[read_count] = '\0';
 		if ((p_n = ft_strchr(buf, '\n')))
@@ -33,11 +44,11 @@ char	*read_in_buffer(int fd, long len_buf, char **ostatok, int *key)
 			*ostatok = ft_strdup(p_n);
 		}
 		tmp = result;
-		if ((result = ft_strjoin(result, buf)) == NULL)
+		if ((lounch_stjoin(&result,buf)) == NULL)
 			return (NULL);
 		free(tmp);
 	}
-	*key = (read_count == 0 && ft_strlen(*ostatok) == 0 && p_n == NULL) ? 1 : 0;
+	*key = tern_oper(read_count, *ostatok, p_n);
 	return (result);
 }
 
@@ -67,51 +78,7 @@ char	*chek_remain(char *ostatoc, char **result)
 	}
 	return (p_n);
 }
-/*
-char	*ft_strdup(const char *s1)
-{
-	char	*copy_s1;
-	size_t	len;
-	size_t	i;
 
-	len = 0;
-	i = 0;
-	while (s1[len] != '\0')
-	{
-		len++;
-	}
-	copy_s1 = (char *)malloc(sizeof(char) * (len + 1));
-	if (copy_s1 == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		copy_s1[i] = s1[i];
-		i++;
-	}
-	copy_s1[i] = '\0';
-	return (copy_s1);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	int		i;
-	char	*a;
-
-	i = 0;
-	a = (char *)s;
-	while (a[i] != '\0')
-	{
-		if (a[i] == c)
-		{
-			return (&a[i]);
-		}
-		i++;
-	}
-	if (c == '\0')
-		return (&a[i]);
-	return (NULL);
-}
-*/
 char	*ft_strcpy(char *dst, char *src)
 {
 	int i;

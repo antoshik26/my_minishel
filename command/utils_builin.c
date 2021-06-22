@@ -35,12 +35,29 @@ void	ft_value_name(char *str, int *end_of_key, int *value)
 		str[*end_of_key] = '=';
 }
 
-int	ft_exit(t_command_and_flag	*tmp)
+int	check_exit_num(char	*str)
 {
-	int	ret;
+	if (ft_strlen(str) > 10)
+	{
+		ft_putstr_fd("minishell: exit:",0);
+		ft_putstr_fd(str,0);
+		ft_putstr_fd(": numeric argument required\n",0);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_exit(t_command_and_flag	*tmp, t_env *env)
+{
+	long long	ret;
 
 	if (tmp->array_flags[1])
 	{
+		if(check_exit_num(tmp->array_flags[1]) == 1)
+		{
+			env->exit_num = 255;
+			return (-1);
+		}
 		if (ft_atoi(tmp->array_flags[1]) > 0)
 			ret = ft_atoi(tmp->array_flags[1]) % 256;
 		else
@@ -52,7 +69,7 @@ int	ft_exit(t_command_and_flag	*tmp)
 	}
 	else
 		ret = 0;
-	return (ret);
+	return ((int)ret);
 }
 
 void	ft_minishell_name(int *lvl, t_env *struct_env)

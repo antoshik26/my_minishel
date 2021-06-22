@@ -55,9 +55,11 @@ int	main_dup_utils5(t_minishell *all_command, char *command, t_env *struct_env)
 				if (all_command->ret != -1)
 					break ;
 				rebut(all_command);
+				find_path_from_new_env(all_command);
 			}
+			else
+				free(command);
 		}
-		find_path_from_new_env(all_command);
 	}
 	return (0);
 }

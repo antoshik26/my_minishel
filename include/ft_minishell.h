@@ -227,10 +227,11 @@ t_command_and_flag				*redirect2(t_command_and_flag	*all);
 t_command_and_flag				*ft_double_less(char	*split, \
 		t_minishell *all_command);
 void							free_tmp(t_command_and_flag	*tmp);
-int								ft_exit(t_command_and_flag	*tmp);
+int								ft_exit(t_command_and_flag	*tmp, \
+		t_env *struct_env);
 void							ft_minishell_name(int	*lvl, \
 		t_env	*struct_env);
-void							export_errors(t_command_and_flag	*all);
+void							export_errors(t_command_and_flag	*all, t_env *env);
 void							print_errors(pid_t	*pid, t_command_and_flag	*reverse_head, \
 		int	size, t_env	*env);
 int								**make_pipe(int	size);
@@ -254,10 +255,13 @@ t_env							*env_keys_values(t_env	*env1, \
 t_env							*allocate_env(char	**env, int	lvl);
 void							ft_value_name(char *str, \
 		int *end_of_key, int *value);
-int					find_path_from_new_env(t_minishell *all_command);
-int					main_dup(int argc, char **argv, char **env);
-void				allocate(t_minishell *all_command);
-int					changes_path_history(t_minishell *all_command, int lvl);
-int					crete_or_cheak_file_history(t_minishell *all_command, int lvl);
-void				create_signal_controller(void);
+int								find_path_from_new_env(t_minishell	\
+*all_command);
+int								main_dup(int argc, char **argv, char **env);
+void							allocate(t_minishell *all_command);
+int								changes_path_history(t_minishell *all_command, \
+		int lvl);
+int								crete_or_cheak_file_history(t_minishell *all_command, \
+		int lvl);
+void							create_signal_controller(void);
 #endif

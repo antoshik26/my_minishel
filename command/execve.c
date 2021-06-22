@@ -17,7 +17,7 @@ int	*pipe_2, t_env	*env)
 		redirect_pipe(pipe_2, 0);
 		redirect_fd(env->fd[0], 1);
 		redirect_fd(env->fd[1], 0);
-		if (!ft_strncmp(all->command, "a.out", 6) || \
+		if (!ft_strncmp(all->command, "minishell", 10) || \
 		!ft_strncmp(all->command, "exit", 5))
 			exit(0);
 		if (stat(all->command, &buff))
@@ -27,6 +27,25 @@ int	*pipe_2, t_env	*env)
 	}
 	close_pipe(pipe_1);
 	return (pid);
+}
+
+void	fd_init(t_env	*env, int flag)
+{
+	if(flag)
+	{
+		env->fd[0] = 0;
+		env->fd[1] = 0;
+	}
+	else
+	{
+		if(env->fd[1] != 0)
+			close(env->fd[1]);
+		if(env->fd[0] != 0)
+			close(env->fd[0]);
+		env->fd[0] = 0;
+		env->fd[1] = 0;
+	}
+
 }
 
 void	find_function(int size, t_env *env, t_command_and_flag *head, \
@@ -41,10 +60,9 @@ t_command_and_flag *reverse_head)
 	pid = malloc(sizeof(pid) * (size + 1));
 	if (!pid)
 		return ;
+	fd_init(env, 1);
 	while (++i <= size)
 	{
-		env->fd[0] = 0;
-		env->fd[1] = 0;
 		if (head && (head->pape == MORE || head->pape == DOUBLE_MORE || \
 		head->pape == LESS))
 			redirect(head, &env->fd[0], &env->fd[1]);
@@ -53,6 +71,7 @@ t_command_and_flag *reverse_head)
 			head = redirect2(head);
 		pid[i] = test(head, pipe[i], pipe[i + 1], env);
 		head = head->next;
+		fd_init(env, 0);
 	}
 	print_errors(pid, reverse_head, size, env);
 	free_find_fubction(pipe, pid);
@@ -64,13 +83,13 @@ t_command_and_flag	*tmp)
 	if (!ft_strncmp(tmp->command, "export", 7) && size == 0)
 	{
 		ft_export(tmp, 0, struct_env);
-		export_errors(tmp);
+		export_errors(tmp, struct_env);
 		return (0);
 	}
 	else if (!ft_strncmp(tmp->command, "unset", 6) && size == 0)
 	{
 		ft_unset(tmp, struct_env);
-		export_errors(tmp);
+		export_errors(tmp, struct_env);
 		return (0);
 	}
 	else if (size == 0 && !ft_strncmp(tmp->command, "cd", 3))
@@ -105,12 +124,12 @@ t_env	*struct_env, int	*lvl, t_minishell *all)
 	{
 		if ((!ft_strncmp(tmp->command, "exit", 5) || \
 		!ft_strncmp(current_head->command, "exit", 5)) && size == 0)
-			ret = ft_exit(tmp);
+			ret = ft_exit(tmp, struct_env);
 		else if (size >= 0)
 			find_function(size, struct_env, tmp, *head);
 	}
 	ft_list_clear(tmp);
-	if (!ft_strncmp(current_head->command, "a.out", 5))
+	if (!ft_strncmp(current_head->command, "minishell", 10))
 		ft_minishell_name(lvl, struct_env);
 	return (ret);
 }

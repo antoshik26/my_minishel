@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-void	export_errors(t_command_and_flag	*all)
+void	export_errors(t_command_and_flag	*all, t_env *env)
 {
 	int	i;
 	int	i1;
@@ -23,6 +23,7 @@ void	export_errors(t_command_and_flag	*all)
 			ft_putstr_fd(": '", 0);
 			ft_putstr_fd(all->array_flags[i], 0);
 			ft_putstr_fd("': not a valid identifier\n", 0);
+			env->exit_num = 1;
 		}
 		i++;
 	}
@@ -57,7 +58,7 @@ int	builin_errors(t_command_and_flag	*reverse_head, int	fd1, t_env	*env)
 	if (!ft_strncmp(reverse_head->command, "export", 7) || \
 	!ft_strncmp(reverse_head->command, "unset", 6))
 	{
-		export_errors(reverse_head);
+		export_errors(reverse_head, env);
 		return (0);
 	}
 	if (!ft_strncmp(reverse_head->command, "env", 4) && fd1 != 0)
