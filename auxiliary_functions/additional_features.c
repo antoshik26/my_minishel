@@ -45,7 +45,7 @@ int	replacement_utils_2(t_minishell *all_command, char **env_varianles)
 	return (0);
 }
 
-int	replacement_utils_3(t_minishell *all_command, char **env_varianles)
+int	replacement_utils_3(char **env_varianles)
 {
 	*env_varianles = (char *)malloc(sizeof(char) * 1);
 	if (*env_varianles == NULL)
@@ -69,7 +69,7 @@ char	*replacement(char *command, int *i, int j, t_minishell *all_command)
 				replacement_utils_2(all_command, &all_command->env_varianles);
 		}
 		else
-			replacement_utils_3(all_command, &all_command->env_varianles);
+			replacement_utils_3(&all_command->env_varianles);
 	}
 	new_command = replacement_2(command, i, j, all_command);
 	return (new_command);

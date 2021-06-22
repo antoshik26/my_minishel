@@ -15,16 +15,40 @@ SRCS =	${AUXILIARY_FUNCTIONS}/additional_features.c \
 		${AUXILIARY_FUNCTIONS}/additional_features3.c \
 		${AUXILIARY_FUNCTIONS}/additional_features4.c \
 		${AUXILIARY_FUNCTIONS}/lists_for_execve.c \
+		${AUXILIARY_FUNCTIONS}/array_of_strings.c \
 		${CMD}/cmd_manager.c \
 		${CMD}/reeder_from_term.c \
+		${CMD}/reeder_from_term_utils.c \
+		${CMD}/reeder_from_term_utils2.c \
 		${CMD}/reed_from_term_for_double_less.c \
+		${COMMAND}/builtin.c \
 		${COMMAND}/command.c \
+		${COMMAND}/errors.c \
+		${COMMAND}/export.c \
+		${COMMAND}/pape.c \
+		${COMMAND}/redirect.c \
 		${COMMAND}/execve.c \
+		${COMMAND}/unset.c \
+		${COMMAND}/utils_builin.c \
+		${COMMAND}/utils_execve.c \
 		${COMMAND}/stat_command.c \
 		${COMMAND}/stat_command_utils.c \
 		${COMMAND}/stat_command_utils2.c \
 		${PARSER}/parser.c \
+		${PARSER}/parser_utils.c \
+		${PARSER}/parser_utils2.c \
+		${PARSER}/parser_utils3.c \
+		${PARSER}/parser_utils4.c \
+		${PARSER}/parser_utils5.c \
+		${PARSER}/parser_utils6.c \
+		${PARSER}/parser_utils7.c \
+		${PARSER}/parser_utils_add.c \
 		${SIGNALS}/signal_manager.c \
+		env.c \
+		tmp.c \
+		ft_clean.c \
+		ft_maindup.c \
+		path_env.c \
 		ft_minishell.c
 
 OBJS =		${SRCS:.c=.o}

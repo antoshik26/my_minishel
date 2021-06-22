@@ -36,7 +36,7 @@ int	ft_check_env(t_env *struct_env, char *str, int end_of_key, int value)
 	while (struct_env->keys[++i])
 	{
 		if (!ft_strncmp(str, struct_env->keys[i], end_of_key) && \
-		ft_strlen(struct_env->keys[i]) == end_of_key)
+		ft_strlen(struct_env->keys[i]) == (size_t)end_of_key)
 		{
 			if (value && ft_strncmp(&str[end_of_key + 1], struct_env->values[i], \
 			ft_strlen(struct_env->values[i])) && ft_strncmp(&str[end_of_key + 1], \
