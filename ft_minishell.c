@@ -1,13 +1,13 @@
 #include "ft_minishell.h"
 
-void create_signal_controller()
+void	create_signal_controller()
 {
-    signal(SIGINT, &signal_manager);
+	signal(SIGINT, &signal_manager);
 	g_global_pid = 0;
 	signal(SIGQUIT, &signal_manager);
 }
 
-int crete_or_cheak_file_history(t_minishell *all_command,  int lvl)
+int	crete_or_cheak_file_history(t_minishell *all_command,  int lvl)
 {
     char *path;
     int len;
@@ -107,38 +107,37 @@ t_env *allocate_env(char **env,int lvl)
     return (env1);
 }
 
+int find_path_from_new_env_utils2(t_minishell *all_command)
+{
+	int i;
+	char *tmp;
+	
+	i = 0;
+	while (all_command->path[i])
+	{
+		tmp = all_command->path[i];
+		all_command->path[i] = ft_strjoin(all_command->path[i], "/");
+		free(tmp);
+		i++;
+	}
+	return (0);
+}
+
 int find_path_from_new_env(t_minishell *all_command)
 {
     int i;
     char *tmp;
     char *path;
-    int len;
-    int j;
 
     i = 0;
-    j = 0;
-    len = 0;
     path = NULL;
     while (all_command->env->keys[i])
     {
         if (ft_strnstr(all_command->env->keys[i], "PATH", ft_strlen(all_command->env->keys[i])))
         {
-            len = ft_strlen(all_command->env->values[i]);
-            path = (char *)malloc(sizeof(char) * (len + 1));
-            while (j < len)
-            {
-                path[j] = all_command->env->values[i][j];
-                j++;
-            }
+			path = ft_strdup(all_command->env->values[i]);
 	        all_command->path = ft_split(path,':');
-            i = 0;
-	        while (all_command->path[i])
-	        {
-		        tmp = all_command->path[i];
-		        all_command->path[i] = ft_strjoin(all_command->path[i], "/");
-		        free(tmp);
-		        i++;
-	        }
+           	find_path_from_new_env_utils2(all_command);
             break ;
         }
         i++;
