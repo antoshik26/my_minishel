@@ -11,8 +11,7 @@ int	definition_history_line2(t_minishell *all_command, int *i)
 	return (0);
 }
 
-int	handler_the_shooter2(t_minishell *all_command,
-			char **command, int *i, char **tmp)
+int	handler_the_shooter2(t_minishell *all_command)
 {
 	if (!ft_strcmp(all_command->term->str, "\e[A"))
 	{
@@ -44,8 +43,8 @@ char	*term_from_double_less(t_minishell *all_command)
 	{
 		all_command->term->len = read(0, all_command->term->str, 100);
 		all_command->term->str[all_command->term->len] = '\0';
-		handler_the_shooter2(all_command, &command, &i, &tmp);
-		handler_the_signals(all_command, &command, &i, &tmp);
+		handler_the_shooter2(all_command);
+		handler_the_signals(all_command, &command, &i);
 		if (all_command->term->key == 2)
 			break ;
 		handler_press(all_command, &command, &i, &tmp);

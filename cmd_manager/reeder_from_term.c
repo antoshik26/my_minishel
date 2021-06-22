@@ -25,7 +25,7 @@ int	handler_the_shooter(t_minishell *all_command,
 }
 
 int	handler_the_signals(t_minishell *all_command,
-		char **command, int *i, char **tmp)
+		char **command, int *i)
 {
 	if (!ft_strcmp(all_command->term->str, "\177"))
 	{
@@ -94,7 +94,7 @@ char	*reeder_from_term(t_minishell *all_command)
 		all_command->term->len = read(0, all_command->term->str, 100);
 		all_command->term->str[all_command->term->len] = '\0';
 		handler_the_shooter(all_command, &command, &i, &tmp);
-		handler_the_signals(all_command, &command, &i, &tmp);
+		handler_the_signals(all_command, &command, &i);
 		if (all_command->term->key == 2)
 			break ;
 		handler_press(all_command, &command, &i, &tmp);

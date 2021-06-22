@@ -30,7 +30,7 @@ int	create_command_with_env_variables_utils(char *command, \
 }
 
 int	create_command_with_env_variables_utils_2(char *command, \
-		t_minishell *all_command, int *i, int *j)
+		int *i, int *j)
 {
 	(*i)++;
 	*j = *i;
@@ -65,7 +65,7 @@ char	*create_command_with_env_variables(char *command, \
 		create_command_with_env_variables_utils(command, all_command, &i);
 		if (command[i] == '$' && all_command->onecovkey != 1)
 		{
-			create_command_with_env_variables_utils_2(command, all_command, \
+			create_command_with_env_variables_utils_2(command, \
 					&i, &j);
 			if (!ft_strnstr(command, "unset", ft_strlen(command)))
 				create_command_with_env_variables_utils_3(&command, all_command, \

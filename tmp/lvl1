@@ -35,6 +35,10 @@ asdg
 asdg
 ls
 a.out
+<<<<<<< HEAD
 a.out
 âˆexit
 exit
+=======
+ls
+>>>>>>> 9e91b743931fbde391107302a3df0c0c347b96fb

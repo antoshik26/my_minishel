@@ -81,7 +81,7 @@ char	*chek_remain(char *ostatoc, char **result)
 	}
 	return (p_n);
 }
-
+/*
 char	*ft_strdup(const char *s1)
 {
 	char	*copy_s1;
@@ -125,3 +125,4 @@ char	*ft_strchr(const char *s, int c)
 		return (&a[i]);
 	return (NULL);
 }
+*/

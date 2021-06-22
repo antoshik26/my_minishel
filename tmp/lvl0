@@ -1,113 +1,20 @@
-ls
-ls -al
-ls -al
-ls -al
-ls -la
-ls
-ls -la
-ls
-ls
-ls
-ls
-ls -la
-ls -la
-ls -la
-ls -la
-ls
-cat -e
-sdf
-cat -e
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-echo $?
-ls
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls -la
-ls
-car 0e
-car -e
-cat -e
 
+ls
+ls -la
+cat 0e
+cat -e
+ls
+a.out
+ls
 <<<<<<< HEAD
-env
-ls
-ls ijfrfoper
-wc<<k
-=======
-cat -e
-cat -e
-cat -e
-ls
-ls -la
-sdfas
-aasdf
-asdf
-asdf
-asd
-a.out
-ls
-ls -la
-a.out
-ls
-ls -la
-a.out
-ls
-ls -la
-cat -e
-a.out
-ls
-ls
-ls -la
-cat -e
-ls
-ls -la
-ls | cat -e | cat -e
-ls | cat -e |cat -e
-ls|wc
-env|wc
-env
-a.out
-ls<<wc
-ls
-ls -al
-ls<<l
->>>>>>> d0a636e9a9318ee07fa230f6aedca7b2f5eb1dd8
-
-ls
 wc<<l
 ld<<jkl
 a.out
 a.out
 a.out
+=======
+a.out
+git add .
+>>>>>>> 9e91b743931fbde391107302a3df0c0c347b96fb
+
+ll
