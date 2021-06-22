@@ -7,10 +7,6 @@ void create_signal_controller()
 	signal(SIGQUIT, &signal_manager);
 }
 
-
-//команда для проверки парсера перед сдачей удалить
-
-
 int crete_or_cheak_file_history(t_minishell *all_command,  int lvl)
 {
     char *path;
@@ -53,6 +49,7 @@ int changes_path_history(t_minishell *all_command, int lvl)
     }
     return (0);
 }
+
 t_env *env_keys_values(t_env *env1,int lvl)
 {
     int i;
@@ -82,6 +79,7 @@ t_env *env_keys_values(t_env *env1,int lvl)
     env1->keys[i]=NULL;
     return(env1);
 }
+
 t_env *allocate_env(char **env,int lvl)
 {
     t_env *env1;
@@ -166,33 +164,19 @@ int find_path_from_new_env(t_minishell *all_command)
         i++;
     }
     if (path == NULL)
-    {
         all_command->path = NULL;
-    }
     else
-    {
         free(path);
-    }
     return (0);
 }
 
 void allocate(t_minishell *all_command)
 {
-    /*t_term_sistem term;
-    t_command_and_flag command_and_flag;
-    t_minishell all_command;
-
-    all_command.flag = 1;
-	all_command.term = &term;
-    all_command.env = allocate_env(env,lvl);
-    create_env_lvl(all_command.env, lvl);
-    all_command.head = &command_and_flag;
-    all_command.path = find_path();*/
     all_command->onecovkey = 0;
     all_command->doublecovkey = 0;
     all_command->head = NULL;
-    //return(&all_command);
 }
+
 int main_dup(int argc,char **argv,char **env)
 {
     t_minishell all_command;
@@ -206,7 +190,7 @@ int main_dup(int argc,char **argv,char **env)
         all_command.lvl=0;
     else
         all_command.lvl=ft_atoi(argv[1]);
-    struct_env=allocate_env(env);
+    struct_env=allocate_env(env, all_command.lvl);
     create_env_lvl(struct_env, all_command.lvl);
     printf("\nlvl1:%d\n", all_command.lvl);
     (void)argc;
