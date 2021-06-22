@@ -1,0 +1,10 @@
+
+ls
+ls -la
+cat 0e
+cat -e
+ls
+a.out
+ls
+a.out
+git add .

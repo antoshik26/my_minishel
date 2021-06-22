@@ -16,3 +16,5 @@ exit
 ls -la
 cat -e 
 wc<<l
+env
+exit
