@@ -50,3 +50,9 @@ exit
 ls
 >>>>>>> 9e91b743931fbde391107302a3df0c0c347b96fb
 >>>>>>> 8b999526ace520c9f85b24e983cb8da6c086f998
+
+env
+minishell
+env
+env
+exit

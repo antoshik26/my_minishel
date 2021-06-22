@@ -18,3 +18,5 @@ cat -e
 wc<<l
 env
 exit
+env
+exit

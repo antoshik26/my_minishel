@@ -17,7 +17,7 @@ int	*pipe_2, t_env	*env)
 		redirect_pipe(pipe_2, 0);
 		redirect_fd(env->fd[0], 1);
 		redirect_fd(env->fd[1], 0);
-		if (!ft_strncmp(all->command, "a.out", 6) || \
+		if (!ft_strncmp(all->command, "minishell", 10) || \
 		!ft_strncmp(all->command, "exit", 5))
 			exit(0);
 		if (stat(all->command, &buff))
@@ -110,7 +110,7 @@ t_env	*struct_env, int	*lvl, t_minishell *all)
 			find_function(size, struct_env, tmp, *head);
 	}
 	ft_list_clear(tmp);
-	if (!ft_strncmp(current_head->command, "a.out", 5))
+	if (!ft_strncmp(current_head->command, "minishell", 10))
 		ft_minishell_name(lvl, struct_env);
 	return (ret);
 }
