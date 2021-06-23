@@ -66,6 +66,8 @@ int	parser_commands(char *command, t_minishell *all_command)
 	all_command->pipe = NEW_COMMAND;
 	shift_comand(command, all_command);
 	command = create_command_with_env_variables(command, all_command);
+	all_command->onecovkey = 0;
+	all_command->doublecovkey = 0;
 	while (command[i])
 	{
 		parser_commands_utils(command, &i);
@@ -74,7 +76,7 @@ int	parser_commands(char *command, t_minishell *all_command)
 		parser_commands_less(command, &i, &j, all_command);
 		i++;
 	}
-	new_command = create_command(command, i, j);
+	new_command = create_command(command, i, j, 1);
 	create_list_command(new_command, all_command, all_command->pipe);
 	parser_command(all_command);
 	return (0);

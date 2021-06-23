@@ -42,11 +42,15 @@ int	create_command_with_env_variables_utils_2(char *command, \
 int	create_command_with_env_variables_utils_3(char **command, \
 		t_minishell *all_command, int *i, int *j)
 {
-	all_command->name_varianled = create_command(*command, *i, *j);
+	all_command->name_varianled = create_command(*command, *i, *j, 0);
 	all_command->env_varianles = my_getenv(all_command->name_varianled, \
 			all_command);
-	all_command->tmp = replacement(*command, i, *j--, all_command);
+	if ((*command)[(*j) - 2] == '"')
+		all_command->tmp = replacement(*command, i, --(*j), all_command);
+	else
+		all_command->tmp = replacement(*command, i, *j, all_command);
 	*command = all_command->tmp;
+	all_command->doublecovkey = 0;
 	free(all_command->name_varianled);
 	return (0);
 }

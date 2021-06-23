@@ -30,7 +30,6 @@ int	main_dup_utils2(t_minishell *all_command)
 int	main_dup_utils3(t_minishell *all_command, t_env *struct_env, char *command)
 {
 	parser_commands(command, all_command);
-	print_command(all_command);
 	free(command);
 	all_command->ret = functions_launch(&all_command->head, \
 			struct_env, &all_command->lvl, all_command);

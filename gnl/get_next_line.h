@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-char	*read_in_buffer (int fd, long len_buf, char **ostatok, int *key);
+char	*read_in_buffer (int fd, char **ostatok, int *key);
 char	*ft_strjoin(char *s1, char *s2);
 char	*create_buf(long len_buf);
 size_t	ft_strlen(const char *s);
@@ -28,4 +28,5 @@ char	*ft_strdup(const char *s1);
 char	*chek_remain(char *ostatoc, char **result);
 char	*ft_strcpy(char *dst, char *src);
 int		tern_oper(int read_count, char *ostatok, char *p_n);
+char	*lounch_strchar(char **p_n, char *buf);
 #endif

@@ -4,13 +4,14 @@ int	ft_check_name(char *name)
 {
 	int	i;
 
-	i = 0;
+	i = i;
 	if (!ft_isalpha(name[0]) && name[0] != '_')
 		return (0);
-	while (name[++i])
+	while (name[i] && name[i] != '=')
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -39,9 +40,9 @@ int	check_exit_num(char	*str)
 {
 	if (ft_strlen(str) > 10)
 	{
-		ft_putstr_fd("minishell: exit:",0);
-		ft_putstr_fd(str,0);
-		ft_putstr_fd(": numeric argument required\n",0);
+		ft_putstr_fd("minishell: exit:", 0);
+		ft_putstr_fd(str, 0);
+		ft_putstr_fd(": numeric argument required\n", 0);
 		return (1);
 	}
 	return (0);
@@ -53,7 +54,7 @@ int	ft_exit(t_command_and_flag	*tmp, t_env *env)
 
 	if (tmp->array_flags[1])
 	{
-		if(check_exit_num(tmp->array_flags[1]) == 1)
+		if (check_exit_num(tmp->array_flags[1]) == 1)
 		{
 			env->exit_num = 255;
 			return (-1);

@@ -103,7 +103,8 @@ void							ft_lstadd_back(t_command_and_flag **lst, \
 t_command_and_flag				*ft_lstnew(char *command, int pape);
 size_t							ft_strlen(const char *s);
 char							*ft_strjoin(char const *s1, char const *s2);
-char							*create_command(char *command, int i, int j);
+char							*create_command(char *command, int i, int j, \
+		int key);
 int								get_next_line(int fd, char **line);
 char							*create_cloth_cov(t_minishell *all_command, \
 		char *command_and_flags);
@@ -231,7 +232,8 @@ int								ft_exit(t_command_and_flag	*tmp, \
 		t_env *struct_env);
 void							ft_minishell_name(int	*lvl, \
 		t_env	*struct_env);
-void							export_errors(t_command_and_flag	*all, t_env *env);
+void							export_errors(t_command_and_flag	*all, \
+		t_env *env);
 void							print_errors(pid_t	*pid, t_command_and_flag	*reverse_head, \
 		int	size, t_env	*env);
 int								**make_pipe(int	size);
@@ -264,4 +266,8 @@ int								changes_path_history(t_minishell *all_command, \
 int								crete_or_cheak_file_history(t_minishell *all_command, \
 		int lvl);
 void							create_signal_controller(void);
+int								check_exit_num(char	*str);
+int								exit_error(t_command_and_flag	*reverse_head, \
+		t_env	*env);
+
 #endif

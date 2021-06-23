@@ -44,3 +44,19 @@ void	free_find_fubction(int	**pipe, int	*pid)
 	free(pipe);
 	free(pid);
 }
+
+int	exit_error(t_command_and_flag	*reverse_head, t_env	*env)
+{
+	if (!ft_strncmp(reverse_head->command, "exit", 5))
+	{
+		if (reverse_head->array_flags[1])
+		{
+			if (check_exit_num(reverse_head->array_flags[1]))
+			{
+				env->exit_num = 255;
+				return (0);
+			}
+		}
+	}
+	return (1);
+}

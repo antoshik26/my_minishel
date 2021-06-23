@@ -44,7 +44,7 @@ t_command_and_flag	*ft_lstnew(char *command, int pape)
 	return (new_list);
 }
 
-char	*create_command(char *command, int i, int j)
+char	*create_command(char *command, int i, int j, int key)
 {
 	char	*new_command;
 	int		k;
@@ -56,6 +56,8 @@ char	*create_command(char *command, int i, int j)
 	while (k < (i - j))
 	{
 		new_command[k] = command[j + k];
+		if (command[j + k] == '"' && key == 0)
+			break ;
 		k++;
 	}
 	new_command[k] = '\0';

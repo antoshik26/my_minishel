@@ -70,7 +70,7 @@ int	clear_malloc_utils(t_env *env)
 void	clear_malloc(t_minishell *all_command, t_env *env)
 {
 	int	i;
-    
+
 	i = 0;
 	free(all_command->file_history);
 	while (env->env[i])

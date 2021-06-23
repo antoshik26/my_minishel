@@ -20,7 +20,7 @@ char	*lounch_create_buf(char **ostatok)
 
 char	*lounch_read_in_buffer(char **result, int fd, char **ostatok, int *key)
 {
-	*result = read_in_buffer(fd, (long)BUFFER_SIZE, ostatok, key);
+	*result = read_in_buffer(fd, ostatok, key);
 	return (*result);
 }
 
